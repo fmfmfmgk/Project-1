@@ -44,7 +44,9 @@ public class MainController extends Print{
 			case USER_UPDATE:
 				view = userUpdate();
 				break;
-
+				
+				
+				
 				
 			case TICKET:
 				view = ticket();
@@ -107,27 +109,6 @@ public class MainController extends Print{
 			}
 		}
 	}
-	
-	
-	
-
-
-	
-
-
-
-
-
-
-	private View health() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private View yoga() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	private View healthBuy() {
 		
@@ -135,21 +116,8 @@ public class MainController extends Print{
 	}
 
 	private View yogaBuy() {
-		System.out.println("1. 1개월권");
-		System.out.println("2. 3개월권");
-		System.out.println("3. 4년");
-		System.out.println("4. 돌아가기 ");
-		int sel = ScanUtil.nextInt("번호 선택 : ");
-		switch (sel) {
-		case 1:
-			return View.PT_LIST_DETAIL;
-		case 2:
-			return View.PT_SEARCH;
-		case 3:
-			return View.TICKET;
-		default:
-			return View.TICKET;
-		}
+		
+		return null;
 	}
 
 	private View ptMenu() {
@@ -198,7 +166,6 @@ public class MainController extends Print{
 		}
 		
 	}
-
 
 	private View ticketBuy() {
 		System.out.println("이용권구매 페이지");
@@ -333,7 +300,6 @@ public class MainController extends Print{
 			return View.PROD;
 		}
 	}
-
 	
 	private View feedback() {
 		System.out.println("---피드백 게시판---");
@@ -382,7 +348,6 @@ public class MainController extends Print{
 		return View.FEEDBACK;
 	}
 	
-
 	private View feedDelete() {
 		
 		int no = ScanUtil.nextInt("삭제할 게시글 번호 선택 : ");
@@ -392,7 +357,6 @@ public class MainController extends Print{
 		System.out.println("게시글 삭제가 완료되었습니다.");
 		return View.FEEDBACK;
 	}
-	
 	
 	private View userMenu() {
 		List<NoticeVo> list = memService.noticeList();
@@ -420,7 +384,6 @@ public class MainController extends Print{
 		}
 	
 	}
-
 	
 	private View userUpdate() {
 		MemberVo login = (MemberVo)MainController.sessionStorage.get("login");
@@ -465,10 +428,6 @@ public class MainController extends Print{
 			return View.USER_MENU;
 		}
 	}
-
-	
-	
-	
 	
 	private View adminLogin() {
 		
