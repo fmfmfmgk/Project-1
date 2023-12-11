@@ -22,7 +22,13 @@ public enum View {
 	PROD_LIST, //상품리스트
 	PROD_INSERT,//상품추가
 	PROD_FOOD,  //음료
+	PROD_FOOD_BUY,  //음료
 	PROD_SUPPLIES,//운동용품
+	PROD_CART,//품목 장바구니로
+	
+	
+	
+	
 	CART_LIST,  //장바구니리스트
 	CART_BUY,   //구입
 	CART_UPDATE,//수정

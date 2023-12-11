@@ -78,6 +78,14 @@ public class ProdDao {
 				"      WHERE CATEGORY_NO = '"+param+"'";
 		return jdbc.selectList(sql, ProdVo.class);
 	}
+
+	public void prodBuy(List<Object> list, int qty) {
+		String sql = "INSERT INTO DETAIL\r\n" + 
+				"        (ORDER_NO, PROD_NO, DETAIL_QTY)\r\n" + 
+				"        VALUES (?, ?,"+qty+")";
+		jdbc.update(sql, list);
+	}
+
 	
 	
 }

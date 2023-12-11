@@ -55,6 +55,10 @@ public class ProdService {
 		return dao.prodList(param);
 	}
 
+	public void prodBuy(List<Object> list, int qty) {
+		dao.prodBuy(list, qty);
+	}
+
 	
 	
 	

@@ -34,6 +34,8 @@ public class Print {
 		System.out.println("1. 구입");
 		System.out.println("2. 수정");
 		System.out.println("3. 취소(장바구니 리스트 삭제)");
+		System.out.println("4. 돌아가기");
+		
 	}
 	
 	
