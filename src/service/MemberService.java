@@ -67,7 +67,11 @@ public class MemberService {
 		
 	}
 
-	public void userUpdate(List<Object> param) {
-		dao.userUpdate(param);
+	public void userUpdate(List<Object> param, int sel) {
+		dao.userUpdate(param, sel);
+	}
+
+	public List<MemberVo> userList(String id) {
+		return dao.userList(id);
 	}
 }

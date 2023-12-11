@@ -88,32 +88,38 @@ public class MemberDao {
 	}
 	
 	//회원정보 수정
-	public void userUpdate(List<Object> param) {
-		String front = "UPDATE STUDENT \r\n" + 
+	public void userUpdate(List<Object> param, int sel) {
+		String front = "UPDATE EMPLOYEES \r\n" + 
 		       	 "     SET ";
-	String temp  = "";
-		 if(select == 1) {
-			 temp=  "    KOR =  ?,\r\n" + 
-			 		"    ENG =  ?,\r\n" + 
-			 		"    MATH = ?\r\n" + 
+		String temp  = "";
+		 if(sel == 1) {
+			 temp=  "    USERS_NIC =  ?,\r\n" + 
 			 		"WHERE NO = ?";
 		 }
-		 if(select == 2) {
-			 temp=  " KOR =  ? "+  
+		 if(sel == 2) {
+			 temp=  " USERS_TEL =  ? "+  
 			 		" WHERE NO = ?";
 		 }
-		 if(select == 3) {
-			 temp=  " ENG =  ? "+  
-			 		" WHERE NO = ?";
-		 }
-		 if(select == 4) {
-			 temp=  " MATH =  ? "+  
+		 if(sel == 3) {
+			 temp=  " USERS_PASS =  ? "+  
 			 		" WHERE NO = ?";
 		 }
 		 String sql = front + temp;
 		 jdbc.update(sql, param);
 	}
 
+	public List<MemberVo> userList(String id) {
+		String sql = "SELECT USERS_NO,\r\n" + 
+				"       USERS_ID,\r\n" + 
+				"       USERS_PASS,\r\n" + 
+				"       USERS_NIC,\r\n" + 
+				"       USERS_NAME,\r\n" + 
+				"       USERS_TEL\r\n" + 
+				"  FROM USERS \r\n" + 
+				" WHERE USERS_ID = '"+id+"'";
+		return jdbc.selectList(sql, MemberVo.class);
+	}
+	
 	
 	
 }

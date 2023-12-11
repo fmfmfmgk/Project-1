@@ -53,7 +53,6 @@ public class Print {
 	}
 	
 	public void userMenu1() {
-		
 		System.out.println("1. 상품구매");
 		System.out.println("2. 이용권구매");
 		System.out.println("3. 회원정보수정");
@@ -66,7 +65,12 @@ public class Print {
 		System.out.println("2.뒤로가기");
 		System.out.println("");
 	}
-	
+	public void userUpdate1() {
+		System.out.println("1.닉네임 변경");
+		System.out.println("2.전화번호 변경");
+		System.out.println("3.비밀번호 변경");
+		System.out.println("3.돌아가기");
+	}
 	
 
 	public void feedbackList1(List<FeedBackVo> list) {
@@ -127,7 +131,25 @@ public class Print {
 		System.out.println("");
 	}
 	
-	
+	public void userList(List<MemberVo> list) {
+		
+		System.out.println("-------------------상품 정보---------------------");
+		System.out.println("NO\t이름\t아이디\t패스워드\t닉네임\t전화번호");
+		System.out.println("----------------------------------------------");
+		
+		for (MemberVo vo  : list) {
+		String no = (String)vo.getUsers_no();
+		String name = (String)vo.getUsers_name();
+		String id = (String)vo.getUsers_id();
+		String pass = (String)vo.getUsers_pass();
+		String nic = (String)vo.getUsers_nic();
+		String tel = (String)vo.getUsers_tel();
+		
+		System.out.println(no+"\t"+name+"\t"+id+"\t"+pass+"\t"+nic+"\t"+tel);
+		}
+		System.out.println("----------------------------------------------");
+		System.out.println("");
+	}
 	
 	
 	

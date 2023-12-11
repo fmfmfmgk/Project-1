@@ -397,38 +397,44 @@ public class MainController extends Print{
 
 	
 	private View userUpdate() {
-		System.out.println("회원정보 출력");
+		MemberVo login = (MemberVo)MainController.sessionStorage.get("login");
+		String id = login.getUsers_id();
 		
-		System.out.println("1.닉네임 수정");
-		System.out.println("2.전화번호 수정");
-		System.out.println("3.돌아가기");
+		List<MemberVo> list = memService.userList(id);
+		userList(list);
+		userUpdate1();
 		int sel = ScanUtil.nextInt("번호입력: ");
 		switch (sel) {
 		case 1:
 			List<Object> param = new ArrayList();
+			String name = ScanUtil.nextLine("변경할 닉네임 입력: ");
 			
-			MemberVo login = (MemberVo)MainController.sessionStorage.get("login");
-			String id = login.getUsers_id();
-			String name = ScanUtil.nextLine("닉네임 입력: ");
-			
-			param.add(id);
 			param.add(name);
+			param.add(id);
 			
-			memService.userUpdate(param);
+			memService.userUpdate(param, sel);
 			return View.USER_UPDATE;
 		case 2:
 			List<Object> param1 = new ArrayList();
+			String tel = ScanUtil.nextLine("변경할 전화번호 입력: ");
 			
-			MemberVo login1 = (MemberVo)MainController.sessionStorage.get("login");
-			String id1 = login1.getUsers_id();
-			String tel = ScanUtil.nextLine("닉네임 입력: ");
-			
-			param1.add(id1);
 			param1.add(tel);
+			param1.add(id);
 			
-			memService.userUpdate(param1);
+			memService.userUpdate(param1, sel);
 			return View.USER_UPDATE;
 		case 3:
+			List<Object> param2 = new ArrayList();
+			String pass = ScanUtil.nextLine("변경할 비밀번호 입력: ");
+			
+			param2.add(pass);
+			param2.add(id);
+			
+			memService.userUpdate(param2, sel);
+			
+			return View.USER_UPDATE;
+			
+		case 4:
 			return View.USER_MENU;
 			
 		default:
