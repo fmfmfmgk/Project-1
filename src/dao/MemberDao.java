@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import util.JDBCUtil;
 import vo.EmpVo;
@@ -141,7 +142,7 @@ public class MemberDao {
 	}
 	
 	//주문 테이블 생성쿼리
-	public void cartInsert(List<Object> order) {
+	public void cartIn(List<Object> order) {
 		String sql = "INSERT INTO ORDERS \r\n" + 
 				" 		(ORDER_NO,USERS_NO)\r\n" + 
 				"      VALUES(FN_CREATE_ORDERS_NO(SYSDATE,1),?)";
@@ -149,9 +150,14 @@ public class MemberDao {
 	}
 
 	public OrdersVo cartList(String no) {
-		String sql = "SELECT MAX(ORDER_NO)\r\n" + 
-				"        FROM ORDERS \r\n" + 
-				"       WHERE USERS_NO ='"+no+"'";
+		String sql = "SELECT ORDER_NO,\r\n" + 
+				"              ORDER_PAY,\r\n" + 
+				"              TO_CHAR(ORDER_DATE,'YY/MM/DD') ORDER_DATE,\r\n" + 
+				"              USERS_NO\r\n" + 
+				"         FROM ORDERS \r\n" + 
+				"        WHERE ORDER_NO = (SELECT MAX(ORDER_NO) \r\n" + 
+				"                            FROM ORDERS)\r\n" + 
+				"          AND USERS_NO = '"+no+"'";
 		return jdbc.selectOne(sql, OrdersVo.class);
 	}
 	

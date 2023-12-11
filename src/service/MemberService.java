@@ -2,6 +2,7 @@ package service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import controller.MainController;
 import dao.MemberDao;
@@ -34,12 +35,6 @@ public class MemberService {
 			MainController.sessionStorage.put("login", mem);
 			
 			//장바구니 (주문번호 생성)
-			List<Object> order = new ArrayList();
-			String no = mem.getUsers_no();
-			order.add(no);
-			dao.cartInsert(order);
-			
-
 			return true;
 		}
 		//로그인 실패
@@ -95,8 +90,15 @@ public class MemberService {
 		dao.userInsert(param, id);
 	}
 
+	public void cartin(List<Object> order) {
+		dao.cartIn(order);
+	}
+
 	public OrdersVo cartList(String no) {
 		
 		return dao.cartList(no);
 	}
+
+
+	
 }

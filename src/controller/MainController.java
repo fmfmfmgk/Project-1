@@ -39,6 +39,9 @@ public class MainController extends Print{
 			case USER_LOGIN:
 				view = userLogin();
 				break;
+			case SESSION:
+				view = session();
+				break;
 			case USER_MENU:
 				view = userMenu();
 				break;
@@ -114,6 +117,7 @@ public class MainController extends Print{
 		}
 	}
 
+	
 	
 
 	private View healthBuy() {
@@ -499,16 +503,31 @@ public class MainController extends Print{
 		System.out.println(member.getUsers_name()+"님 환영합니다.");
 		String no = member.getUsers_no();
 		
+		return View.SESSION;
+	}
+	
+	private View session() {
+		MemberVo mem = (MemberVo) sessionStorage.get("login");
 		
-		//주문번호를 세션 스토리지에 저장
+		//주문번호 생성
+		List<Object> order = new ArrayList();
+		String no = mem.getUsers_no();
+		order.add(no);
+		memService.cartin(order);
+	
+		//주문번호 세션스토리지 저장
 		OrdersVo cart_no = (OrdersVo)memService.cartList(no);
 		MainController.sessionStorage.put("cart", cart_no);
+		
 		//주문번호 확인 출력
 		OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
 		System.out.println(cart.getOrder_no());
 		
 		return View.USER_MENU;
 	}
+	
+	
+	
 	
 	private View home() {
 		printHome();

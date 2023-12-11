@@ -13,7 +13,10 @@ public enum View {
 	SIGNUP,
 	LOGOUT,
 	USER_UPDATE,
-
+	
+	SESSION,
+	
+	
 	//상품
 	PROD,// 상품구입
 	PROD_LIST, //상품리스트
