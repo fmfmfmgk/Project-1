@@ -122,13 +122,15 @@ public class Print {
 		System.out.println("-------------------상품 정보---------------------");
 		System.out.println("NO\t제품명\t상세정보\t가격");
 		System.out.println("----------------------------------------------");
+		int i = 1;
 		for (ProdVo food : list) {
+			i++;
 		String no = (String)food.getProd_no();
 		String name = (String)food.getProd_nm();
 		String content = (String)food.getProd_content();
 		int price = (int)food.getProd_price();
 		
-		System.out.println(no+"\t"+name+"\t"+content+"\t"+price);
+		System.out.println(i+"\t"+no+"\t"+name+"\t"+content+"\t"+price);
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");

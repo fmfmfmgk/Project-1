@@ -51,7 +51,6 @@ public class MainController extends Print{
 				
 				
 				
-				
 			case TICKET:
 				view = ticket();
 				break;
@@ -456,6 +455,7 @@ public class MainController extends Print{
 	}
 	
 	private View adminLogin() {
+
 		
 		System.out.println("-----------관리자로그인-----------");
 		String id =ScanUtil.nextLine("ID>>");
@@ -521,13 +521,10 @@ public class MainController extends Print{
 		
 		//주문번호 확인 출력
 		OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
-		System.out.println(cart.getOrder_no());
+//		System.out.println(cart.getOrder_no());
 		
 		return View.USER_MENU;
 	}
-	
-	
-	
 	
 	private View home() {
 		printHome();
