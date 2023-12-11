@@ -6,6 +6,7 @@ import util.JDBCUtil;
 import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
+import vo.NoticeVo;
 
 public class MemberDao {
 	private static MemberDao instance = null;
@@ -89,20 +90,20 @@ public class MemberDao {
 	
 	//회원정보 수정
 	public void userUpdate(List<Object> param, int sel) {
-		String front = "UPDATE EMPLOYEES \r\n" + 
+		String front = "UPDATE USERS \r\n" + 
 		       	 "     SET ";
 		String temp  = "";
 		 if(sel == 1) {
-			 temp=  "    USERS_NIC =  ?,\r\n" + 
-			 		"WHERE NO = ?";
+			 temp=  "          USERS_NIC =  ?\r\n" + 
+			 		"    WHERE USERS_ID = ?";
 		 }
 		 if(sel == 2) {
-			 temp=  " USERS_TEL =  ? "+  
-			 		" WHERE NO = ?";
+			 temp=  "          USERS_TEL =  ? \r\n"+  
+			 		"    WHERE USERS_ID = ?";
 		 }
 		 if(sel == 3) {
-			 temp=  " USERS_PASS =  ? "+  
-			 		" WHERE NO = ?";
+			 temp=  "          USERS_PASS =  ?\r\n "+  
+			 		"    WHERE USERS_ID = ?";
 		 }
 		 String sql = front + temp;
 		 jdbc.update(sql, param);
@@ -118,6 +119,17 @@ public class MemberDao {
 				"  FROM USERS \r\n" + 
 				" WHERE USERS_ID = '"+id+"'";
 		return jdbc.selectList(sql, MemberVo.class);
+	}
+
+	public List<NoticeVo> noticeList() {
+		String sql = "SELECT NOTICE_NO,\r\n" + 
+				"	         NOTICE_TITLE,\r\n" + 
+				"            NOTICE_CONTENT,\r\n" + 
+				"            TO_CHAR(NOTICE_DATE,'YY/MM/DD') NOTICE_DATE\r\n" + 
+				"       FROM NOTICE A, ADMIN B\r\n" + 
+				"      WHERE A.ADMIN_NO=B.ADMIN_NO\r\n" + 
+				"        AND A.NOTICE_DEL = 'N'";
+		return jdbc.selectList(sql, NoticeVo.class);
 	}
 	
 	

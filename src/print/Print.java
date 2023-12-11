@@ -6,6 +6,7 @@ import controller.MainController;
 import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
+import vo.NoticeVo;
 import vo.ProdVo;
 
 public class Print {
@@ -69,7 +70,7 @@ public class Print {
 		System.out.println("1.닉네임 변경");
 		System.out.println("2.전화번호 변경");
 		System.out.println("3.비밀번호 변경");
-		System.out.println("3.돌아가기");
+		System.out.println("4.돌아가기");
 	}
 	
 
@@ -90,6 +91,26 @@ public class Print {
 		
 		
 		System.out.println(no+"\t"+login.getUsers_name()+"\t"+til+"\t"+con+"\t"+date+"\t"+feed_yn);
+		}
+		System.out.println("----------------------------------------------");
+		System.out.println("");
+	}
+	
+		public void noticeList1(List<NoticeVo> list) {
+		
+		System.out.println("-------------------공지사항----------------------");
+		System.out.println("NO\t제목\t내용\t날짜\t작성자");
+		System.out.println("----------------------------------------------");
+		
+		
+		for (NoticeVo vo  : list) {
+		String no = (String)vo.getNotice_no();
+		String til = (String)vo.getNotice_title();
+		String con = (String)vo.getNotice_content();
+		String date = (String)vo.getNotice_date();
+		
+		
+		System.out.println(no+"\t"+til+"\t"+con+"\t"+date+"\t 관리자");
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");

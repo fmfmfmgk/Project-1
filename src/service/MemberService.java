@@ -7,6 +7,7 @@ import dao.MemberDao;
 import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
+import vo.NoticeVo;
 
 public class MemberService {
 	private static MemberService instance = null;
@@ -73,5 +74,10 @@ public class MemberService {
 
 	public List<MemberVo> userList(String id) {
 		return dao.userList(id);
+	}
+	
+	//공지사항 출력
+	public List<NoticeVo> noticeList() {
+		return dao.noticeList();
 	}
 }

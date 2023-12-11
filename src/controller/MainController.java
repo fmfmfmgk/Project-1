@@ -14,6 +14,7 @@ import util.View;
 import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
+import vo.NoticeVo;
 import vo.ProdVo;
 
 
@@ -373,6 +374,10 @@ public class MainController extends Print{
 	
 	
 	private View userMenu() {
+		List<NoticeVo> list = memService.noticeList();
+		
+		noticeList1(list);
+		
 		System.out.println("[보유 이용권 현황 출력]");
 		
 		
@@ -431,9 +436,7 @@ public class MainController extends Print{
 			param2.add(id);
 			
 			memService.userUpdate(param2, sel);
-			
 			return View.USER_UPDATE;
-			
 		case 4:
 			return View.USER_MENU;
 			
