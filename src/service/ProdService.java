@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.ProdDao;
 import vo.CartVo;
@@ -60,7 +61,7 @@ public class ProdService {
 		dao.prodBuy(list, qty);
 	}
 
-	public List<CartVo> cartList(String param) {
+	public  List<Map<String, Object>> cartList(String param) {
 		return dao.cartList(param);
 		
 	}

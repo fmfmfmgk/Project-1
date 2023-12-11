@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import util.JDBCUtil;
 import vo.CartVo;
@@ -87,14 +88,19 @@ public class ProdDao {
 		jdbc.update(sql, list);
 	}
 
-	public List<CartVo> cartList(String param) {
-		String sql = "SELECT *\r\n" + 
-				"        FROM DETAIL\r\n" + 
-				"       WHERE ORDER_NO ='"+param+"'";
+	public List<Map<String, Object>> cartList(List<Object> param) {
+		String sql = " SELECT ORDER_NO,\r\n" + 
+				"             A.PROD_NO,\r\n" + 
+				"             DETAIL_QTY,\r\n" + 
+				"             B.PROD_PRICE,\r\n" + 
+				"             (A.DETAIL_QTY*B.PROD_PRICE)\r\n" + 
+				"        FROM DETAIL A, PROD B\r\n" + 
+				"       WHERE ORDER_NO = '"+param+"'"+ 
+				"         AND A.PROD_NO=B.PROD_NO";
 		
-		return jdbc.selectList(sql, CartVo.class);
+		return jdbc.selectList(sql,  param);
 	}
-
+	
 	
 	
 }

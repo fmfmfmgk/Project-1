@@ -11,7 +11,6 @@ import service.MemberService;
 import service.ProdService;
 import util.ScanUtil;
 import util.View;
-import vo.CartVo;
 import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
@@ -110,8 +109,8 @@ public class MainController extends Print{
 			case CART_UPDATE:
 				view = cartUpdate();
 				break;
-
-			
+				
+				
 			default:
 				view = home();
 				break;
@@ -223,7 +222,7 @@ public class MainController extends Print{
 	private View cartBuy() {
 		System.out.println("[장바구니 리스트 보여주고 구입]");
 		String sel = ScanUtil.nextLine("구매하시겠습니까?(Y/N)");
-		if(sel.equals("Y")) {
+		if(sel.equalsIgnoreCase("y")) {
 			
 			
 			
@@ -242,7 +241,7 @@ public class MainController extends Print{
 			
 			System.out.println("구입이 완료되었습니다.");
 			return View.USER_MENU;
-		}else if(sel.equals("N")) {
+		}else if(sel.equalsIgnoreCase("n")) {
 			System.out.println("상품구매 페이지로");
 			return View.PROD;
 		}
@@ -255,9 +254,9 @@ public class MainController extends Print{
 		String param = cart.getOrder_no();
 	
 		
-		List<CartVo> list = prodService.cartList(param);
+		List<Map<String, Object>> list = prodService.cartList(param);
 		
-		cartList2(list);
+//		cartList2(list);
 		cartListPrint();
 		int sel = ScanUtil.nextInt("메뉴 선택 : ");
 		switch (sel) {
