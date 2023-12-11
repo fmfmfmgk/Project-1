@@ -42,9 +42,9 @@ public class JDBCUtil {
 	
 //	public static void main(String[] args) {
 //		JDBCUtil jdbc = new JDBCUtil();
-//		System.out.println(jdbc.selectList("select * from USERS"));
+//		System.out.println(jdbc.selectList("select * from member"));
 //	}
-	
+//	
 	
 	private String url = "jdbc:oracle:thin:@192.168.142.17:1521:xe";
 	private String user = "PROJECT";

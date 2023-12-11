@@ -15,6 +15,7 @@ import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
 import vo.NoticeVo;
+import vo.OrdersVo;
 import vo.ProdVo;
 
 
@@ -58,6 +59,9 @@ public class MainController extends Print{
 				
 			case FEEDBACK:
 				view = feedback();
+				break;
+			case FEEDBACK_INSERT:
+				view = feedInsert();
 				break;
 			case FEEDBACK_UPDATE:
 				view = feedUpdate();
@@ -109,6 +113,8 @@ public class MainController extends Print{
 			}
 		}
 	}
+
+	
 
 	private View healthBuy() {
 		
@@ -323,10 +329,26 @@ public class MainController extends Print{
 		case 3:
 			return View.FEEDBACK_DELETE;
 		case 4:
-			return View.FEEDBACK_DELETE;
+			return View.USER_MENU;
 		default:
 			return View.USER_MENU;
 		}
+	}
+	
+	private View feedInsert() {
+		MemberVo login = (MemberVo)sessionStorage.get("login");
+		String id = login.getUsers_no();
+		
+		List<Object> param = new ArrayList();
+		String name = ScanUtil.nextLine("제목입력 : ");
+		String content = ScanUtil.nextLine("내용입력 : ");
+		
+		param.add(name);
+		param.add(content);
+		
+		memService.feedInsert(param, id);
+		
+		return View.FEEDBACK;
 	}
 	
 	private View feedUpdate() {
@@ -475,6 +497,15 @@ public class MainController extends Print{
 		}
 		MemberVo member = (MemberVo) sessionStorage.get("login");
 		System.out.println(member.getUsers_name()+"님 환영합니다.");
+		String no = member.getUsers_no();
+		
+		
+		//주문번호를 세션 스토리지에 저장
+		OrdersVo cart_no = (OrdersVo)memService.cartList(no);
+		MainController.sessionStorage.put("cart", cart_no);
+		//주문번호 확인 출력
+		OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
+		System.out.println(cart.getOrder_no());
 		
 		return View.USER_MENU;
 	}

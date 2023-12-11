@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import controller.MainController;
@@ -8,6 +9,7 @@ import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
 import vo.NoticeVo;
+import vo.OrdersVo;
 
 public class MemberService {
 	private static MemberService instance = null;
@@ -30,6 +32,14 @@ public class MemberService {
 		if(mem !=null) {
 			//로그인이 성공하면 세션에 로그인 맴버값을 적용
 			MainController.sessionStorage.put("login", mem);
+			
+			//장바구니 (주문번호 생성)
+			List<Object> order = new ArrayList();
+			String no = mem.getUsers_no();
+			order.add(no);
+			dao.cartInsert(order);
+			
+
 			return true;
 		}
 		//로그인 실패
@@ -79,5 +89,14 @@ public class MemberService {
 	//공지사항 출력
 	public List<NoticeVo> noticeList() {
 		return dao.noticeList();
+	}
+	//피드백 생성
+	public void feedInsert(List<Object> param, String id) {
+		dao.userInsert(param, id);
+	}
+
+	public OrdersVo cartList(String no) {
+		
+		return dao.cartList(no);
 	}
 }

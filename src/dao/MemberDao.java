@@ -7,6 +7,7 @@ import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
 import vo.NoticeVo;
+import vo.OrdersVo;
 
 public class MemberDao {
 	private static MemberDao instance = null;
@@ -130,6 +131,28 @@ public class MemberDao {
 				"      WHERE A.ADMIN_NO=B.ADMIN_NO\r\n" + 
 				"        AND A.NOTICE_DEL = 'N'";
 		return jdbc.selectList(sql, NoticeVo.class);
+	}
+
+	public void userInsert(List<Object> param, String id) {
+		String sql = "INSERT INTO FEEDBACK \r\n" + 
+				"			(FEEDBACK_NO, FEEDBACK_TIL, FEEDBACK_CON, USERS_NO)\r\n" + 
+				"      VALUES(FEEDBACK_SEQ.NEXTVAL,?,?,"+"'"+id+"')";
+		jdbc.update(sql, param);
+	}
+	
+	//주문 테이블 생성쿼리
+	public void cartInsert(List<Object> order) {
+		String sql = "INSERT INTO ORDERS \r\n" + 
+				" 		(ORDER_NO,USERS_NO)\r\n" + 
+				"      VALUES(FN_CREATE_ORDERS_NO(SYSDATE,1),?)";
+		jdbc.update(sql, order);
+	}
+
+	public OrdersVo cartList(String no) {
+		String sql = "SELECT MAX(ORDER_NO)\r\n" + 
+				"        FROM ORDERS \r\n" + 
+				"       WHERE USERS_NO ='"+no+"'";
+		return jdbc.selectOne(sql, OrdersVo.class);
 	}
 	
 	
