@@ -56,4 +56,18 @@ public class MemberService {
 	public List<EmpVo> ptList(String param) {
 		return dao.ptList(param);
 	}
+
+	public void feedUpdate(List<Object> param, int no) {
+		dao.feedUpdate(param, no);
+		
+	}
+
+	public void feedDelete(int no) {
+		dao.feedDelete(no);
+		
+	}
+
+	public void userUpdate(List<Object> param) {
+		dao.userUpdate(param);
+	}
 }

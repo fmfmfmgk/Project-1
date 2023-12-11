@@ -72,7 +72,7 @@ public class Print {
 	public void feedbackList1(List<FeedBackVo> list) {
 		
 		System.out.println("-------------------상품 정보---------------------");
-		System.out.println("NO\t작성자\t제목\t내용\t날짜");
+		System.out.println("NO\t작성자\t제목\t내용\t날짜\t확인여부");
 		System.out.println("----------------------------------------------");
 		MemberVo login = (MemberVo)MainController.sessionStorage.get("login");
 		login.getUsers_name();
@@ -82,10 +82,10 @@ public class Print {
 		String til = (String)vo.getFeedback_til();
 		String con = (String)vo.getFeedback_con();
 		String date = (String)vo.getFeedback_date();
-		String u_no = (String)vo.getUsers_no();
+		String feed_yn = (String)vo.getFeedback_yn();
 		
 		
-		System.out.println(no+"\t"+login.getUsers_name()+"\t"+til+"\t"+con+"\t"+date+"\t");
+		System.out.println(no+"\t"+login.getUsers_name()+"\t"+til+"\t"+con+"\t"+date+"\t"+feed_yn);
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");
@@ -112,13 +112,16 @@ public class Print {
 	public void ptList(List<EmpVo> list) {
 		
 		System.out.println("-------------------상품 정보---------------------");
-		System.out.println("NO\t작성자\t제목\t내용\t날짜");
+		System.out.println("NO\t이름\t전화번호\t경력");
 		System.out.println("----------------------------------------------");
 		
 		for (EmpVo vo  : list) {
+		String no = (String)vo.getEmployee_no();
 		String name = (String)vo.getEmp_name();
+		String tel = (String)vo.getEmp_tel();
+		String career = (String)vo.getCareer();
 		
-		System.out.println(name);
+		System.out.println(no+"\t"+name+"\t"+tel+"\t"+career);
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");

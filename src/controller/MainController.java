@@ -40,6 +40,11 @@ public class MainController extends Print{
 			case USER_MENU:
 				view = userMenu();
 				break;
+			case USER_UPDATE:
+				view = userUpdate();
+				break;
+				
+				
 				
 				
 			case TICKET:
@@ -52,6 +57,12 @@ public class MainController extends Print{
 				
 			case FEEDBACK:
 				view = feedback();
+				break;
+			case FEEDBACK_UPDATE:
+				view = feedUpdate();
+				break;
+			case FEEDBACK_DELETE:
+				view = feedDelete();
 				break;
 				
 				
@@ -104,6 +115,11 @@ public class MainController extends Print{
 
 	
 
+
+
+
+
+
 	private View healthBuy() {
 		
 		return null;
@@ -141,7 +157,10 @@ public class MainController extends Print{
 		List<EmpVo> list = memService.ptList(param);
 		ptList(list);
 		
-		
+//		for (int i = 0; i < list.size(); i++) {
+//	          String numberedData = (i + 1) + ". " + list.get(i); // 번호와 데이터를 결합하여 새로운 문자열 생성
+//	          System.out.println(numberedData); // 번호가 붙은 데이터를 콘솔에 출력
+//	    }
 		System.out.println("해당 트레이너 번호선택 : ");
 		System.out.println("선택후 이용권 구매 화면으로 전환");
 		int sel = ScanUtil.nextInt("번호 선택 : ");
@@ -322,7 +341,35 @@ public class MainController extends Print{
 		}
 	}
 	
+	private View feedUpdate() {
+		int no = ScanUtil.nextInt("수정할 게시글 번호 선택 : ");
+		
+		List<Object> param = new ArrayList();
+		
+		
+		String name = ScanUtil.nextLine("제목 : ");
+		String content = ScanUtil.nextLine("내용 : ");
+		
+		param.add(name);
+		param.add(content);
+		
+		memService.feedUpdate(param, no);
+		System.out.println("게시글 수정이 완료되었습니다.");
+		System.out.println(" ");
+		
+		return View.FEEDBACK;
+	}
 	
+
+	private View feedDelete() {
+		
+		int no = ScanUtil.nextInt("삭제할 게시글 번호 선택 : ");
+		
+		memService.feedDelete(no);
+		
+		System.out.println("게시글 삭제가 완료되었습니다.");
+		return View.FEEDBACK;
+	}
 	
 	
 	private View userMenu() {
@@ -348,6 +395,51 @@ public class MainController extends Print{
 	
 	}
 
+	
+	private View userUpdate() {
+		System.out.println("회원정보 출력");
+		
+		System.out.println("1.닉네임 수정");
+		System.out.println("2.전화번호 수정");
+		System.out.println("3.돌아가기");
+		int sel = ScanUtil.nextInt("번호입력: ");
+		switch (sel) {
+		case 1:
+			List<Object> param = new ArrayList();
+			
+			MemberVo login = (MemberVo)MainController.sessionStorage.get("login");
+			String id = login.getUsers_id();
+			String name = ScanUtil.nextLine("닉네임 입력: ");
+			
+			param.add(id);
+			param.add(name);
+			
+			memService.userUpdate(param);
+			return View.USER_UPDATE;
+		case 2:
+			List<Object> param1 = new ArrayList();
+			
+			MemberVo login1 = (MemberVo)MainController.sessionStorage.get("login");
+			String id1 = login1.getUsers_id();
+			String tel = ScanUtil.nextLine("닉네임 입력: ");
+			
+			param1.add(id1);
+			param1.add(tel);
+			
+			memService.userUpdate(param1);
+			return View.USER_UPDATE;
+		case 3:
+			return View.USER_MENU;
+			
+		default:
+			return View.USER_MENU;
+		}
+	}
+
+	
+	
+	
+	
 	private View adminLogin() {
 		
 		System.out.println("-----------관리자로그인-----------");

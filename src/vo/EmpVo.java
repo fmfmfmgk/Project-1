@@ -9,7 +9,14 @@ public class EmpVo {
 	 private int salay;
 	 private String emp_eva;
 	 private String del_yn;
+	 private String career;
 	 
+	public String getCareer() {
+		return career;
+	}
+	public void setCareer(String career) {
+		this.career = career;
+	}
 	public String getEmployee_no() {
 		return employee_no;
 	}

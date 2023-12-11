@@ -8,7 +8,15 @@ public class FeedBackVo {
 	 private String feedback_date;
 	 private String feedback_yn;
 	 private String users_no;
+	 private String del_yn;
 	 
+	 
+	public String getDel_yn() {
+		return del_yn;
+	}
+	public void setDel_yn(String del_yn) {
+		this.del_yn = del_yn;
+	}
 	public String getFeedback_no() {
 		return feedback_no;
 	}
