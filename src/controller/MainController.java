@@ -44,9 +44,7 @@ public class MainController extends Print{
 			case USER_UPDATE:
 				view = userUpdate();
 				break;
-				
-				
-				
+
 				
 			case TICKET:
 				view = ticket();
@@ -121,14 +119,37 @@ public class MainController extends Print{
 
 
 
+	private View health() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private View yoga() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private View healthBuy() {
 		
 		return null;
 	}
 
 	private View yogaBuy() {
-		
-		return null;
+		System.out.println("1. 1개월권");
+		System.out.println("2. 3개월권");
+		System.out.println("3. 4년");
+		System.out.println("4. 돌아가기 ");
+		int sel = ScanUtil.nextInt("번호 선택 : ");
+		switch (sel) {
+		case 1:
+			return View.PT_LIST_DETAIL;
+		case 2:
+			return View.PT_SEARCH;
+		case 3:
+			return View.TICKET;
+		default:
+			return View.TICKET;
+		}
 	}
 
 	private View ptMenu() {

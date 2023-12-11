@@ -27,7 +27,8 @@ public enum View {
 	CART_CANCEL_ONE,
 	CART_UPDATE_QTY, //장바구니 수량수정
 	
-	
+	YOGA,
+	HEALTH,
 	
 	//이용권
 	TICKET,
