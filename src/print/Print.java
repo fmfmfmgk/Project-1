@@ -3,6 +3,7 @@ package print;
 import java.util.List;
 
 import controller.MainController;
+import vo.CartVo;
 import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
@@ -30,7 +31,7 @@ public class Print {
 	}
 	
 	
-	public void cartList1() {
+	public void cartListPrint() {
 		System.out.println("1. 구입");
 		System.out.println("2. 수정");
 		System.out.println("3. 취소(장바구니 리스트 삭제)");
@@ -140,9 +141,9 @@ public class Print {
 	
 	public void ptList(List<EmpVo> list) {
 		
-		System.out.println("-------------------상품 정보---------------------");
+		System.out.println("-------------------트레이너 목록---------------------");
 		System.out.println("NO\t이름\t전화번호\t경력");
-		System.out.println("----------------------------------------------");
+		System.out.println("------------------------------------------------");
 		
 		for (EmpVo vo  : list) {
 		String no = (String)vo.getEmployee_no();
@@ -152,13 +153,13 @@ public class Print {
 		
 		System.out.println(no+"\t"+name+"\t"+tel+"\t"+career);
 		}
-		System.out.println("----------------------------------------------");
+		System.out.println("------------------------------------------------");
 		System.out.println("");
 	}
 	
 	public void userList(List<MemberVo> list) {
 		
-		System.out.println("-------------------상품 정보---------------------");
+		System.out.println("-------------------회원 정보---------------------");
 		System.out.println("NO\t이름\t아이디\t패스워드\t닉네임\t전화번호");
 		System.out.println("----------------------------------------------");
 		
@@ -176,7 +177,22 @@ public class Print {
 		System.out.println("");
 	}
 	
-	
+	public void cartList2(List<CartVo> list) {
+		
+		System.out.println("-------------------장바구니 리스트---------------------");
+		System.out.println("장바구니 번호\t제품코드\t수량");
+		System.out.println("--------------------------------------------------");
+		
+		for (CartVo vo  : list) {
+		String no = (String)vo.getOrder_no();
+		String name = (String)vo.getProd_no();
+		int qty = (int)vo.getDetail_qty();
+		
+		System.out.println(no+"\t"+name+"\t"+qty);
+		}
+		System.out.println("---------------------------------------------------");
+		System.out.println("");
+	}
 	
 	
 }

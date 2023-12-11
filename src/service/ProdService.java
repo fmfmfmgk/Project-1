@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import dao.ProdDao;
+import vo.CartVo;
 import vo.ProdVo;
 
 public class ProdService {
@@ -57,6 +58,11 @@ public class ProdService {
 
 	public void prodBuy(List<Object> list, int qty) {
 		dao.prodBuy(list, qty);
+	}
+
+	public List<CartVo> cartList(String param) {
+		return dao.cartList(param);
+		
 	}
 
 	

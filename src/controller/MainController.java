@@ -11,6 +11,7 @@ import service.MemberService;
 import service.ProdService;
 import util.ScanUtil;
 import util.View;
+import vo.CartVo;
 import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
@@ -48,7 +49,6 @@ public class MainController extends Print{
 			case USER_UPDATE:
 				view = userUpdate();
 				break;
-				
 				
 				
 			case TICKET:
@@ -110,8 +110,6 @@ public class MainController extends Print{
 			case CART_UPDATE:
 				view = cartUpdate();
 				break;
-				
-				
 
 			
 			default:
@@ -206,19 +204,6 @@ public class MainController extends Print{
 		}
 	}
 
-	private View cartBuy() {
-		System.out.println("[장바구니 리스트 보여주고 구입]");
-		String sel = ScanUtil.nextLine("구매하시겠습니까?(Y/N)");
-		if(sel.equals("Y")) {
-			System.out.println("구입진행 후 메인메뉴로");
-			return View.USER_MENU;
-		}else if(sel.equals("N")) {
-			System.out.println("상품구매 페이지로");
-			return View.PROD;
-		}
-		return View.CART_BUY;
-	}
-	
 	private View cartUpdate() {
 		System.out.println("[장바구니 리스트 출력]");
 		
@@ -234,13 +219,46 @@ public class MainController extends Print{
 			return View.CART_LIST;
 		}
 	}
+	
+	private View cartBuy() {
+		System.out.println("[장바구니 리스트 보여주고 구입]");
+		String sel = ScanUtil.nextLine("구매하시겠습니까?(Y/N)");
+		if(sel.equals("Y")) {
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			System.out.println("구입이 완료되었습니다.");
+			return View.USER_MENU;
+		}else if(sel.equals("N")) {
+			System.out.println("상품구매 페이지로");
+			return View.PROD;
+		}
+		return View.CART_BUY;
+	}
+	
 
 	private View cartList() {
-		System.out.println("[장바구니 리스트출력]");
+		OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
+		String param = cart.getOrder_no();
+	
 		
+		List<CartVo> list = prodService.cartList(param);
 		
-		
-		cartList1();
+		cartList2(list);
+		cartListPrint();
 		int sel = ScanUtil.nextInt("메뉴 선택 : ");
 		switch (sel) {
 		case 1:
@@ -269,8 +287,7 @@ public class MainController extends Print{
 		System.out.println("");
 		switch (sel) {
 		case 1:
-			System.out.println("번호 선택 후 장바구니(Y/N)");
-			return View.PROD_SUPPLIES;
+			return View.PROD_CART;
 		case 2:
 			return View.PROD;
 		default:
@@ -315,7 +332,6 @@ public class MainController extends Print{
 		System.out.println(" ");
 		return View.PROD;
 	}
-	
 
 	private View prod() {
 		System.out.println("----상품구매----");

@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import util.JDBCUtil;
+import vo.CartVo;
 import vo.ProdVo;
 
 public class ProdDao {
@@ -84,6 +85,14 @@ public class ProdDao {
 				"        (ORDER_NO, PROD_NO, DETAIL_QTY)\r\n" + 
 				"        VALUES (?, ?,"+qty+")";
 		jdbc.update(sql, list);
+	}
+
+	public List<CartVo> cartList(String param) {
+		String sql = "SELECT *\r\n" + 
+				"        FROM DETAIL\r\n" + 
+				"       WHERE ORDER_NO ='"+param+"'";
+		
+		return jdbc.selectList(sql, CartVo.class);
 	}
 
 	
