@@ -79,13 +79,7 @@ public class MainController extends Print{
 			case PT_LIST:
 				view = ptList();
 				break;
-			case YOGA_BUY:
-				view = yogaBuy();
-				break;
-			case HEALTH_BUY:
-				view = healthBuy();
-				break;
-				
+
 				
 			case PROD:
 				view = prod();
@@ -122,12 +116,6 @@ public class MainController extends Print{
 		}
 	}
 
-
-
-
-
-
-
 	private View ptMenu() {
 		System.out.println("PT선택 메뉴");
 		
@@ -147,7 +135,6 @@ public class MainController extends Print{
 			return View.PT_MENU;
 		}
 	}
-	
 	private View ptList() {
 		System.out.println("[pt 선생님 전체 리스트 출력] ");
 		
@@ -174,13 +161,11 @@ public class MainController extends Print{
 		}
 		
 	}
-
 	private View ticketBuy() {
 		System.out.println("이용권구매 페이지");
 		
 		return null;
 	}
-
 	private View ticket() {
 		System.out.println("----이용권판매 페이지----");
 		
@@ -199,7 +184,6 @@ public class MainController extends Print{
 			return View.TICKET;
 		}
 	}
-
 	private View cartUpdate() {
 		System.out.println("[장바구니 리스트 출력]");
 		
@@ -215,7 +199,6 @@ public class MainController extends Print{
 			return View.CART_LIST;
 		}
 	}
-	
 	private View cartBuy() {
 		
 		System.out.println("");
@@ -226,7 +209,7 @@ public class MainController extends Print{
 			int sum = (int)sessionStorage.get("sum");
 			OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
 			String no = cart.getOrder_no();
-			System.out.println(no);
+			
 			List<Object> param = new ArrayList();
 			param.add(no);
 			prodService.cartBuy(param, sum);
@@ -242,22 +225,31 @@ public class MainController extends Print{
 		}
 		return View.CART_BUY;
 	}
-	
 	private View cartBuyList() {
 		System.out.println("------구매내역 리스트-------");
 		
-		return null;
+		
+		MemberVo id = (MemberVo)sessionStorage.get("login");
+		String u_id = id.getUsers_no();
+		List<OrdersVo> list = prodService.cartBuyList(u_id);
+		
+		System.out.println("1.돌아가기");
+		int sel = ScanUtil.nextInt("메뉴선택: ");
+		switch (sel) {
+			case 1:
+				return View.PROD;
+			default:
+				return View.PROD;
+		}
 	}
-	
-	
 	private View cartList() {
+		//장바구니 리스트
+		
 		OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
 		String param = cart.getOrder_no();
 		
-		
-		
 		List<Map<String, Object>> list = prodService.cartList(param);
-		
+		if(list != null) {
 		cartList2(list);
 		cartListPrint();
 		int sel = ScanUtil.nextInt("메뉴 선택 : ");
@@ -269,11 +261,16 @@ public class MainController extends Print{
 		case 3:
 			return View.CART_CANCEL;
 		case 4:
-			return View.USER_MENU;
+			return View.PROD;
 		default:
 			return View.CART_LIST;
 		}
+		}else{
+			System.out.println("장바구니가 비었습니다.");
+			return View.USER_MENU;
+		}
 	}
+	
 	
 	private View prodSuppies() {
 		System.out.println("[운동용품 리스트 출력]");
@@ -333,7 +330,6 @@ public class MainController extends Print{
 		int p = price.getProd_price();
 		return qty*p;
 	}
-	
 	private View prodCart2() {
 		int s = (int)sessionStorage.get("sum");
 		
@@ -341,8 +337,6 @@ public class MainController extends Print{
 			int sum = prodCart1();
 			s = s+sum;
 			sessionStorage.put("sum", s);
-			
-			System.out.println(sessionStorage.get("sum"));
 			
 			System.out.println("장바구니에 추가되었습니다.");
 			System.out.println(" ");
@@ -359,7 +353,6 @@ public class MainController extends Print{
 			}
 		}
 	}
-
 	private View prod() {
 		System.out.println("----상품구매----");
 		
@@ -373,7 +366,17 @@ public class MainController extends Print{
 		case 3:
 			return View.CART_LIST;
 		case 4:
-			return View.USER_MENU;
+			System.out.println("(경고 : 장바구니정보가 삭제됩니다.)");
+			String yn = ScanUtil.nextLine("되돌아가시겠습니까?(Y/N)");
+			 
+			if(yn.equalsIgnoreCase("Y")) {
+				return View.USER_MENU;
+			}else if(yn.equalsIgnoreCase("N")) {
+				return View.PROD;
+			}else {
+				System.out.println("잘못입력 되었습니다.");
+			}
+			return View.PROD;
 		default:
 			return View.PROD;
 		}
@@ -464,7 +467,7 @@ public class MainController extends Print{
 		int sel = ScanUtil.nextInt("메뉴 선택 : ");
 		switch (sel) {
 		case 1:
-			return View.PROD;
+			return View.SESSION;
 		case 2:
 			return View.TICKET;
 		case 3:
@@ -473,11 +476,12 @@ public class MainController extends Print{
 			return View.FEEDBACK;
 		case 5:
 			String yn = ScanUtil.nextLine("로그아웃하시겠습니까?(Y/N)");
-			if(yn.equals("Y")) {
+			if(yn.equalsIgnoreCase("Y")) {
 				sessionStorage.remove("login");
 				sessionStorage.remove("cart");
+				sessionStorage.remove("sum");
 				return View.HOME;
-			}else if(yn.equals("N")) {
+			}else if(yn.equalsIgnoreCase("N")) {
 				return View.USER_MENU;
 			}else {return View.LOGOUT;}
 		default:
@@ -579,7 +583,7 @@ public class MainController extends Print{
 		System.out.println(member.getUsers_name()+"님 환영합니다.");
 		String no = member.getUsers_no();
 		
-		return View.SESSION;
+		return View.USER_MENU;
 	}
 	
 	private View session() {
@@ -602,9 +606,8 @@ public class MainController extends Print{
 		//장바구니 총합 세션
 		sessionStorage.put("sum", 0);
 		
-		return View.USER_MENU;
+		return View.PROD;
 	}
-	
 	private View home() {
 		printHome();
 		int sel = ScanUtil.nextInt("메뉴 선택 : ");

@@ -14,6 +14,7 @@ public enum View {
 	LOGOUT,
 	USER_UPDATE,
 	
+	//세션값 
 	SESSION,
 	
 	

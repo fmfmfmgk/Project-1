@@ -5,6 +5,7 @@ import java.util.Map;
 
 import dao.ProdDao;
 import vo.CartVo;
+import vo.OrdersVo;
 import vo.ProdVo;
 
 public class ProdService {
@@ -75,6 +76,10 @@ public class ProdService {
 	public void cartBuy(List<Object> param, int sum) {
 		dao.cartBuy(param, sum);
 		
+	}
+
+	public List<OrdersVo> cartBuyList(String no) {
+		return dao.cartBuyList(no);
 	}
 
 	

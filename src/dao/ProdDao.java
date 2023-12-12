@@ -5,6 +5,7 @@ import java.util.Map;
 
 import util.JDBCUtil;
 import vo.CartVo;
+import vo.OrdersVo;
 import vo.ProdVo;
 
 public class ProdDao {
@@ -26,7 +27,7 @@ public class ProdDao {
 	public void prodInsert(List<Object>param) {
 		String sql = "INSERT INTO PROD\r\n" + 
 				"	        (NO, NAME, CONTENT, PRICE, COUNT, TYPE)\r\n" + 
-				"	 VALUES((SELECT MAX(NO)+1 FROM PROD),?,?,?,?,?)";
+				"	  VALUES((SELECT MAX(NO)+1 FROM PROD),?,?,?,?,?)";
 		jdbc.update(sql, param);
 	}
 
@@ -60,16 +61,16 @@ public class ProdDao {
 
 	public List<ProdVo> prodSchName(String name) {
 		String sql = "SELECT *\r\n" + 
-				"     FROM PROD\r\n" + 
-				"    WHERE CONTENT LIKE '%"+name+"%'";
+				"       FROM PROD\r\n" + 
+				"      WHERE CONTENT LIKE '%"+name+"%'";
 		
 		return jdbc.selectList(sql, ProdVo.class);
 	}
 
 	public List<ProdVo> prodSchCode(String code) {
 		String sql = "SELECT *\r\n" + 
-				"     FROM PROD\r\n" + 
-				"    WHERE TYPE = '"+code+"'";
+				"       FROM PROD\r\n" + 
+				"      WHERE TYPE = '"+code+"'";
 		return jdbc.selectList(sql, ProdVo.class);
 	}
 
@@ -112,10 +113,18 @@ public class ProdDao {
 
 	public void cartBuy(List<Object> param, int sum) {
 		String sql = "UPDATE ORDERS\r\n" + 
-				"       SET ORDER_PAY = "+sum+"\r\n" + 
-				"     WHERE ORDER_NO = ?";
+				"        SET ORDER_PAY = "+sum+"\r\n" + 
+				"      WHERE ORDER_NO = ?";
 		
 		jdbc.update(sql, param);
+	}
+
+	public List<OrdersVo> cartBuyList(String no) {
+		String sql = "SELECT *\r\n" + 
+				"      FROM ORDERS\r\n" + 
+				"     WHERE USERS_NO ='"+no+"'";
+		
+		return jdbc.selectList(sql, OrdersVo.class);
 	}
 	
 	
