@@ -226,6 +226,7 @@ public class MainController extends Print{
 	
 
 
+
 	private View tktDelete() {
 		String select = ScanUtil.nextLine("삭제할 이용권 번호를 입력하세요.");
 		List<Object> param = new ArrayList();
@@ -1373,3 +1374,9 @@ public class MainController extends Print{
 		}
 	}
 }
+
+
+
+
+
+

@@ -13,6 +13,7 @@ public enum View {
 	SIGNUP,
 	LOGOUT,
 	USER_UPDATE,
+	USER_JOIN,
 	
 	//세션값 
 	SESSION,
