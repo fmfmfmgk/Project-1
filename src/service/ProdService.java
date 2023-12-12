@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import dao.ProdDao;
-import vo.CartVo;
 import vo.OrdersVo;
 import vo.ProdVo;
+import vo.TicketVo;
 
 public class ProdService {
 	private static ProdService instance = null;
@@ -83,7 +83,36 @@ public class ProdService {
 	}
 
 	
+	public void foodDelete(List<Object> param) {
+		dao.prodDelete(param);
+	}
+
+	public void supplyDelete(List<Object> param) {
+		dao.prodDelete(param);
+		
+	}
+	public void foodInsert(List<Object> param) {
+		dao.foodInsert(param);
+	}
 	
+	//이용권 리스트 출력
+	public List<TicketVo> tktList() {
+		return dao.tktList();
+			
+	}
+			
+	//이용권 등록
+	public void tktInsert(List<Object> param) {
+		dao.tktInsert(param);
+	}
+
+	public void tktUpdate(List<Object> param, int select) {
+		dao.tktUpdate(param, select);
+	}
+
+	public void tktDelete(List<Object> param) {
+		dao.tktDelete(param);
+	}
 	
 	
 	

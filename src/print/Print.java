@@ -10,6 +10,7 @@ import vo.FeedBackVo;
 import vo.MemberVo;
 import vo.NoticeVo;
 import vo.ProdVo;
+import vo.TicketVo;
 
 public class Print {
 	public void printHome() {
@@ -126,15 +127,13 @@ public class Print {
 		System.out.println("-------------------상품 정보---------------------");
 		System.out.println("NO\t제품명\t상세정보\t가격");
 		System.out.println("----------------------------------------------");
-		int i = 1;
 		for (ProdVo food : list) {
-			i++;
 		String no = (String)food.getProd_no();
 		String name = (String)food.getProd_nm();
 		String content = (String)food.getProd_content();
 		int price = (int)food.getProd_price();
 		
-		System.out.println(i+"\t"+no+"\t"+name+"\t"+content+"\t"+price);
+		System.out.println(no+"\t"+name+"\t"+content+"\t"+price);
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");
@@ -197,5 +196,132 @@ public class Print {
 		System.out.println("");
 	}
 	
+//	관리자
+	public void adminMenu1() {
+		System.out.println("1. 회원관리");
+		System.out.println("2. 상품관리");
+		System.out.println("3. 게시판관리");
+		System.out.println("4. 직원관리");
+		System.out.println("5. 이용권관리");
+		System.out.println("6. 로그아웃");
+	}
+
+	public void admin_mem() {
+		System.out.println("1. 회원 전체조회");
+		System.out.println("2. 회원삭제(탈퇴)관리");
+		System.out.println("3. 로그아웃");
+	}
+
+	public void feedbackList2(List<FeedBackVo> list) {
+
+		System.out.println("-------------------------- 피드백 확인필요 사항 -----------------------------");
+		System.out.println("NO\t작성자\t제목\t\t내용\t\t날짜\t\t확인여부");
+		System.out.println("-----------------------------------------------------------------------");
+
+		for (FeedBackVo vo : list) {
+			String no = (String) vo.getFeedback_no();
+			String til = (String) vo.getFeedback_til();
+			String con = (String) vo.getFeedback_con();
+			String date = (String) vo.getFeedback_date();
+			String feed_yn = (String) vo.getFeedback_yn();
+			String userno = (String) vo.getUsers_no();
+
+			System.out.println(no + "\t" + userno + "\t" + til + "\t" + con + "\t" + date + "\t" + feed_yn + "\t");
+		}
+		System.out.println("-----------------------------------------------------------------------");
+		System.out.println("");
+	}
 	
+	
+
+	public void adminuser() {
+		System.out.println("1. 회원 전체조회");
+		System.out.println("2. 회원 삭제(탈퇴)관리");
+		System.out.println("3. 메인메뉴");
+		System.out.println("");
+	}
+
+	public void adminprod() {
+		System.out.println("1. 상품 조회");
+		System.out.println("2. 상품 추가");
+		System.out.println("3. 메인메뉴");
+		System.out.println("");
+	}
+
+	public void adminprod2() {
+		System.out.println("카테로그 선택");
+		System.out.println("1. 푸드");
+		System.out.println("2. 운동용품");
+		System.out.println("3. 뒤로가기");
+		System.out.println("");
+	}
+
+	public int prodlist2(List<ProdVo> list) { // number 값 보내기
+
+		System.out.println("-------------------상품 정보---------------------");
+		System.out.println("NO\t상품번호\t제품명\t상세정보\t가격");
+		System.out.println("----------------------------------------------");
+		int number = 1;
+		for (ProdVo food : list) {
+			String no = (String) food.getProd_no();
+			String name = (String) food.getProd_nm();
+			String content = (String) food.getProd_content();
+			int price = (int) food.getProd_price();
+			System.out.println(number + "\t" + no + "\t" + name + "\t" + content + "\t" + price);
+			number++;
+		}
+		System.out.println("----------------------------------------------");
+		System.out.println("");
+		return number;
+	}
+
+	public void empList(List<EmpVo> list) {
+
+		System.out.println("-------------------직원 정보---------------------");
+		System.out.println("NO\t이름\t전화번호\t담당업무\t입사일\t급여\t평가\t경력");
+		System.out.println("----------------------------------------------");
+
+		for (EmpVo vo : list) {
+			String no = (String) vo.getEmployee_no();
+			String name = (String) vo.getEmp_name();
+			String tel = (String) vo.getEmp_tel();
+			String lgu = (String) vo.getEmp_lgu();
+			String hire = (String) vo.getEmp_hire();
+			int salary = (int) vo.getSalay();
+			String eva = (String) vo.getEmp_eva();
+			String career = (String) vo.getCareer();
+
+			System.out.println(no + "\t" + name + "\t" + tel + "\t" + lgu + "\t" + hire + "\t" + salary + "\t" + eva
+					+ "\t" + career);
+		}
+		System.out.println("----------------------------------------------");
+		System.out.println("");
+	}
+
+	public void adminboard() {
+		System.out.println("1. 공지사항");
+		System.out.println("2. 피드백게시판");
+		System.out.println("3. 뒤로가기");
+		System.out.println("");
+	}
+
+	public void tktlist(List<TicketVo> list) {
+
+		System.out.println("-------------------이용권 리스트----------------------");
+		System.out.println("NO\t이용권이름\t종류\t가격\t담당직원\t사용기간");
+		System.out.println("----------------------------------------------");
+
+		for (TicketVo vo : list) {
+			String no = (String) vo.getTicket_no();
+			String name = (String) vo.getTkt_name();
+			String lgu = (String) vo.getTkt_lgu();
+			int price = (int) vo.getTkt_price();
+			String emp = (String) vo.getEmployee_no();
+			int time = (int) vo.getTkt_time();
+
+			System.out.println(no + "\t" + name + "\t" + lgu + "\t" + price + "\t" + emp + "\t" + time);
+		}
+		System.out.println("----------------------------------------------");
+		System.out.println("");
+	}
 }

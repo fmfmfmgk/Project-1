@@ -6,18 +6,21 @@ import java.util.List;
 import java.util.Map;
 
 import print.Print;
+import service.AdminService;
+import service.BoardService;
 import service.HealthService;
 import service.MemberService;
 import service.ProdService;
 import util.ScanUtil;
 import util.View;
-import vo.CartVo;
+import vo.AdminVo;
 import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
 import vo.NoticeVo;
 import vo.OrdersVo;
 import vo.ProdVo;
+import vo.TicketVo;
 
 
 public class MainController extends Print{
@@ -25,7 +28,9 @@ public class MainController extends Print{
 	ProdService prodService = ProdService.getInstance();
 	MemberService memService = MemberService.getInstance();
 	HealthService healthService = HealthService.getInstance();
-
+	AdminService adService = AdminService.getInstance();
+	BoardService boardService = BoardService.getInstance();
+	
 	public static void main(String[] args) {
 		new MainController().start();
 	}
@@ -107,6 +112,95 @@ public class MainController extends Print{
 			case CART_UPDATE:
 				view = cartUpdate();
 				break;
+			
+				//관리자
+			case ADMIN_LOGIN:
+				view = adminLogin();
+				break;
+			case ADMIN_MENU:
+				view = adminMenu();
+				break;
+			case ADMIN_USER:
+				view = adminUser();
+				break;	
+			case USER_LIST:
+				view = userList();
+				break;	
+			case USER_DELETE:
+				view = userDelete();
+				break;	
+			case ADMIN_PROD:
+				view = adminProd();
+				break;	
+			case ADMIN_PRODLIST:
+				view = adminProdList();
+				break;	
+			case ADMIN_PROD_FOOD:
+				view = adminProdFood();
+				break;	
+			case FOOD_UPDATE:
+				view = foodUpdate();
+				break;	
+			case FOOD_DELETE:
+				view = foodDelete();
+				break;	
+			case ADMIN_PROD_SUPPLY:
+				view = adminProdSupply();
+				break;	
+			case SUPPLY_UPDATE:
+				view = supplyUpdate();
+				break;	
+			case SUPPLY_DELETE:
+				view = supplyDelete();
+				break;	
+			case PROD_INSERT:
+				view = prodInsert();
+				break;
+			case ADMIN_BOARD:
+				view = adminBoard();
+				break;	
+			case EMP_LIST:
+				view = empList();
+				break;	
+			case EMP_UPDATE:
+				view = empUpdate();
+				break;	
+			case EMP_DELETE:
+				view = empDelete();
+				break;	
+				
+			case NOTICE:
+				view = noticeList();
+				break;	
+			case NOTICE_INSERT:
+				view = noticeInsert();
+				break;	
+			case NOTICE_UPDATE:
+				view = noticeUpdate();
+				break;	
+			case NOTICE_DELETE:
+				view = noticeDelete();
+				break;	
+				
+			case FEEDBACK_LIST:
+				view = feedbackList();
+				break;	
+			case FEEDBACK_CHK:
+				view = feedbackChk();
+				break;	
+			case ADMIN_TICKET:
+				view = adminTkt();
+				break;	
+			case TICKET_INSERT:
+				view = tktInsert();
+				break;	
+			case TICKET_UPDATE:
+				view = tktUpdate();
+				break;	
+			case TICKET_DELETE:
+				view = tktDelete();
+				break;		
+			
 				
 				
 			default:
@@ -115,7 +209,575 @@ public class MainController extends Print{
 			}
 		}
 	}
+	
+	
 
+	private View tktDelete() {
+		String select = ScanUtil.nextLine("삭제할 이용권 번호를 입력하세요.");
+		List<Object> param = new ArrayList();
+		param.add(select);
+		prodService.tktDelete(param);
+		System.out.println(param+"번 이용권이 삭제되었습니다.");
+		return View.ADMIN_TICKET;
+	}
+
+	private View tktUpdate() {
+		List<TicketVo> list = prodService.tktList();
+		tktlist(list);
+
+		String tktno = ScanUtil.nextLine("수정할 이용권번호를 입력하세요.");
+		System.out.println("-------------------이용권 수정---------------------");
+		System.out.println("수정할 정보를 선택하세요 :");
+		System.out.println("1. 전체정보");
+		System.out.println("2. 이용권이름");
+		System.out.println("3. 이용권종류");
+		System.out.println("4. 이용권가격");
+		System.out.println("5. 이용권기간");
+		System.out.println("----------------------------------------------");
+		
+		int menu = ScanUtil.nextInt("메뉴 선택 : ");
+		List<Object> param = new ArrayList();
+		String name;
+		String lgu;
+		int price;
+		int time;
+		
+		if(menu ==1 || menu ==2) {
+			name = ScanUtil.nextLine("이용권이름 : ");
+			param.add(name);
+		}
+		if(menu ==1 || menu ==3) {
+			lgu = ScanUtil.nextLine("이용권종류 : ");
+			param.add(lgu);
+		}
+		if(menu ==1 || menu ==4) {
+			price = ScanUtil.nextInt("이용권가격 : ");
+			param.add(price);
+		}
+		if(menu ==1 || menu ==5) {
+			time = ScanUtil.nextInt("이용권기간 : ");
+			param.add(time);
+		}
+		if(menu ==6) {
+			return View.ADMIN_TICKET;
+		}
+		param.add(tktno);
+		prodService.tktUpdate(param,menu);
+		
+		return View.ADMIN_TICKET;
+	}
+
+	private View tktInsert() {
+		List<Object> param = new ArrayList();
+		
+		String no = ScanUtil.nextLine("상품번호 :");
+		String name = ScanUtil.nextLine("상품이름 :");
+		String lgu = ScanUtil.nextLine("상품종류:");
+		int price = ScanUtil.nextInt("상품가격 :");
+		String emp = ScanUtil.nextLine("담당직원 :");
+		int time = ScanUtil.nextInt("이용권기간 :");
+		
+		param.add(no);
+		param.add(name);
+		param.add(lgu);
+		param.add(price);
+		param.add(emp);
+		param.add(time);
+		
+		System.out.println("이용권 등록이 완료되었습니다");
+		prodService.tktInsert(param);
+		
+		return View.ADMIN_TICKET;
+	}
+
+	private View adminTkt() {
+		List<TicketVo> list = prodService.tktList();
+		tktlist(list);
+		System.out.println("1.추가하기");
+		System.out.println("2.수정하기");
+		System.out.println("3.삭제하기");
+		System.out.println("4.뒤로가기");
+		int select = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (select) {
+		case 1:
+			return View.TICKET_INSERT;
+		case 2:
+			return View.TICKET_UPDATE;
+		case 3:
+			return View.TICKET_DELETE;
+		case 4:
+			return View.ADMIN_MENU;
+		default:
+			return View.ADMIN_MENU;
+		}
+	}
+
+	private View feedbackChk() {
+		List<FeedBackVo> list = boardService.FeedbackListN();
+		feedbackList2(list); //피드백 확인필요 사항 출력
+		int no = ScanUtil.nextInt("피드백 게시글 번호를 입력해주세요 : ");
+		String yn = ScanUtil.nextLine("해당 게시글을 확인완료 처리 하시겠습니까?(y/n) : ");
+		if (yn.equalsIgnoreCase("y")) {
+			boardService.feedbackChk(no);
+			System.out.println("해당 피드백이 완료처리 되었습니다.");
+			
+		}else {
+			return View.ADMIN_BOARD;
+		}
+		return View.FEEDBACK_LIST;
+	}
+
+	private View feedbackList() { //이용권 후에 다시 하기
+		List<FeedBackVo> list = boardService.FeedbackList();
+		feedbackList2(list); //피드백 확인필요 사항 출력
+		System.out.println("1. 피드백 확인");
+		System.out.println("2. 뒤로가기");
+		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (sel) {
+		case 1:
+			return View.FEEDBACK_CHK;
+		case 2:
+			return View.ADMIN_BOARD;
+		default:
+			return View.ADMIN_MENU;	
+		}
+	}
+	
+	private View noticeDelete() {
+		int no = ScanUtil.nextInt("삭제할 게시글 번호 선택 : ");
+		boardService.noticeDelete(no);
+		
+		System.out.println("게시글 삭제가 완료되었습니다.");
+		return View.NOTICE;
+	}
+
+	private View noticeUpdate() {
+		List<NoticeVo> list = memService.noticeList();
+		noticeList1(list);
+		int no = ScanUtil.nextInt("수정할 공지사항 번호 선택 : ");
+		List<Object> param = new ArrayList();
+		
+		String title = ScanUtil.nextLine("제목 : ");
+		String content = ScanUtil.nextLine("내용 : ");
+		
+		param.add(title);
+		param.add(content);
+		
+		boardService.noticeUpdate(param, no);
+		System.out.println("공지사항 수정이 완료되었습니다.");
+		System.out.println(" ");
+		
+		return View.NOTICE;
+	}
+
+	private View noticeInsert() {
+		  AdminVo login = (AdminVo)sessionStorage.get("adminLogin");
+	      String id = login.getAdmin_no();
+	      
+	      List<Object> param = new ArrayList();
+	      String name = ScanUtil.nextLine("제목입력 : ");
+	      String content = ScanUtil.nextLine("내용입력 : ");
+	      
+	      param.add(name);
+	      param.add(content);
+	      
+	      boardService.noticeInsert(param,id);
+	      System.out.println("공지사항 입력이 완료되었습니다.");
+	      
+	      return View.NOTICE;
+	}
+
+	private View noticeList() {
+		List<NoticeVo> list = memService.noticeList();
+		noticeList1(list);
+		
+		System.out.println("1. 공지사항 작성");
+		System.out.println("2. 공지사항 수정");
+		System.out.println("3. 공지사항 삭제");
+		System.out.println("4. 뒤로가기");
+		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (sel) {
+		case 1:
+			return View.NOTICE_INSERT;
+		case 2:
+			return View.NOTICE_UPDATE;
+		case 3:
+			return View.NOTICE_DELETE;
+		case 4:
+			return View.ADMIN_BOARD;
+		default:
+			return View.ADMIN_MENU;	
+		}
+	}
+	
+	private View adminBoard() {
+		adminboard();
+		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (sel) {
+		case 1:
+			return View.NOTICE;
+		case 2:
+			return View.FEEDBACK_LIST;
+		case 3:
+			return View.ADMIN_MENU;
+		default:
+			return View.ADMIN_MENU;	
+		}
+	}
+	
+	private View empDelete() {
+		List<EmpVo> list = adService.empList();
+		empList(list);
+		
+		String select = ScanUtil.nextLine("삭제할 직원 번호를 입력하세요.");
+		List<Object> param = new ArrayList();
+		param.add(select);
+		adService.empDelete(param);
+		System.out.println(param+" 직원이 되었습니다.");
+	
+		return View.EMP_LIST;
+	}
+	
+	private View empUpdate() {
+		List<EmpVo> list = adService.empList();
+		empList(list);
+
+		String empno = ScanUtil.nextLine("수정할 직원 번호를 입력하세요.");
+		System.out.println("-------------------상품 수정---------------------");
+		System.out.println("수정할 정보를 선택하세요 :");
+		System.out.println("1. 전체정보");
+		System.out.println("2. 연락처");
+		System.out.println("3. 담당업무");
+		System.out.println("4. 평가");
+		System.out.println("5. 뒤로가기");
+		System.out.println("----------------------------------------------");
+		
+		int menu = ScanUtil.nextInt("메뉴 선택 : ");
+		List<Object> param = new ArrayList();
+		String emp_tel;
+		String emp_lgu;
+		String emp_eva;
+		
+		if(menu ==1 || menu ==2) {
+			emp_tel = ScanUtil.nextLine("연락처 : ");
+			param.add(emp_tel);
+		}
+		if(menu ==1 || menu ==3) {
+			emp_lgu = ScanUtil.nextLine("담당업무 : ");
+			param.add(emp_lgu);
+		}
+		if(menu ==1 || menu ==4) {
+			emp_eva = ScanUtil.nextLine("평가 : ");
+			param.add(emp_eva);
+		}
+		if(menu ==5) {
+			return View.EMP_LIST;
+		}
+		param.add(empno);
+		adService.empUpdate(param,menu);
+		
+		return View.EMP_LIST;
+	}
+	
+	private View empList() {
+		List<EmpVo> list = adService.empList();
+		empList(list);
+		System.out.println("1.뒤로가기");
+		System.out.println("2.수정하기");
+		System.out.println("3.삭제하기");
+		int select = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (select) {
+		case 1:
+			return View.ADMIN_MENU;
+		case 2:
+			return View.EMP_UPDATE;
+		case 3:
+			return View.EMP_DELETE;
+		default:
+			return View.HOME;
+		}
+	}
+
+	private View supplyDelete() {
+		String select = ScanUtil.nextLine("삭제할 상품(운동용품) 번호를 입력하세요.");
+		List<Object> param = new ArrayList();
+		param.add(select);
+		prodService.supplyDelete(param);
+		System.out.println(param+"번 상품(운동용품)이 폐기되었습니다.");
+		return View.ADMIN_PROD_SUPPLY;
+	}
+	
+	private View supplyUpdate() {
+		String param = "P201";
+		List<ProdVo> list = prodService.prodList(param);
+		
+		String prodno = ScanUtil.nextLine("수정할 상품(운동용품) 번호를 입력하세요.");
+		System.out.println("-------------------상품 수정---------------------");
+		System.out.println("수정할 정보를 선택하세요 :");
+		System.out.println("1. 상품(운동용품)전체정보");
+		System.out.println("2. 상품(운동용품)이름");
+		System.out.println("3. 상품(운동용품)내용");
+		System.out.println("4. 상품(운동용품)가격");
+		System.out.println("5. 뒤로가기");
+		System.out.println("----------------------------------------------");
+		
+		int menu = ScanUtil.nextInt("메뉴 선택 : ");
+		List<Object> param2 = new ArrayList();
+		String name;
+		String content;
+		int price;
+		
+		if(menu ==1 || menu ==2) {
+			name = ScanUtil.nextLine("상품(운동용품)이름 : ");
+			param2.add(name);
+		}
+		if(menu ==1 || menu ==3) {
+			content = ScanUtil.nextLine("상품(운동용품)내용 : ");
+			param2.add(content);
+		}
+		if(menu ==1 || menu ==4) {
+			price = ScanUtil.nextInt("상품(운동용품)가격 : ");
+			param2.add(price);
+		}
+		if(menu ==5) {
+			return View.ADMIN_PROD_SUPPLY;
+		}
+		param2.add(prodno);
+		prodService.prodUpdate(param2,menu);
+		
+		return View.ADMIN_PROD_SUPPLY;
+	}
+	
+	private View adminProdSupply() {
+		System.out.println("[운동용품 리스트 출력]");
+
+		String param = "P201";
+		List<ProdVo> list = prodService.prodList(param);
+		prodlist(list);
+		System.out.println("1. 수정하기");
+		System.out.println("2. 삭제하기");
+		System.out.println("3. 뒤로가기");
+		
+		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (sel) {
+		case 1:
+			return View.SUPPLY_UPDATE;
+		case 2:
+			return View.SUPPLY_DELETE;
+		case 3:
+			return View.ADMIN_PRODLIST;
+		default:
+			return View.ADMIN_PROD_SUPPLY;
+		}
+	}
+	
+	private View foodDelete() {
+		String select = ScanUtil.nextLine("삭제할 상품(음식) 번호를 입력하세요.");
+		List<Object> param = new ArrayList();
+		param.add(select);
+		prodService.foodDelete(param);
+		System.out.println(param+"번 상품(음식)이 폐기되었습니다.");
+		return View.ADMIN_PROD_FOOD;
+	}
+
+	private View foodUpdate() {
+		
+		String param = "P101";
+		List<ProdVo> list = prodService.prodList(param);
+
+//		번호로 선택하는거 만들다가 중단
+//		int select = ScanUtil.nextInt("수정할 상품 번호를 입력하세요.");
+//		int i=1;           
+//		for(ProdVo prod : list) {
+//			System.out.println(i++);
+//			System.out.println(prod);
+//		}
+//		
+		String prodno = ScanUtil.nextLine("수정할 상품 번호를 입력하세요.");
+		System.out.println("-------------------상품 수정---------------------");
+		System.out.println("수정할 정보를 선택하세요 :");
+		System.out.println("1. 상품(음식)전체정보");
+		System.out.println("2. 상품(음식)이름");
+		System.out.println("3. 상품(음식)내용");
+		System.out.println("4. 상품(음식)가격");
+		System.out.println("5. 뒤로가기");
+		System.out.println("----------------------------------------------");
+		
+		int menu = ScanUtil.nextInt("메뉴 선택 : ");
+		List<Object> param2 = new ArrayList();
+		String name;
+		String content;
+		int price;
+		
+		if(menu ==1 || menu ==2) {
+			name = ScanUtil.nextLine("상품이름 : ");
+			param2.add(name);
+		}
+		if(menu ==1 || menu ==3) {
+			content = ScanUtil.nextLine("상품내용 : ");
+			param2.add(content);
+		}
+		if(menu ==1 || menu ==4) {
+			price = ScanUtil.nextInt("상품가격 : ");
+			param2.add(price);
+		}
+		if(menu ==5) {
+			return View.ADMIN_PROD_FOOD;
+		}
+		param2.add(prodno);
+		prodService.prodUpdate(param2,menu);
+		
+		return View.ADMIN_PROD_FOOD;
+	}
+
+	private View adminProdFood() {
+		System.out.println("[음식 리스트 출력]");
+		String param = "P101";
+		List<ProdVo> list = prodService.prodList(param);
+		prodlist(list);
+		System.out.println("1. 수정하기");
+		System.out.println("2. 삭제하기");
+		System.out.println("3. 뒤로가기");
+		
+		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (sel) {
+		case 1:
+			return View.FOOD_UPDATE;
+		case 2:
+			return View.FOOD_DELETE;
+		case 3:
+			return View.ADMIN_PRODLIST;
+		default:
+			return View.ADMIN_PROD_FOOD;
+		}
+	}
+	
+	private View prodInsert() {
+		List<Object> param = new ArrayList();
+		String prodNo = ScanUtil.nextLine("상품종류:");
+		String prodnm = ScanUtil.nextLine("상품이름 :");
+		String prodcon = ScanUtil.nextLine("상품내용 :");
+		int prodprice = ScanUtil.nextInt("상품가격 :");
+		
+		param.add(prodNo);
+		param.add(prodNo);
+		param.add(prodnm);
+		param.add(prodcon);
+		param.add(prodprice);
+		System.out.println("상품등록이 완료되었습니다");
+		prodService.foodInsert(param);
+		
+		return View.ADMIN_PRODLIST;
+	}
+
+	private View adminProdList() {
+		adminprod2();
+		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (sel) {
+		case 1:
+			return View.ADMIN_PROD_FOOD;
+		case 2:
+			return View.ADMIN_PROD_SUPPLY;
+		case 3:
+			return View.ADMIN_MENU;
+		default:
+			return View.ADMIN_PROD;	
+		}
+	}
+
+	private View adminProd() {
+		System.out.println("----상품관리----");
+		
+		adminprod();
+		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (sel) {
+		case 1:
+			return View.ADMIN_PRODLIST;
+		case 2:
+			return View.PROD_INSERT;
+		case 3:
+			return View.ADMIN_MENU;
+		default:
+			return View.ADMIN_PROD;	
+		}
+	}
+
+	private View adminUser() {
+		System.out.println("----회원관리----");
+		
+		adminuser();
+		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (sel) {
+		case 1:
+			return View.USER_LIST;
+		case 2:
+			return View.USER_DELETE;
+		case 3:
+			return View.ADMIN_MENU;
+		default:
+			return View.USER;
+		}
+	}
+	
+	private View adminMenu() {
+		
+		adminMenu1();
+		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (sel) {
+		case 1:
+			return View.ADMIN_USER;
+		case 2:
+			return View.ADMIN_PROD;
+		case 3:
+			return View.ADMIN_BOARD;
+		case 4:
+			return View.EMP_LIST;
+		case 5:
+			return View.ADMIN_TICKET;
+		case 6:
+			AdminVo admin = (AdminVo) sessionStorage.remove("adminLogin"); // 로그아웃- 데이터가 없어짐..?
+			System.out.println(admin.getAdmin_nm() + "님 로그아웃 되셨습니다.");
+			return View.LOGIN;
+		default:
+			return View.LOGIN;
+		}
+	
+	}
+	
+	private View userDelete() {
+		List<MemberVo> list = memService.userList2();
+		userList(list);
+		
+		String select = ScanUtil.nextLine("삭제할 회원 번호 입력 : ");
+		List<Object> param = new ArrayList();
+		param.add(select);
+		adService.userDelete(param);
+		System.out.println("회원 삭제가 완료되었습니다.");
+		return View.USER_LIST;
+	}
+	// 관리자
+	private View userList() {
+		List<MemberVo> list = memService.userList2();
+		userList(list);
+
+		System.out.println("1.뒤로가기");
+		int select = ScanUtil.nextInt("메뉴 선택 : ");
+		switch (select) {
+		case 1:
+			return View.ADMIN_USER;
+		default:
+			return View.HOME;
+		}
+	}
+	
+	//여기까지 관리자 코드 옮겨온것
+	
+	
+	
+	
+	
+	
+	
 	private View ptMenu() {
 		System.out.println("PT선택 메뉴");
 		
@@ -541,16 +1203,32 @@ public class MainController extends Print{
 		String id =ScanUtil.nextLine("ID>>");
 		String pass =ScanUtil.nextLine("PASS>>");
 		
-		List<Object> list = new ArrayList();
-		list.add(id);
-		list.add(pass);
+		List<Object> param = new ArrayList();
+		param.add(id);
+		param.add(pass);
 		
 		
-		boolean login = memService.adminLogin(list);
-		MemberVo admin = (MemberVo)sessionStorage.get("adminLogin");
-		System.out.println("*"+admin.getUsers_name()+"*관리자님 환영합니다.");
+		boolean login = adService.login(param);
+		if(!login) {
+			System.out.println("1. 다시 로그인");
+			System.out.println("2. 회원 가입");
+			System.out.println("3. 홈");
+			int sel = ScanUtil.nextInt("메뉴 선택 : ");
+			switch (sel) {
+			case 1:
+				return View.LOGIN;
+			case 2:
+				return View.SIGNUP;
+			case 3:
+				return View.HOME;
+			default:
+				return View.LOGIN;
+			}
+		}
+		AdminVo admin = (AdminVo)sessionStorage.get("adminLogin");
+		System.out.println("*"+admin.getAdmin_nm()+"*관리자님 환영합니다.");
 		
-		return View.ADMIN;
+		return View.ADMIN_MENU;
 	}
 
 	private View userLogin() {

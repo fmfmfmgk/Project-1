@@ -161,6 +161,16 @@ public class MemberDao {
 		return jdbc.selectOne(sql, OrdersVo.class);
 	}
 	
-	
+	public List<MemberVo> userList2() {
+		String sql = "SELECT USERS_NO,\r\n" + 
+				"       USERS_ID,\r\n" + 
+				"       USERS_PASS,\r\n" + 
+				"       USERS_NIC,\r\n" + 
+				"       USERS_NAME,\r\n" + 
+				"       USERS_TEL\r\n" + 
+				"  FROM USERS \r\n" +
+				"       WHERE DEL_YN='N' \r\n"  ;
+		return jdbc.selectList(sql, MemberVo.class);
+	}
 	
 }

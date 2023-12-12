@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import util.JDBCUtil;
-import vo.CartVo;
 import vo.OrdersVo;
 import vo.ProdVo;
+import vo.TicketVo;
 
 public class ProdDao {
 	private static ProdDao instance = null;
@@ -39,15 +39,29 @@ public class ProdDao {
 		return jdbc.selectOne(sql, ProdVo.class);
 	}
 
-	public void prodUpdate(List<Object> param, int no) {
-		String sql = "UPDATE PROD\r\n" + 
-				"        SET NAME = ?,\r\n" + 
-				"            CONTENT = ?,\r\n" + 
-				"            PRICE = ?,\r\n" + 
-				"            COUNT = ?,\r\n" + 
-				"            TYPE = ?\r\n" + 
-				"      WHERE NO = "+no;
-		
+	public void prodUpdate(List<Object> param, int select) {
+		String front = "UPDATE PROD\r\n"+
+	               " SET  ";
+		String temp = "";
+		if(select ==1) {
+		temp =	"   PROD_NM = ?,\r\n" +
+				"   PROD_CONTENT = ?,\r\n" + 
+				"   PROD_PRICE = ?\r\n" + 
+				"WHERE PROD_NO = ?";
+		}
+		if(select ==2) {
+		temp =	"   PROD_NM = ?" +
+				" WHERE PROD_NO = ?";
+		}
+		if(select ==3) {
+		temp =	"   PROD_CONTENT = ?" + 
+				" WHERE PROD_NO = ?";
+		}
+		if(select ==4) {
+		temp =	"   PROD_PRICE = ?" + 
+				" WHERE PROD_NO = ?";
+		}
+		String sql = front + temp;
 		jdbc.update(sql, param);
 	}
 
@@ -78,7 +92,8 @@ public class ProdDao {
 	public List<ProdVo> prodList(String param) {
 		String sql = "SELECT *\r\n" + 
 				"       FROM PROD\r\n" + 
-				"      WHERE CATEGORY_NO = '"+param+"'";
+				"      WHERE PROD_DEL = 'N' " +
+				"      AND CATEGORY_NO = '"+param+"'";
 		return jdbc.selectList(sql, ProdVo.class);
 	}
 
@@ -127,6 +142,79 @@ public class ProdDao {
 		return jdbc.selectList(sql, OrdersVo.class);
 	}
 	
-	
+		//상품(음식)추가
+		public void foodInsert(List<Object>param) {
+			String sql = "INSERT INTO PROD (PROD_NO, CATEGORY_NO, PROD_NM, PROD_CONTENT,PROD_PRICE,PROD_DEL)\r\n" + 
+					"VALUES (FN_CREATE_PROD_NO(?), ?, ?, ?, ?,'N' )\r\n" ;
+			jdbc.update(sql, param);
+		}
+		
+		//상품 삭제 (음식,용품)
+		public void prodDelete(List<Object> param) {
+			String sql = "  UPDATE PROD\r\n" + 
+					"SET PROD_DEL = 'Y'\r\n" + 
+					"WHERE PROD_NO = ?" ;
+				jdbc.update(sql, param);
+			
+		}
+
+		//이용권 리스트 출력
+		public List<TicketVo> tktList() {
+			String sql = "SELECT TICKET_NO, "
+						+ "TKT_NAME, TKT_LGU, "
+						+ "TKT_PRICE, EMPLOYEE_NO, "
+						+ "TKT_TIME\r\n" + 
+						"  FROM  TICKET\r\n" + 
+						" WHERE DEL_YN = 'N'" ;
+			return jdbc.selectList(sql, TicketVo.class);
+			}
+		// 이용권 생성
+		public void tktInsert(List<Object> param) {
+//			System.out.println("여기는 ProdDao의 tktInsert메소드..FN_CREATE_TKT_NO생성하기 힘두러서 일단 그냥 티켓번호를 받기로했다..");
+			
+			String sql = "INSERT INTO TICKET (TICKET_NO, TKT_NAME, TKT_LGU, TKT_PRICE, EMPLOYEE_NO, TKT_TIME)\r\n" + 
+					 	 " VALUES (?, ?, ?, ?, ?, ?)" ;
+			jdbc.update(sql, param);
+			}
+
+		// 이용권 수정
+		public void tktUpdate(List<Object> param, int select) {
+			String front = "UPDATE TICKET\r\n"+
+			               " SET  ";
+			String temp = "";
+			if(select ==1) {
+				temp =	"   TKT_NAME = ?,\r\n" +
+						"   TKT_LGU = ?,\r\n" + 
+						"   TKT_PRICE = ?\r\n" + 
+						"   TKT_TIME = ?\r\n" + 
+						"WHERE TICKET_NO = ?";
+			}
+			if(select ==2) {
+				temp =	"   TKT_NAME = ?" +
+						" WHERE TICKET_NO = ?";			
+			}
+			if(select ==3) {
+				temp =	"   TKT_LGU = ?" + 
+						" WHERE TICKET_NO = ?";
+			}
+			if(select ==4) {
+				temp =	"   TKT_PRICE = ?" + 
+						" WHERE TICKET_NO = ?";
+			}
+			if(select ==4) {
+				temp =	"   TKT_TIME = ?" + 
+						" WHERE TICKET_NO = ?";
+			}
+			String sql = front + temp;
+			jdbc.update(sql, param);
+
+			}
+
+		public void tktDelete(List<Object> param) {
+			String sql = "  UPDATE TICKET\r\n" + 
+					"SET DEL_YN = 'Y'\r\n" + 
+					"WHERE TICKET_NO = ?" ;
+				jdbc.update(sql, param);
+		}
 	
 }

@@ -99,7 +99,11 @@ public class MemberService {
 		
 		return dao.cartList(no);
 	}
-
+	
+	//전체 user리스트 출력
+		public List<MemberVo> userList2() {
+			return dao.userList2();
+		}
 
 	
 }
