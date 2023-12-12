@@ -101,11 +101,21 @@ public class ProdDao {
 		return jdbc.selectList(sql);
 	}
 	
-	public List<Object> prodPrice(String code) {
+	public ProdVo prodPrice(String code) {
 		String sql = "SELECT PROD_PRICE\r\n" + 
 				"      FROM PROD\r\n" + 
 				"     WHERE PROD_NO = '"+code+"'";
-		return jdbc.selectOne(code);
+		return jdbc.selectOne(sql, ProdVo.class);
+	}
+
+
+
+	public void cartBuy(List<Object> param, int sum) {
+		String sql = "UPDATE ORDERS\r\n" + 
+				"       SET ORDER_PAY = "+sum+"\r\n" + 
+				"     WHERE ORDER_NO = ?";
+		
+		jdbc.update(sql, param);
 	}
 	
 	

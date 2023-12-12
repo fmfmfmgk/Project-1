@@ -67,8 +67,14 @@ public class ProdService {
 	}
 
 
-	public List<Object> prodprice(String code) {
+	public ProdVo prodprice(String code) {
 		return dao.prodPrice(code);
+	}
+
+
+	public void cartBuy(List<Object> param, int sum) {
+		dao.cartBuy(param, sum);
+		
 	}
 
 	

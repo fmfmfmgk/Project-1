@@ -31,6 +31,7 @@ public enum View {
 	
 	CART_LIST,  //장바구니리스트
 	CART_BUY,   //구입
+	CART_BUY_LIST, //구입내역
 	CART_UPDATE,//수정
 	CART_CANCEL,//장바구니 취소
 	CART_CANCEL_ONE,
