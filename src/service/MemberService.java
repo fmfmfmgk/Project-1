@@ -34,7 +34,8 @@ public class MemberService {
 			//로그인이 성공하면 세션에 로그인 맴버값을 적용
 			MainController.sessionStorage.put("login", mem);
 			
-			//장바구니 (주문번호 생성)
+			//PROD 정보 불러오기
+			
 			return true;
 		}
 		//로그인 실패

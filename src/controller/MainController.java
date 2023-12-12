@@ -221,18 +221,12 @@ public class MainController extends Print{
 	
 	private View cartBuy() {
 		System.out.println("[장바구니 리스트 보여주고 구입]");
+		
+		
 		String sel = ScanUtil.nextLine("구매하시겠습니까?(Y/N)");
+		
+		
 		if(sel.equalsIgnoreCase("y")) {
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 			
@@ -256,7 +250,7 @@ public class MainController extends Print{
 		
 		List<Map<String, Object>> list = prodService.cartList(param);
 		
-//		cartList2(list);
+		cartList2(list);
 		cartListPrint();
 		int sel = ScanUtil.nextInt("메뉴 선택 : ");
 		switch (sel) {
@@ -326,6 +320,14 @@ public class MainController extends Print{
 		list.add(code);
 		
 		prodService.prodBuy(list, qty);
+		
+		List<Object> price = prodService.prodprice(code);
+		System.out.println(price);
+		
+		
+		
+		
+		
 		
 		System.out.println("장바구니에 추가되었습니다.");
 		System.out.println(" ");

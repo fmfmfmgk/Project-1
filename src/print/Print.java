@@ -1,9 +1,10 @@
 package print;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import controller.MainController;
-import vo.CartVo;
 import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
@@ -177,20 +178,22 @@ public class Print {
 		System.out.println("");
 	}
 	
-	public void cartList2(List<CartVo> list) {
+	public void cartList2(List<Map<String, Object>> list) {
 		
-		System.out.println("-------------------장바구니 리스트---------------------");
-		System.out.println("장바구니 번호\t제품코드\t수량");
-		System.out.println("--------------------------------------------------");
+		System.out.println("----------------------장바구니 리스트------------------------");
+		System.out.println("장바구니 번호\t제품코드\t수량\t단가\t합계");
+		System.out.println("--------------------------------------------------------");
 		
-		for (CartVo vo  : list) {
-		String no = (String)vo.getOrder_no();
-		String name = (String)vo.getProd_no();
-		int qty = (int)vo.getDetail_qty();
-		
-		System.out.println(no+"\t"+name+"\t"+qty);
+		for (Map<String, Object> vo  : list) {
+			String              cart_no = (String)vo.get("ORDER_NO");
+			String              prod_no = (String)vo.get("PROD_NO");
+			BigDecimal              qty = (BigDecimal)vo.get("DETAIL_QTY");
+			int qty1 = qty.intValue();
+			BigDecimal            price = (BigDecimal)vo.get("PROD_PRICE");
+			int price1 = price.intValue();
+		System.out.println(cart_no+"\t"+prod_no+"\t"+qty+"\t"+price+"\t"+(qty1*price1));
 		}
-		System.out.println("---------------------------------------------------");
+		System.out.println("--------------------------------------------------------");
 		System.out.println("");
 	}
 	

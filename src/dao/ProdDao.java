@@ -88,7 +88,7 @@ public class ProdDao {
 		jdbc.update(sql, list);
 	}
 
-	public List<Map<String, Object>> cartList(List<Object> param) {
+	public List<Map<String, Object>> cartList(String param) {
 		String sql = " SELECT ORDER_NO,\r\n" + 
 				"             A.PROD_NO,\r\n" + 
 				"             DETAIL_QTY,\r\n" + 
@@ -98,7 +98,14 @@ public class ProdDao {
 				"       WHERE ORDER_NO = '"+param+"'"+ 
 				"         AND A.PROD_NO=B.PROD_NO";
 		
-		return jdbc.selectList(sql,  param);
+		return jdbc.selectList(sql);
+	}
+	
+	public List<Object> prodPrice(String code) {
+		String sql = "SELECT PROD_PRICE\r\n" + 
+				"      FROM PROD\r\n" + 
+				"     WHERE PROD_NO = '"+code+"'";
+		return jdbc.selectOne(code);
 	}
 	
 	

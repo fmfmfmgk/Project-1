@@ -66,6 +66,11 @@ public class ProdService {
 		
 	}
 
+
+	public List<Object> prodprice(String code) {
+		return dao.prodPrice(code);
+	}
+
 	
 	
 	
