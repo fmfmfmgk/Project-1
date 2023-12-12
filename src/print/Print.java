@@ -36,7 +36,7 @@ public class Print {
 	public void cartListPrint() {
 		System.out.println("1. 구입");
 		System.out.println("2. 수정");
-		System.out.println("3. 취소(장바구니 리스트 삭제)");
+		System.out.println("3. 장바구니 삭제");
 		System.out.println("4. 돌아가기");
 		
 	}
@@ -308,7 +308,27 @@ public class Print {
 	public void tktlist(List<TicketVo> list) {
 
 		System.out.println("-------------------이용권 리스트----------------------");
-		System.out.println("NO\t이용권이름\t종류\t가격\t담당직원\t사용기간");
+		System.out.println("NO\t이용권\t가격");
+		System.out.println("----------------------------------------------");
+
+		for (TicketVo vo : list) {
+			String no = (String) vo.getTicket_no();
+			String name = (String) vo.getTkt_name();
+			String lgu = (String) vo.getTkt_lgu();
+			int price = (int) vo.getTkt_price();
+			String emp = (String) vo.getEmployee_no();
+			int time = (int) vo.getTkt_time();
+			
+			System.out.println(no + "\t" + name + "\t" +  price);
+		}
+		System.out.println("----------------------------------------------");
+		System.out.println("");
+	}
+	
+	public void tlist(List<TicketVo> list) {
+
+		System.out.println("-------------------이용권 리스트----------------------");
+		System.out.println("NO\t이용권\t가격");
 		System.out.println("----------------------------------------------");
 
 		for (TicketVo vo : list) {
@@ -319,7 +339,7 @@ public class Print {
 			String emp = (String) vo.getEmployee_no();
 			int time = (int) vo.getTkt_time();
 
-			System.out.println(no + "\t" + name + "\t" + lgu + "\t" + price + "\t" + emp + "\t" + time);
+			System.out.println(no + "\t" + name + "\t" +  price);
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");

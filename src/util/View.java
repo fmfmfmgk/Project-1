@@ -19,27 +19,30 @@ public enum View {
 	
 	
 	//상품
-	PROD,// 상품구입
-	PROD_LIST, //상품리스트
-	PROD_INSERT,//상품추가
-	PROD_FOOD,  //음료
-	PROD_FOOD_BUY,  //음료
-	PROD_SUPPLIES,//운동용품
-	PROD_CART,//품목 장바구니로
+	PROD,          //상품구입
+	PROD_LIST,     //상품리스트
+	PROD_INSERT,   //상품추가
+	PROD_FOOD,     //음료
+	PROD_FOOD_BUY, //음료
+	PROD_SUPPLIES, //운동용품
+	PROD_CART,     //품목 장바구니로
 	
 	
 	
 	
-	CART_LIST,  //장바구니리스트
-	CART_BUY,   //구입
-	CART_BUY_LIST, //구입내역
-	CART_UPDATE,//수정
-	CART_CANCEL,//장바구니 취소
-	CART_CANCEL_ONE,
+	CART_LIST,       //장바구니리스트
+	CART_BUY,        //구입
+	CART_BUY_LIST,   //구입내역
+	CART_UPDATE,     //수정
+	CART_DELETE,     //장바구니 삭제
+	CART_CANCEL_ONE, //
 	CART_UPDATE_QTY, //장바구니 수량수정
+
 	
-	YOGA,
-	HEALTH,
+	
+	YOGA_LIST,
+	HEALTH_LIST,
+	
 	
 	//이용권
 	TICKET,

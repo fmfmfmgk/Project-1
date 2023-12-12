@@ -81,10 +81,16 @@ public class MainController extends Print{
 			case PT_MENU:
 				view = ptMenu();
 				break;
-			case PT_LIST:
-				view = ptList();
+			case YOGA_LIST:
+				view = yogaList();
+				break;
+			case HEALTH_LIST:
+				view = healthList();
 				break;
 
+				
+				
+				
 				
 			case PROD:
 				view = prod();
@@ -112,7 +118,14 @@ public class MainController extends Print{
 			case CART_UPDATE:
 				view = cartUpdate();
 				break;
+			case CART_CANCEL_ONE:
+				view = cartCancel();
+				break;
 			
+				
+				
+				
+				
 				//관리자
 			case ADMIN_LOGIN:
 				view = adminLogin();
@@ -191,6 +204,7 @@ public class MainController extends Print{
 			case ADMIN_TICKET:
 				view = adminTkt();
 				break;	
+				
 			case TICKET_INSERT:
 				view = tktInsert();
 				break;	
@@ -211,6 +225,7 @@ public class MainController extends Print{
 	}
 	
 	
+
 
 	private View tktDelete() {
 		String select = ScanUtil.nextLine("삭제할 이용권 번호를 입력하세요.");
@@ -770,14 +785,6 @@ public class MainController extends Print{
 		}
 	}
 	
-	//여기까지 관리자 코드 옮겨온것
-	
-	
-	
-	
-	
-	
-	
 	private View ptMenu() {
 		System.out.println("PT선택 메뉴");
 		
@@ -797,6 +804,7 @@ public class MainController extends Print{
 			return View.PT_MENU;
 		}
 	}
+	
 	private View ptList() {
 		System.out.println("[pt 선생님 전체 리스트 출력] ");
 		
@@ -823,15 +831,16 @@ public class MainController extends Print{
 		}
 		
 	}
+	
+	
 	private View ticketBuy() {
 		System.out.println("이용권구매 페이지");
 		
 		return null;
 	}
+
 	private View ticket() {
 		System.out.println("----이용권판매 페이지----");
-		
-		System.out.println("[장바구니 리스트출력]");
 		
 		ticket1();
 		int sel = ScanUtil.nextInt("메뉴 선택 : ");
@@ -839,16 +848,44 @@ public class MainController extends Print{
 		case 1:
 			return View.PT_LIST;
 		case 2:
-			return View.YOGA_BUY;
+			return View.YOGA_LIST;
 		case 3:
-			return View.HEALTH_BUY;
+			return View.HEALTH_LIST;
 		default:
 			return View.TICKET;
 		}
 	}
-	private View cartUpdate() {
-		System.out.println("[장바구니 리스트 출력]");
+	
+	private View yogaList() {
 		
+		System.out.println("이용권 출력");
+		List<TicketVo> list = healthService.tList();
+		tlist(list);
+		
+		int sel = ScanUtil.nextInt("이용권 선택 : ");
+		
+		return View.TICKET;
+	}
+	
+	private View healthList() {
+		
+		System.out.println("이용권 출력");
+		List<TicketVo> list = healthService.hList();
+		tlist(list);
+		
+		int sel = ScanUtil.nextInt("이용권 선택 : ");
+		
+		return View.TICKET;
+	}
+	
+	private View cartUpdate() {
+		OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
+		String param = cart.getOrder_no();
+		
+		List<Map<String, Object>> list = prodService.cartList(param);
+		if(list != null) {
+		cartList2(list);
+		}
 		System.out.println("1.상품 취소");
 		System.out.println("2.상품 수량 수정");
 		int sel = ScanUtil.nextInt("메뉴 선택 : ");
@@ -861,6 +898,13 @@ public class MainController extends Print{
 			return View.CART_LIST;
 		}
 	}
+	
+	private View cartCancel() {
+		
+		
+		return null;
+	}
+	
 	private View cartBuy() {
 		
 		System.out.println("");
@@ -887,6 +931,7 @@ public class MainController extends Print{
 		}
 		return View.CART_BUY;
 	}
+
 	private View cartBuyList() {
 		System.out.println("------구매내역 리스트-------");
 		
@@ -904,6 +949,7 @@ public class MainController extends Print{
 				return View.PROD;
 		}
 	}
+	
 	private View cartList() {
 		//장바구니 리스트
 		
@@ -919,9 +965,9 @@ public class MainController extends Print{
 		case 1:
 			return View.CART_BUY;
 		case 2:
-			return View.PROD_SUPPLIES;
+			return View.CART_UPDATE;
 		case 3:
-			return View.CART_CANCEL;
+			return View.CART_DELETE;
 		case 4:
 			return View.PROD;
 		default:
@@ -932,6 +978,9 @@ public class MainController extends Print{
 			return View.USER_MENU;
 		}
 	}
+	
+
+	
 	
 	
 	private View prodSuppies() {
@@ -992,6 +1041,8 @@ public class MainController extends Print{
 		int p = price.getProd_price();
 		return qty*p;
 	}
+	
+
 	private View prodCart2() {
 		int s = (int)sessionStorage.get("sum");
 		
@@ -1015,6 +1066,8 @@ public class MainController extends Print{
 			}
 		}
 	}
+	
+
 	private View prod() {
 		System.out.println("----상품구매----");
 		
@@ -1267,13 +1320,13 @@ public class MainController extends Print{
 	private View session() {
 		MemberVo mem = (MemberVo) sessionStorage.get("login");
 		
-		//주문번호 생성
+		//(상품)주문번호 생성
 		List<Object> order = new ArrayList();
 		String no = mem.getUsers_no();
 		order.add(no);
 		memService.cartin(order);
 	
-		//주문번호 세션스토리지 저장
+		//(상품)주문번호 세션스토리지 저장
 		OrdersVo cart_no = (OrdersVo)memService.cartList(no);
 		MainController.sessionStorage.put("cart", cart_no);
 		
@@ -1284,8 +1337,14 @@ public class MainController extends Print{
 		//장바구니 총합 세션
 		sessionStorage.put("sum", 0);
 		
+		//(이용권)주문번호 세션스토리지 저장
+		//(이용권)주문번호 생성
+//		order.add(no);
+//		memService.cartin(order);
+		
 		return View.PROD;
 	}
+	
 	private View home() {
 		printHome();
 		int sel = ScanUtil.nextInt("메뉴 선택 : ");
