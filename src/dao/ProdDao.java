@@ -224,5 +224,13 @@ public class ProdDao {
 					"       AND PROD_NO = ?";
 			jdbc.update(sql, para);
 		}
+
+		public void cartDelete(List<Object> para1) {
+			String sql = "DELETE\r\n" + 
+					"       FROM DETAIL\r\n" + 
+					"      WHERE ORDER_NO = ?\r\n" + 
+					"        AND PROD_NO = ?";
+			jdbc.update(sql, para1);
+		}
 	
 }

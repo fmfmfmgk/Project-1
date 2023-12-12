@@ -117,6 +117,10 @@ public class ProdService {
 	public void cartUpdate(List<Object> para, int qty) {
 		dao.cartUpdate(para, qty);
 	}
+
+	public void cartDelete(List<Object> para1) {
+		dao.cartDelete(para1);
+	}
 	
 	
 	

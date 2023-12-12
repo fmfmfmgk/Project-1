@@ -890,8 +890,16 @@ public class MainController extends Print{
 		int sel = ScanUtil.nextInt("메뉴 선택 : ");
 		switch (sel) {
 		case 1:
-			return View.CART_CANCEL_ONE;
+			//상품 취소
+			List<Object> para1 = new ArrayList();
+			String no1 = ScanUtil.nextLine("상품번호 입력: ");
+			para1.add(param);
+			para1.add(no1);
+			
+			prodService.cartDelete(para1);
+			return View.CART_LIST;
 		case 2:
+			//상품 수량수정
 			List<Object> para = new ArrayList();
 			String no = ScanUtil.nextLine("상품번호 입력: ");
 			int qty = ScanUtil.nextInt("수량 입력: ");
@@ -899,9 +907,6 @@ public class MainController extends Print{
 			para.add(no);
 			
 			prodService.cartUpdate(para, qty);
-			
-			
-			
 			return View.CART_LIST;
 		default:
 			return View.CART_LIST;
@@ -915,7 +920,7 @@ public class MainController extends Print{
 		
 		if(sel.equalsIgnoreCase("y")) {
 			
-			int sum = (int)sessionStorage.get("sum");
+			int sum = (int)sessionStorage.get("ssum");
 			OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
 			String no = cart.getOrder_no();
 			
@@ -1044,7 +1049,7 @@ public class MainController extends Print{
 		}
 	}
 	
-	private int prodCart1() {
+	private void prodCart1() {
 		OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
 		MemberVo mem = (MemberVo)sessionStorage.get("login");
 		
@@ -1059,15 +1064,12 @@ public class MainController extends Print{
 		
 		prodService.prodBuy(list, qty);
 		
-		ProdVo price = prodService.prodprice(code);
-		int p = price.getProd_price();
-		return qty*p;
 	}
 	
 
 	private View prodCart2() {
 		while(true) {
-			int sum = prodCart1();
+			prodCart1();
 			
 			System.out.println("장바구니에 추가되었습니다.");
 			System.out.println(" ");
@@ -1352,13 +1354,6 @@ public class MainController extends Print{
 		OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
 //		System.out.println(cart.getOrder_no());
 		
-		//장바구니 총합 세션
-		sessionStorage.put("sum", 0);
-		
-		//(이용권)주문번호 세션스토리지 저장
-		//(이용권)주문번호 생성
-//		order.add(no);
-//		memService.cartin(order);
 		
 		return View.PROD;
 	}
