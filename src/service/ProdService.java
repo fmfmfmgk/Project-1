@@ -113,6 +113,10 @@ public class ProdService {
 	public void tktDelete(List<Object> param) {
 		dao.tktDelete(param);
 	}
+	//장바구니 수량수정
+	public void cartUpdate(List<Object> para, int qty) {
+		dao.cartUpdate(para, qty);
+	}
 	
 	
 	

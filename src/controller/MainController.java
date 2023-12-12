@@ -1,5 +1,6 @@
 package controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,9 +119,7 @@ public class MainController extends Print{
 			case CART_UPDATE:
 				view = cartUpdate();
 				break;
-			case CART_CANCEL_ONE:
-				view = cartCancel();
-				break;
+
 			
 				
 				
@@ -893,16 +892,20 @@ public class MainController extends Print{
 		case 1:
 			return View.CART_CANCEL_ONE;
 		case 2:
-			return View.CART_UPDATE_QTY;
+			List<Object> para = new ArrayList();
+			String no = ScanUtil.nextLine("상품번호 입력: ");
+			int qty = ScanUtil.nextInt("수량 입력: ");
+			para.add(param);
+			para.add(no);
+			
+			prodService.cartUpdate(para, qty);
+			
+			
+			
+			return View.CART_LIST;
 		default:
 			return View.CART_LIST;
 		}
-	}
-	
-	private View cartCancel() {
-		
-		
-		return null;
 	}
 	
 	private View cartBuy() {
@@ -919,8 +922,6 @@ public class MainController extends Print{
 			List<Object> param = new ArrayList();
 			param.add(no);
 			prodService.cartBuy(param, sum);
-			
-			
 			
 			System.out.println("구입이 완료되었습니다.");
 			sessionStorage.remove("sum");
@@ -951,36 +952,57 @@ public class MainController extends Print{
 	}
 	
 	private View cartList() {
-		//장바구니 리스트
-		
-		OrdersVo cart = (OrdersVo)sessionStorage.get("cart");
+		// 장바구니 리스트
+		MainController.sessionStorage.put("ssum", 0);
+		OrdersVo cart = (OrdersVo) sessionStorage.get("cart");
 		String param = cart.getOrder_no();
-		
-		List<Map<String, Object>> list = prodService.cartList(param);
-		if(list != null) {
-		cartList2(list);
-		cartListPrint();
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
-		switch (sel) {
-		case 1:
-			return View.CART_BUY;
-		case 2:
-			return View.CART_UPDATE;
-		case 3:
-			return View.CART_DELETE;
-		case 4:
-			return View.PROD;
-		default:
-			return View.CART_LIST;
-		}
-		}else{
-			System.out.println("장바구니가 비었습니다.");
-			return View.USER_MENU;
-		}
-	}
-	
 
-	
+		List<Map<String, Object>> list = prodService.cartList(param);
+		if (list != null) {
+			
+			System.out.println("----------------------장바구니 리스트------------------------");
+			System.out.println("장바구니 번호\t제품코드\t수량\t단가\t합계");
+			System.out.println("--------------------------------------------------------");
+			int s = (int) sessionStorage.get("ssum");
+			
+			for (Map<String, Object> vo : list) {
+				String cart_no = (String) vo.get("ORDER_NO");
+				String prod_no = (String) vo.get("PROD_NO");
+				BigDecimal qty = (BigDecimal) vo.get("DETAIL_QTY");
+				int qty1 = qty.intValue();
+				BigDecimal price = (BigDecimal) vo.get("PROD_PRICE");
+				int price1 = price.intValue();
+				System.out.println(cart_no + "\t" + prod_no + "\t" + qty + "\t" + price + "\t" + (qty1 * price1));
+
+				int sum = qty1 * price1;
+				s = s + sum;
+				sessionStorage.put("ssum", s);
+			}
+			System.out.println("--------------------------------------------------------");
+			System.out.println("");
+
+		
+			System.out.println("세션저장값: " + sessionStorage.get("ssum"));
+			cartListPrint();
+			int sel = ScanUtil.nextInt("메뉴 선택 : ");
+			switch (sel) {
+			case 1:
+				return View.CART_BUY;
+			case 2:
+				return View.CART_UPDATE;
+			case 3:
+				return View.CART_DELETE;
+			case 4:
+				return View.PROD;
+			default:
+				return View.CART_LIST;
+			}
+		}else {
+		System.out.println("장바구니가 비었습니다.");
+		}
+		return null;
+	}
+
 	
 	
 	private View prodSuppies() {
@@ -1044,12 +1066,8 @@ public class MainController extends Print{
 	
 
 	private View prodCart2() {
-		int s = (int)sessionStorage.get("sum");
-		
 		while(true) {
 			int sum = prodCart1();
-			s = s+sum;
-			sessionStorage.put("sum", s);
 			
 			System.out.println("장바구니에 추가되었습니다.");
 			System.out.println(" ");

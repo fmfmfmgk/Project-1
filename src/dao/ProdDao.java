@@ -216,5 +216,13 @@ public class ProdDao {
 					"WHERE TICKET_NO = ?" ;
 				jdbc.update(sql, param);
 		}
+
+		public void cartUpdate(List<Object> para, int qty) {
+			String sql = "UPDATE DETAIL\r\n" + 
+					"       SET DETAIL_QTY ="+qty+ 
+					"     WHERE ORDER_NO = ?\r\n" + 
+					"       AND PROD_NO = ?";
+			jdbc.update(sql, para);
+		}
 	
 }
