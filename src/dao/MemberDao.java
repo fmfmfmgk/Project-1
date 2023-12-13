@@ -172,5 +172,18 @@ public class MemberDao {
 				"       WHERE DEL_YN='N' \r\n"  ;
 		return jdbc.selectList(sql, MemberVo.class);
 	}
+
+	public void init(List<Object> param) {
+		String sql = "INSERT INTO USERS "
+				+ "          (USERS_NO, USERS_NAME, USERS_ID, USERS_PASS, USERS_NIC, USERS_TEL)\r\n" + 
+				"      VALUES(FN_CREATE_USERS_NO,?,?,?,?,?)";
+		jdbc.update(sql, param);
+	}
+
+	public List<MemberVo> u_id() {
+		String sql = " SELECT *\r\n" + 
+				"      FROM USERS";
+		return jdbc.selectList(sql, MemberVo.class);
+	}
 	
 }

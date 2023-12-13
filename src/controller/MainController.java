@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import print.Print;
 import service.AdminService;
@@ -1088,7 +1089,7 @@ public class MainController extends Print{
 		}
 	}
 	
-
+	
 	private View prod() {
 		System.out.println("----상품구매----");
 		
@@ -1233,38 +1234,31 @@ public class MainController extends Print{
 		List<MemberVo> list = memService.userList(id);
 		userList(list);
 		userUpdate1();
+		
+		List<Object> param = new ArrayList();
+		
 		int sel = ScanUtil.nextInt("번호입력: ");
 		switch (sel) {
 		case 1:
-			List<Object> param = new ArrayList();
 			String name = ScanUtil.nextLine("변경할 닉네임 입력: ");
-			
 			param.add(name);
 			param.add(id);
-			
 			memService.userUpdate(param, sel);
 			return View.USER_UPDATE;
 		case 2:
-			List<Object> param1 = new ArrayList();
 			String tel = ScanUtil.nextLine("변경할 전화번호 입력: ");
-			
-			param1.add(tel);
-			param1.add(id);
-			
-			memService.userUpdate(param1, sel);
+			param.add(tel);
+			param.add(id);
+			memService.userUpdate(param, sel);
 			return View.USER_UPDATE;
 		case 3:
-			List<Object> param2 = new ArrayList();
 			String pass = ScanUtil.nextLine("변경할 비밀번호 입력: ");
-			
-			param2.add(pass);
-			param2.add(id);
-			
-			memService.userUpdate(param2, sel);
+			param.add(pass);
+			param.add(id);
+			memService.userUpdate(param, sel);
 			return View.USER_UPDATE;
 		case 4:
 			return View.USER_MENU;
-			
 		default:
 			return View.USER_MENU;
 		}
@@ -1368,10 +1362,110 @@ public class MainController extends Print{
 		case 2:
 			return View.ADMIN_LOGIN;
 		case 3:
-			return View.SIGNUP;
+			signup();
+			return View.HOME;
 		default:
 			return View.HOME;
 		}
+	}
+	
+	private View signup() {
+		System.out.println("----회원가입----");
+		List<MemberVo> uid = memService.u_id();
+		List<Object> param = new ArrayList();
+
+		//이름 생성
+		String name;
+		while (true) {
+			name = ScanUtil.nextLine("이름 입력 : ");
+			if (Pattern.matches("^[가-힣]{1,6}$", name)) {
+				param.add(name);
+				break;
+			}
+			System.out.println("이름 형식이 잘못되었습니다. 다시 입력해주세요.");
+		}
+		
+		// 아이디 생성
+		String id;
+		while (true) {
+		    id = ScanUtil.nextLine("아이디 입력 : ");
+		    if (!Pattern.matches("^[a-zA-Z0-9]{6,10}$", id)) {
+		        System.out.println("아이디 형식이 잘못되었습니다. 다시 입력해주세요.");
+		        continue;
+		    }
+		    
+		    boolean flag = true;
+		    for (MemberVo vo : uid) {
+		        if (vo.getUsers_id().equals(id)) {
+		            flag = false;
+		            System.out.println("중복된 아이디입니다.");
+		            break;
+		        }
+		    }
+		    if (flag) {
+		        param.add(id);
+		        break;
+		    }
+		}
+		
+		//비밀번호
+		while (true) {
+		    String pass = ScanUtil.nextLine("비밀번호 입력 : ");
+		    if (Pattern.matches("^[a-zA-Z0-9]{6,12}$", pass)) {
+		        param.add(pass);
+		        break;
+		    }
+		    System.out.println("비밀번호 형식이 잘못되었습니다. 다시 입력해주세요.");
+		}
+
+		//닉네임 생성
+		String nic;
+		while (true) {
+		    nic = ScanUtil.nextLine("닉네임 입력 : ");
+		    if (!Pattern.matches("^[a-zA-Z0-9가-힣]{2,10}$", nic)) {
+		        System.out.println("닉네임 형식이 잘못되었습니다. 다시 입력해주세요.");
+		        continue;
+		    }
+		    
+		    boolean flag = true;
+		    for (MemberVo vo : uid) {
+		        if (vo.getUsers_nic().equals(nic)) {
+		            flag = false;
+		            System.out.println("중복된 닉네임입니다.");
+		            break;
+		        }
+		    }
+		    if (flag) {
+		        param.add(nic);
+		        break;
+		    }
+		}
+		
+		//전화번호 생성
+		String tel;
+		while (true) {
+		    tel = ScanUtil.nextLine("전화번호 입력 : ");
+		    if (!Pattern.matches("^01[0|1|6|7|8|9]-[0-9]{4}-[0-9]{4}$", tel)) {
+		        System.out.println("전화번호 형식이 잘못되었습니다. 다시 입력해주세요.");
+		        continue;
+		    }
+		    
+		    boolean flag = true;
+		    for (MemberVo vo : uid) {
+		        if (vo.getUsers_tel().equals(tel)) {
+		            flag = false;
+		            System.out.println("이미 존재하는 전화번호입니다.");
+		            break;
+		        }
+		    }
+		    if (flag) {
+		        param.add(tel);
+		        break;
+		    }
+		}
+		memService.init(param);
+		System.out.println(name+"님 가입을 환영합니다. 다시 로그인해주세요.");
+		return View.HOME;
 	}
 }
 

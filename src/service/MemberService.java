@@ -104,6 +104,14 @@ public class MemberService {
 	public List<MemberVo> userList2() {
 			return dao.userList2();
 	}
+
+	public void init(List<Object> param) {
+		dao.init(param);
+	}
+
+	public List<MemberVo> u_id() {
+		return	dao.u_id();
+	}
 	
 	
 }
