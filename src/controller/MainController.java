@@ -39,6 +39,7 @@ public class MainController extends Print{
 	
 	public static void main(String[] args) {
 		new MainController().start();
+		System.out.println("git master 바꾸는 과정");
 	}
 	
 	private void start() {
