@@ -46,15 +46,17 @@ public class AdminDao {
 				"       EMP_NAME,\r\n" + 
 				"       EMP_TEL,\r\n" + 
 				"       EMP_LGU,\r\n" + 
-				"       TO_CHAR(EMP_HIRE,'YY/MM/DD'),\r\n" + 
+				"       TO_CHAR(EMP_HIRE,'YY/MM/DD') EMP_HIRE,\r\n" + 
 				"       SALARY,\r\n" + 
 				"       EMP_EVA,\r\n" +
 				"       CAREER\r\n" + 
 				"  FROM EMPLOYEES \r\n" + 
-				"  WHERE DEL_YN='N' \r\n" ;
+				"  WHERE DEL_YN='N' " ;
 		return jdbc.selectList(sql, EmpVo.class);
 	}
-
+	
+	
+	
 	//직원 삭제
 	public void empDelete(List<Object> param) {
 		String sql = " UPDATE EMPLOYEES\r\n" + 
@@ -90,6 +92,8 @@ public class AdminDao {
 		String sql = front + temp;
 		jdbc.update(sql, param);
 	}
+	
+	
 }
 	
 	

@@ -6,11 +6,19 @@ public class EmpVo {
 	 private String emp_tel;
 	 private String emp_lgu;
 	 private String emp_hire;
-	 private int salay;
+	 private int salary;
 	 private String emp_eva;
 	 private String del_yn;
 	 private String career;
 	 
+	 
+
+	public int getSalary() {
+		return salary;
+	}
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
 	public String getCareer() {
 		return career;
 	}
@@ -47,12 +55,7 @@ public class EmpVo {
 	public void setEmp_hire(String emp_hire) {
 		this.emp_hire = emp_hire;
 	}
-	public int getSalay() {
-		return salay;
-	}
-	public void setSalay(int salay) {
-		this.salay = salay;
-	}
+
 	public String getEmp_eva() {
 		return emp_eva;
 	}

@@ -497,6 +497,7 @@ public class MainController extends Print{
 	
 	private View empList() {
 		List<EmpVo> list = adService.empList();
+		
 		empList(list);
 		System.out.println("1.뒤로가기");
 		System.out.println("2.수정하기");
@@ -833,13 +834,12 @@ public class MainController extends Print{
 		
 	}
 	
-	
 	private View ticketBuy() {
 		System.out.println("이용권구매 페이지");
 		
 		return null;
 	}
-
+	
 	private View ticket() {
 		System.out.println("----이용권판매 페이지----");
 		
@@ -987,9 +987,7 @@ public class MainController extends Print{
 			}
 			System.out.println("--------------------------------------------------------");
 			System.out.println("");
-
 		
-			System.out.println("세션저장값: " + sessionStorage.get("ssum"));
 			cartListPrint();
 			int sel = ScanUtil.nextInt("메뉴 선택 : ");
 			switch (sel) {
@@ -1009,8 +1007,6 @@ public class MainController extends Print{
 		}
 		return null;
 	}
-
-	
 	
 	private View prodSuppies() {
 		System.out.println("[운동용품 리스트 출력]");
@@ -1067,7 +1063,6 @@ public class MainController extends Print{
 		prodService.prodBuy(list, qty);
 		
 	}
-	
 
 	private View prodCart2() {
 		while(true) {
@@ -1088,7 +1083,6 @@ public class MainController extends Print{
 			}
 		}
 	}
-	
 	
 	private View prod() {
 		System.out.println("----상품구매----");
@@ -1503,6 +1497,7 @@ public class MainController extends Print{
 		System.out.println(name+"님 가입을 환영합니다. 다시 로그인해주세요.");
 		return View.HOME;
 	}
+
 }
 
 

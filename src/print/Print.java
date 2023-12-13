@@ -277,9 +277,9 @@ public class Print {
 
 	public void empList(List<EmpVo> list) {
 
-		System.out.println("-------------------직원 정보---------------------");
-		System.out.println("NO\t이름\t전화번호\t담당업무\t입사일\t급여\t평가\t경력");
-		System.out.println("----------------------------------------------");
+		System.out.println("----------------------------------직원 정보-----------------------------------------");
+		System.out.println("NO\t이름\t전화번호\t\t담당업무\t입사일\t\t급여\t평가\t경력");
+		System.out.println("---------------------------------------------------------------------------------");
 
 		for (EmpVo vo : list) {
 			String no = (String) vo.getEmployee_no();
@@ -287,14 +287,14 @@ public class Print {
 			String tel = (String) vo.getEmp_tel();
 			String lgu = (String) vo.getEmp_lgu();
 			String hire = (String) vo.getEmp_hire();
-			int salary = (int) vo.getSalay();
+			int salary =  (int) vo.getSalary();
 			String eva = (String) vo.getEmp_eva();
 			String career = (String) vo.getCareer();
-
+			
 			System.out.println(no + "\t" + name + "\t" + tel + "\t" + lgu + "\t" + hire + "\t" + salary + "\t" + eva
 					+ "\t" + career);
 		}
-		System.out.println("----------------------------------------------");
+		System.out.println("---------------------------------------------------------------------------------");
 		System.out.println("");
 	}
 
