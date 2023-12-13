@@ -1220,7 +1220,7 @@ public class MainController extends Print{
 				return View.HOME;
 			}else if(yn.equalsIgnoreCase("N")) {
 				return View.USER_MENU;
-			}else {return View.LOGOUT;}
+			}else {return View.USER_MENU;}
 		default:
 			return View.USER_MENU;
 		}
@@ -1230,7 +1230,7 @@ public class MainController extends Print{
 	private View userUpdate() {
 		MemberVo login = (MemberVo)MainController.sessionStorage.get("login");
 		String id = login.getUsers_id();
-		
+		List<MemberVo> uid = memService.u_id();
 		List<MemberVo> list = memService.userList(id);
 		userList(list);
 		userUpdate1();
@@ -1240,14 +1240,50 @@ public class MainController extends Print{
 		int sel = ScanUtil.nextInt("번호입력: ");
 		switch (sel) {
 		case 1:
-			String name = ScanUtil.nextLine("변경할 닉네임 입력: ");
-			param.add(name);
+			while (true) {
+			    String nic = ScanUtil.nextLine("변경할 닉네임 입력 : ");
+			    if (!Pattern.matches("^[a-zA-Z0-9가-힣]{2,10}$", nic)) {
+			        System.out.println("닉네임 형식이 잘못되었습니다. 다시 입력해주세요.");
+			        continue;
+			    }
+			    
+			    boolean flag = true;
+			    for (MemberVo vo : uid) {
+			        if (vo.getUsers_nic().equals(nic)) {
+			            flag = false;
+			            System.out.println("중복된 닉네임입니다.");
+			            break;
+			        }
+			    }
+			    if (flag) {
+			        param.add(nic);
+			        break;
+			    }
+			}
 			param.add(id);
 			memService.userUpdate(param, sel);
 			return View.USER_UPDATE;
 		case 2:
-			String tel = ScanUtil.nextLine("변경할 전화번호 입력: ");
-			param.add(tel);
+			while (true) {
+			    String tel = ScanUtil.nextLine("변경할 전화번호 입력 : ");
+			    if (!Pattern.matches("^01[0|1|6|7|8|9]-[0-9]{4}-[0-9]{4}$", tel)) {
+			        System.out.println("전화번호 형식이 잘못되었습니다. 다시 입력해주세요.");
+			        continue;
+			    }
+			    
+			    boolean flag = true;
+			    for (MemberVo vo : uid) {
+			        if (vo.getUsers_tel().equals(tel)) {
+			            flag = false;
+			            System.out.println("이미 존재하는 전화번호입니다.");
+			            break;
+			        }
+			    }
+			    if (flag) {
+			        param.add(tel);
+			        break;
+			    }
+			}
 			param.add(id);
 			memService.userUpdate(param, sel);
 			return View.USER_UPDATE;
