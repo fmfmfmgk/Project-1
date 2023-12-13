@@ -48,8 +48,9 @@ public class Print {
 		System.out.println("1. PT");
 		System.out.println("2. 요가");
 		System.out.println("3. 헬스");
-		System.out.println("4. 장바구니");
-		System.out.println("5. 돌아가기");
+		System.out.println("4. 장바구니 리스트");
+		System.out.println("5. 구매내역 리스트");
+		System.out.println("6. 돌아가기");
 	}
 	
 	public void prod1() {

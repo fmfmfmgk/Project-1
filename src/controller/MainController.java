@@ -464,6 +464,8 @@ public class MainController extends Print{
 		case 4:
 			return View.TKT_CART_LIST;
 		case 5:
+			return View.TKT_CART_BUY_LIST;
+		case 6:
 			System.out.println("(경고 : 장바구니정보가 삭제됩니다.)");
 			String yn = ScanUtil.nextLine("되돌아가시겠습니까?(Y/N)");
 
