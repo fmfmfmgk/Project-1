@@ -1,8 +1,6 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import controller.MainController;
 import dao.MemberDao;
@@ -11,6 +9,7 @@ import vo.FeedBackVo;
 import vo.MemberVo;
 import vo.NoticeVo;
 import vo.OrdersVo;
+import vo.Tkt_buyVo;
 
 public class MemberService {
 	private static MemberService instance = null;
@@ -113,5 +112,18 @@ public class MemberService {
 		return	dao.u_id();
 	}
 	
+	//티켓 cartin 성경수정
+		public void tktcartin(List<Object> order) {
+			dao.tktcartIn(order);
+		}
+		
+		//티켓 cartList 성경수정
+		public Tkt_buyVo tktcartList(String no) {
+			return dao.tktcartList(no);
+		}
+
+		public List<EmpVo> ptempList(String empno) {
+			return dao.ptempList(empno);
+		}	
 	
 }

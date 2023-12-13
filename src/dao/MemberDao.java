@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.List;
-import java.util.Map;
 
 import util.JDBCUtil;
 import vo.EmpVo;
@@ -9,6 +8,7 @@ import vo.FeedBackVo;
 import vo.MemberVo;
 import vo.NoticeVo;
 import vo.OrdersVo;
+import vo.Tkt_buyVo;
 
 public class MemberDao {
 	private static MemberDao instance = null;
@@ -184,6 +184,40 @@ public class MemberDao {
 		String sql = " SELECT *\r\n" + 
 				"      FROM USERS";
 		return jdbc.selectList(sql, MemberVo.class);
+	}
+
+	//성경 수정, 티켓 cartIn (티켓주문번호 생성쿼리)
+	public void tktcartIn(List<Object> order) {
+		String sql = "INSERT INTO TKT_BUY \r\n" + 
+				" 		(TKTBUY_NO,USERS_NO)\r\n" + 
+				"      VALUES(FN_CREATE_TKTBUY_NO(SYSDATE,1),?)";
+		jdbc.update(sql, order);
+
+	}
+
+
+	//성경 수정, 티켓 cartList (티켓담아둔 장바구니 리스트)
+	public Tkt_buyVo tktcartList(String no) {
+		String sql = "SELECT TKTBUY_NO,\r\n" + 
+				"       TKT_PAY,\r\n" + 
+				"       TO_CHAR(TKTBUY_DATE,'YY/MM/DD') TKTBUY_DATE,\r\n" + 
+				"       USERS_NO\r\n" + 
+				"  FROM TKT_BUY\r\n" + 
+				" WHERE TKTBUY_NO = (SELECT MAX(TKTBUY_NO)\r\n" + 
+				"                    FROM TKT_BUY)\r\n" + 
+				"   AND USERS_NO =  '"+no+"'";
+		return jdbc.selectOne(sql, Tkt_buyVo.class);
+	}
+
+	public List<EmpVo> ptempList(String empno) {
+		String sql = " SELECT EMPLOYEE_NO,\r\n" + 
+				"           EMP_NAME,\r\n" + 
+				"           EMP_TEL,\r\n" + 
+				"           CAREER \r\n" + 
+				"      FROM EMPLOYEES \r\n" + 
+				"     WHERE DEL_YN = 'N'"
+				+ "     AND EMPLOYEE_NO = '"+empno+"'";
+		return jdbc.selectList(sql, EmpVo.class);
 	}
 	
 }

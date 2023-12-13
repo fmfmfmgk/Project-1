@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import dao.HealthDao;
+import vo.EmpVo;
 import vo.TicketVo;
 
 public class HealthService {
@@ -28,5 +29,11 @@ public class HealthService {
 		return dao.hList();
 	}
 	
+	public List<TicketVo> pList(String emp) {
+		return dao.pList(emp);
+	}
 	
+	public List<EmpVo> ptnameList(String sel) {
+		return dao.ptnameList(sel);
+	}
 }

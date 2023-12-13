@@ -7,6 +7,7 @@ import util.JDBCUtil;
 import vo.OrdersVo;
 import vo.ProdVo;
 import vo.TicketVo;
+import vo.Tkt_buyVo;
 
 public class ProdDao {
 	private static ProdDao instance = null;
@@ -135,11 +136,13 @@ public class ProdDao {
 	}
 
 	public List<OrdersVo> cartBuyList(String no) {
-		String sql = "SELECT *\r\n" + 
-				"      FROM ORDERS\r\n" + 
-				"     WHERE USERS_NO ='"+no+"'";
-		
-		return jdbc.selectList(sql, OrdersVo.class);
+		//성경수정
+				String sql = "SELECT ORDER_NO, ORDER_PAY, TO_CHAR(ORDER_DATE,'YY/MM/DD') ORDER_DATE" + 
+						"      FROM ORDERS\r\n" + 
+						"     WHERE ORDER_PAY>0 "
+						+ " AND USERS_NO ='"+no+"'";
+
+				return jdbc.selectList(sql, OrdersVo.class);
 	}
 	
 		//상품(음식)추가
@@ -232,5 +235,60 @@ public class ProdDao {
 					"        AND PROD_NO = ?";
 			jdbc.update(sql, para1);
 		}
-	
+		
+
+
+		//성경수정, ProdDao에 있는 cartList메소드와 같은것!
+		public List<Map<String, Object>> tktcartList(String param) {
+			String sql = "  SELECT TKTBUY_NO,\r\n" + 
+					"         A.TICKET_NO, \r\n" + 
+					"		 B.TKT_PRICE\r\n" + 
+					"	FROM TKT_DETAIL A, TICKET B\r\n" + 
+					"   WHERE A.TICKET_NO=B.TICKET_NO\r\n" + 
+					"	AND TKTBUY_NO ='"+param+"'";
+			return jdbc.selectList(sql);
+		}
+
+		
+
+		public void tktcartBuy(List<Object> param, int sum) {
+			String sql = "UPDATE TKT_BUY\r\n" + 
+					"        SET TKT_PAY = "+sum+"\r\n" + 
+					"      WHERE TKTBUY_NO = ?";
+
+			jdbc.update(sql, param);
+
+		}
+
+		public List<Tkt_buyVo> tktcartBuyList(String no) {
+			String sql = "SELECT TKTBUY_NO,TKT_PAY, TO_CHAR(TKTBUY_DATE,'YY/MM/DD') TKTBUY_DATE" + 
+					"      FROM TKT_BUY\r\n" + 
+					"     WHERE TKT_PAY>0 "
+					+ "     AND USERS_NO ='"+no+"'";
+			return jdbc.selectList(sql, Tkt_buyVo.class);
+		}
+
+		public void ticketBuy(List<Object> list) {
+			String sql = "INSERT INTO TKT_DETAIL\r\n" + 
+					"        (TKTBUY_NO, TICKET_NO, TKT_START)\r\n" + 
+					"        VALUES (?, ?, ?)";
+			jdbc.update(sql, list);
+
+		}
+
+		public void ptticketBuy(List<Object> list) {
+			String sql = "INSERT INTO TKT_DETAIL\r\n" + 
+					"        (TKTBUY_NO, TICKET_NO)\r\n" + 
+					"        VALUES (?, ?)";
+			jdbc.update(sql, list);
+		
+		}
+
+		public void tktcartDelete(List<Object> para1) {
+			String sql = "DELETE" + 
+					"       FROM TKT_DETAIL" + 
+					"      WHERE TKTBUY_NO = ? " + 
+					"        AND TICKET_NO = ?";
+			jdbc.update(sql, para1);
+		}
 }

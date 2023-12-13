@@ -7,6 +7,7 @@ import dao.ProdDao;
 import vo.OrdersVo;
 import vo.ProdVo;
 import vo.TicketVo;
+import vo.Tkt_buyVo;
 
 public class ProdService {
 	private static ProdService instance = null;
@@ -122,7 +123,32 @@ public class ProdService {
 		dao.cartDelete(para1);
 	}
 	
-	
+	//성경수정 ↓
+			public  List<Map<String, Object>> tktcartList(String param) {
+				return dao.tktcartList(param);
+
+			}
+
+			public void tktcartBuy(List<Object> param, int sum) {
+				dao.tktcartBuy(param, sum);
+			}
+
+			public List<Tkt_buyVo> tktcartBuyList(String no) {
+				return dao.tktcartBuyList(no);
+			}
+
+			public void ticketBuy(List<Object> list) { //요가,헬스
+				dao.ticketBuy(list);
+
+			}
+
+			public void ptticketBuy(List<Object> list) { //PT
+				dao.ptticketBuy(list);
+			}
+
+			public void tktcartDelete(List<Object> para1) {
+				dao.tktcartDelete(para1);
+			}
 	
 	
 	

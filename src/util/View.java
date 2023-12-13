@@ -33,7 +33,7 @@ public enum View {
 	
 	CART_LIST,       //장바구니리스트
 	CART_BUY,        //구입
-	CART_BUY_LIST,   //구입내역
+	CART_BUY_LIST,   //구매내역 리스트******
 	CART_UPDATE,     //수정
 	CART_DELETE,     //장바구니 삭제
 	CART_CANCEL_ONE, //
@@ -114,8 +114,15 @@ public enum View {
 	TICKET_UPDATE,
 	TICKET_DELETE,
 	
-	
-	
+	//성경수정 ↓
+		TKT_CART_LIST,
+		TKT_CART_BUY,
+		TKT_CART_DELETE,
+		TKT_CART_BUY_LIST,
+		TKTSESSION,
+		TICKET_CART,
+		PT_TICKET_CART,
+		PT_LIST_ALL,//ptListAll
 	
 	
 	
