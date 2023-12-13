@@ -50,6 +50,7 @@ public enum View {
 	TICKET_LIST, //이용권판매 메뉴
 	
 	PT_MENU,
+	PT_LIST_ALL,//ptListAll
 	PT_LIST,
 	PT_LIST_DETAIL,
 	PT_SEARCH,
@@ -113,10 +114,14 @@ public enum View {
 	TICKET_UPDATE,
 	TICKET_DELETE,
 	
-	
-	
-	
-	
+	//성경수정 ↓
+	TKT_CART_LIST,
+	TKT_CART_BUY,
+	TKT_CART_DELETE,
+	TKT_CART_BUY_LIST,
+	TKTSESSION,
+	TICKET_CART,
+	PT_TICKET_CART,
 	
 	
 	

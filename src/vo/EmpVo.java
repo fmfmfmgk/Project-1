@@ -6,7 +6,7 @@ public class EmpVo {
 	 private String emp_tel;
 	 private String emp_lgu;
 	 private String emp_hire;
-	 private int salay;
+	 private int salary;
 	 private String emp_eva;
 	 private String del_yn;
 	 private String career;
@@ -48,10 +48,10 @@ public class EmpVo {
 		this.emp_hire = emp_hire;
 	}
 	public int getSalay() {
-		return salay;
+		return salary;
 	}
 	public void setSalay(int salay) {
-		this.salay = salay;
+		this.salary = salay;
 	}
 	public String getEmp_eva() {
 		return emp_eva;

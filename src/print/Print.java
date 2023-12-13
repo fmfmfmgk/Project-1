@@ -9,8 +9,10 @@ import vo.EmpVo;
 import vo.FeedBackVo;
 import vo.MemberVo;
 import vo.NoticeVo;
+import vo.OrdersVo;
 import vo.ProdVo;
 import vo.TicketVo;
+import vo.Tkt_buyVo;
 
 public class Print {
 	public void printHome() {
@@ -18,37 +20,43 @@ public class Print {
 		System.out.println("2. 관리자 로그인");
 		System.out.println("3. 회원가입");
 	}
-	
+
 	public void printListMenu() {
 		System.out.println("1. 상세조회");
 		System.out.println("2. 상품 변경");
 		System.out.println("3. 상품 삭제");
 		System.out.println("4. 홈으로");
 	}
-	
+
 	public void printDetail() {
 		System.out.println("1.상품 이름 검색");
 		System.out.println("2.분류 코드 검색");
 		System.out.println("3.메인메뉴 돌아가기");
 	}
-	
-	
+
 	public void cartListPrint() {
 		System.out.println("1. 구입");
 		System.out.println("2. 수정");
 		System.out.println("3. 장바구니 삭제");
 		System.out.println("4. 돌아가기");
-		
+
 	}
-	
-	
+
+	// 성경수정, 티켓은 수정이 필요없다!!!
+	public void tktcartListPrint() {
+		System.out.println("1. 구입");
+		System.out.println("2. 장바구니 삭제");
+		System.out.println("3. 돌아가기");
+
+	}
+
 	public void ticket1() {
 		System.out.println("1. PT");
 		System.out.println("2. 요가");
 		System.out.println("3. 헬스");
 		System.out.println("4. 돌아가기");
 	}
-	
+
 	public void prod1() {
 		System.out.println("카테로그 선택");
 		System.out.println("1. 푸드");
@@ -57,7 +65,7 @@ public class Print {
 		System.out.println("4. 메인메뉴");
 		System.out.println("");
 	}
-	
+
 	public void userMenu1() {
 		System.out.println("1. 상품구매");
 		System.out.println("2. 이용권구매");
@@ -65,137 +73,134 @@ public class Print {
 		System.out.println("4. 피드백 게시판");
 		System.out.println("5. 로그아웃");
 	}
-	
+
 	public void prodFood1() {
 		System.out.println("1.구입");
 		System.out.println("2.뒤로가기");
 		System.out.println("");
 	}
+
 	public void userUpdate1() {
 		System.out.println("1.닉네임 변경");
 		System.out.println("2.전화번호 변경");
 		System.out.println("3.비밀번호 변경");
 		System.out.println("4.돌아가기");
 	}
-	
 
 	public void feedbackList1(List<FeedBackVo> list) {
-		
+
 		System.out.println("-------------------상품 정보---------------------");
 		System.out.println("NO\t작성자\t제목\t내용\t날짜\t확인여부");
 		System.out.println("----------------------------------------------");
-		MemberVo login = (MemberVo)MainController.sessionStorage.get("login");
+		MemberVo login = (MemberVo) MainController.sessionStorage.get("login");
 		login.getUsers_name();
-		
-		for (FeedBackVo vo  : list) {
-		String no = (String)vo.getFeedback_no();
-		String til = (String)vo.getFeedback_til();
-		String con = (String)vo.getFeedback_con();
-		String date = (String)vo.getFeedback_date();
-		String feed_yn = (String)vo.getFeedback_yn();
-		
-		
-		System.out.println(no+"\t"+login.getUsers_name()+"\t"+til+"\t"+con+"\t"+date+"\t"+feed_yn);
+
+		for (FeedBackVo vo : list) {
+			String no = (String) vo.getFeedback_no();
+			String til = (String) vo.getFeedback_til();
+			String con = (String) vo.getFeedback_con();
+			String date = (String) vo.getFeedback_date();
+			String feed_yn = (String) vo.getFeedback_yn();
+
+			System.out.println(
+					no + "\t" + login.getUsers_name() + "\t" + til + "\t" + con + "\t" + date + "\t" + feed_yn);
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");
 	}
-	
-		public void noticeList1(List<NoticeVo> list) {
-		
+
+	public void noticeList1(List<NoticeVo> list) {
+
 		System.out.println("-------------------공지사항----------------------");
 		System.out.println("NO\t제목\t내용\t날짜\t작성자");
 		System.out.println("----------------------------------------------");
-		
-		
-		for (NoticeVo vo  : list) {
-		String no = (String)vo.getNotice_no();
-		String til = (String)vo.getNotice_title();
-		String con = (String)vo.getNotice_content();
-		String date = (String)vo.getNotice_date();
-		
-		
-		System.out.println(no+"\t"+til+"\t"+con+"\t"+date+"\t 관리자");
+
+		for (NoticeVo vo : list) {
+			String no = (String) vo.getNotice_no();
+			String til = (String) vo.getNotice_title();
+			String con = (String) vo.getNotice_content();
+			String date = (String) vo.getNotice_date();
+
+			System.out.println(no + "\t" + til + "\t" + con + "\t" + date + "\t 관리자");
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");
 	}
-	
 
 	public void prodlist(List<ProdVo> list) {
-		
+
 		System.out.println("-------------------상품 정보---------------------");
 		System.out.println("NO\t제품명\t상세정보\t가격");
 		System.out.println("----------------------------------------------");
 		for (ProdVo food : list) {
-		String no = (String)food.getProd_no();
-		String name = (String)food.getProd_nm();
-		String content = (String)food.getProd_content();
-		int price = (int)food.getProd_price();
-		
-		System.out.println(no+"\t"+name+"\t"+content+"\t"+price);
+			String no = (String) food.getProd_no();
+			String name = (String) food.getProd_nm();
+			String content = (String) food.getProd_content();
+			int price = (int) food.getProd_price();
+
+			System.out.println(no + "\t" + name + "\t" + content + "\t" + price);
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");
 	}
-	
+
 	public void ptList(List<EmpVo> list) {
-		
+
 		System.out.println("-------------------트레이너 목록---------------------");
 		System.out.println("NO\t이름\t전화번호\t경력");
 		System.out.println("------------------------------------------------");
-		
-		for (EmpVo vo  : list) {
-		String no = (String)vo.getEmployee_no();
-		String name = (String)vo.getEmp_name();
-		String tel = (String)vo.getEmp_tel();
-		String career = (String)vo.getCareer();
-		
-		System.out.println(no+"\t"+name+"\t"+tel+"\t"+career);
+
+		for (EmpVo vo : list) {
+			String no = (String) vo.getEmployee_no();
+			String name = (String) vo.getEmp_name();
+			String tel = (String) vo.getEmp_tel();
+			String career = (String) vo.getCareer();
+
+			System.out.println(no + "\t" + name + "\t" + tel + "\t" + career);
 		}
 		System.out.println("------------------------------------------------");
 		System.out.println("");
 	}
-	
+
 	public void userList(List<MemberVo> list) {
-		
+
 		System.out.println("-------------------회원 정보---------------------");
 		System.out.println("NO\t이름\t아이디\t패스워드\t닉네임\t전화번호");
 		System.out.println("----------------------------------------------");
-		
-		for (MemberVo vo  : list) {
-		String no = (String)vo.getUsers_no();
-		String name = (String)vo.getUsers_name();
-		String id = (String)vo.getUsers_id();
-		String pass = (String)vo.getUsers_pass();
-		String nic = (String)vo.getUsers_nic();
-		String tel = (String)vo.getUsers_tel();
-		
-		System.out.println(no+"\t"+name+"\t"+id+"\t"+pass+"\t"+nic+"\t"+tel);
+
+		for (MemberVo vo : list) {
+			String no = (String) vo.getUsers_no();
+			String name = (String) vo.getUsers_name();
+			String id = (String) vo.getUsers_id();
+			String pass = (String) vo.getUsers_pass();
+			String nic = (String) vo.getUsers_nic();
+			String tel = (String) vo.getUsers_tel();
+
+			System.out.println(no + "\t" + name + "\t" + id + "\t" + pass + "\t" + nic + "\t" + tel);
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");
 	}
-	
+
 	public void cartList2(List<Map<String, Object>> list) {
-		
+
 		System.out.println("----------------------장바구니 리스트------------------------");
 		System.out.println("장바구니 번호\t제품코드\t수량\t단가\t합계");
 		System.out.println("--------------------------------------------------------");
-		
-		for (Map<String, Object> vo  : list) {
-			String              cart_no = (String)vo.get("ORDER_NO");
-			String              prod_no = (String)vo.get("PROD_NO");
-			BigDecimal              qty = (BigDecimal)vo.get("DETAIL_QTY");
+
+		for (Map<String, Object> vo : list) {
+			String cart_no = (String) vo.get("ORDER_NO");
+			String prod_no = (String) vo.get("PROD_NO");
+			BigDecimal qty = (BigDecimal) vo.get("DETAIL_QTY");
 			int qty1 = qty.intValue();
-			BigDecimal            price = (BigDecimal)vo.get("PROD_PRICE");
+			BigDecimal price = (BigDecimal) vo.get("PROD_PRICE");
 			int price1 = price.intValue();
-		System.out.println(cart_no+"\t"+prod_no+"\t"+qty+"\t"+price+"\t"+(qty1*price1));
+			System.out.println(cart_no + "\t" + prod_no + "\t" + qty + "\t" + price + "\t" + (qty1 * price1));
 		}
 		System.out.println("--------------------------------------------------------");
 		System.out.println("");
 	}
-	
+
 //	관리자
 	public void adminMenu1() {
 		System.out.println("1. 회원관리");
@@ -231,8 +236,6 @@ public class Print {
 		System.out.println("-----------------------------------------------------------------------");
 		System.out.println("");
 	}
-	
-	
 
 	public void adminuser() {
 		System.out.println("1. 회원 전체조회");
@@ -291,7 +294,8 @@ public class Print {
 			String eva = (String) vo.getEmp_eva();
 			String career = (String) vo.getCareer();
 
-			System.out.println(no + "\t" + name + "\t" + tel + "\t" + lgu + "\t" + hire + "\t" + salary + "\t" + eva
+			System.out.println(no + "\t" + name + "\t" + tel + "\t" + 
+					lgu + "\t" + hire + "\t" + salary + "\t" + eva
 					+ "\t" + career);
 		}
 		System.out.println("----------------------------------------------");
@@ -305,6 +309,7 @@ public class Print {
 		System.out.println("");
 	}
 
+	// 성경수정 ↓
 	public void tktlist(List<TicketVo> list) {
 
 		System.out.println("-------------------이용권 리스트----------------------");
@@ -318,13 +323,33 @@ public class Print {
 			int price = (int) vo.getTkt_price();
 			String emp = (String) vo.getEmployee_no();
 			int time = (int) vo.getTkt_time();
-			
-			System.out.println(no + "\t" + name + "\t" +  price);
+
+			System.out.println(no + "\t" + name + "\t" + price);
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");
 	}
 	
+	public void ptlist(List<TicketVo> list) { //성경
+		
+		System.out.println("-------------------이용권 리스트----------------------");
+		System.out.println("NO\t이용권이름\t\t가격");
+		System.out.println("----------------------------------------------");
+		
+		for (TicketVo vo : list) {
+			String no = (String) vo.getTicket_no();
+			String name = (String) vo.getTkt_name();
+			String lgu = (String) vo.getTkt_lgu();
+			int price = (int) vo.getTkt_price();
+			String emp = (String) vo.getEmployee_no();
+			int time = (int) vo.getTkt_time();
+			
+			System.out.println(no + "\t" + name + "\t" + price);
+		}
+		System.out.println("----------------------------------------------");
+		System.out.println("");
+	}
+
 	public void tlist(List<TicketVo> list) {
 
 		System.out.println("-------------------이용권 리스트----------------------");
@@ -339,7 +364,37 @@ public class Print {
 			String emp = (String) vo.getEmployee_no();
 			int time = (int) vo.getTkt_time();
 
-			System.out.println(no + "\t" + name + "\t" +  price);
+			System.out.println(no + "\t" + name + "\t" + price);
+		}
+		System.out.println("----------------------------------------------");
+		System.out.println("");
+	}
+
+	public void tlist2(List<Tkt_buyVo> list) {
+
+		System.out.println("NO\t총금액\t구매날짜");
+
+		for (Tkt_buyVo vo : list) {
+			String no = (String) vo.getTktbuy_no();
+			int price = (int) vo.getTkt_pay();
+			String date = (String) vo.getTktbuy_date();
+
+			System.out.println(no + "\t" + price + "\t" + date);
+		}
+		System.out.println("----------------------------------------------");
+		System.out.println("");
+	}
+
+	public void cartbuylist(List<OrdersVo> list) {
+
+		System.out.println("NO\t총금액\t구매날짜");
+
+		for (OrdersVo vo : list) {
+			String no = (String) vo.getOrder_no();
+			int price = (int) vo.getOrder_pay();
+			String date = (String) vo.getOrder_date();
+
+			System.out.println(no + "\t" + price + "\t" + date);
 		}
 		System.out.println("----------------------------------------------");
 		System.out.println("");

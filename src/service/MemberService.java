@@ -11,6 +11,7 @@ import vo.FeedBackVo;
 import vo.MemberVo;
 import vo.NoticeVo;
 import vo.OrdersVo;
+import vo.Tkt_buyVo;
 
 public class MemberService {
 	private static MemberService instance = null;
@@ -95,15 +96,29 @@ public class MemberService {
 		dao.cartIn(order);
 	}
 
+	//티켓 cartin 성경수정
+	public void tktcartin(List<Object> order) {
+		dao.tktcartIn(order);
+	}
+
 	public OrdersVo cartList(String no) {
-		
 		return dao.cartList(no);
 	}
 	
-	//전체 user리스트 출력
-		public List<MemberVo> userList2() {
-			return dao.userList2();
-		}
+	// 전체 user리스트 출력
+	public List<MemberVo> userList2() {
+		return dao.userList2();
+	}
+
+	//티켓 cartList 성경수정
+	public Tkt_buyVo tktcartList(String no) {
+		return dao.tktcartList(no);
+	}
+
+	public List<EmpVo> ptempList(String empno) {
+		return dao.ptempList(empno);
+	}
 
 	
+
 }
