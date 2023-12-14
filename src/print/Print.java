@@ -1,6 +1,8 @@
 package print;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +24,6 @@ public class Print {
 	
     public void pic() {
     	System.out.println("\r\n" +
-    			"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n" + 
     			"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n" + 
     			"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡤⠞⠋⠉⢉⣉⣹⣿⣿⣷⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣶⣶⣾⣷⣶⣶⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n" + 
     			"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠔⠉⠀⣠⣴⣾⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀\r\n" + 
@@ -56,12 +57,6 @@ public class Print {
     			"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠒⠒⠂⠤⠤⠤⠤⠤⠄⠐⠂⠀⠀⠀⠀⠀⠀⠀⠀");
     }
 	public void printHome() { //첫 화면
-//		System.out.println("\r\n" + 
-//				"                _____ _    _____       _______ __                      \r\n" + 
-//				"               / /   | |  / /   |     / ____(_) /_____  ___  __________\r\n" + 
-//				"          __  / / /| | | / / /| |    / /_  / / __/ __ \\/ _ \\/ ___/ ___/\r\n" + 
-//				"         / /_/ / ___ | |/ / ___ |   / __/ / / /_/ / / /  __(__  |__  ) \r\n" + 
-//				"         \\____/_/  |_|___/_/  |_|  /_/   /_/\\__/_/ /_/\\___/____/____/  " );
 
 		System.out.print("　 "
 				+ "\r\n" + 
@@ -87,9 +82,36 @@ public class Print {
 				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
 	}
 	
-	
+	public void treeprint() {
+		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("                     "
+	            + ""
+	            + "                                                                                                                                           \r\n     "
+	            + "   *             _/^\\_              *                 \r\n"
+	            + "                                                  ﹤               ﹥                                                                      *\r\n "
+	            + "                     /.-.\\      *                             \r\n   "
+	            + "            *      `/&\\`                         \r\n  "
+	            + "                   .@_*;@,                         *       \r\n "
+	            + "                   (   `--●_\\              *                  \r\n"
+	            + "      *            /`;--__ ,.,)       *                     \r\n"
+	            + "                  ;@O_) *,_'`&\\                                       \r\n"
+	            + "             *   (__   `\"`\"`=-.;                  *         \r\n "
+	            + "               /&*,()~-- _,   ` ) *                            \r\n"
+	            + "      *        /`,@ ;+& ()●* `;\"`\\      *                    \r\n"
+	            + "              ( `.,_  O +% @ 'O&()\\                                    \r\n"
+	            + "  *           /`,_   `''---o#_ ,._ ;            "
+	            + "                       \r\n "
+	            + "            ;/@%;o`;'–,,.__  _   ' )  *                                   \r\n  "
+	            + "          /(); o^~;& ().o@*&`;%o`*\\                      *                 \r\n"
+	            + "            `=`==``==,,,.,..'=='=='``                                        \r\n"
+	            + "       .___.----.,'-'#######---...____...-------.__                      \r\n  "
+	            + "                   \"\"\"\"\"\"\"                          \r\n  ");
+	}
 	
 	public void userMenu1() { //회원 메뉴
+		
 		System.out.print("　 "
 				+ "\r\n" + 
 				"┏━━━ 회원메뉴  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
@@ -98,7 +120,8 @@ public class Print {
 				"┃ 2.이용권 구매                                                                                                                                          ┃\r\n" + 
 				"┃ 3.회원정보 수정                                                                                                                                       ┃\r\n" + 
 				"┃ 4.피드백 게시판                                                                                                                                       ┃\r\n" + 
-				"┃ 5.로그아웃	                                                                 ┃\r\n" +
+				"┃ 5.이용권 보유 현황                                                                                                                                   ┃\r\n" +
+				"┃ 6.로그아웃	                                                                 ┃\r\n" +
 				"┃                                                                                ┃\r\n" +
 				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
 	}
@@ -149,6 +172,14 @@ public class Print {
     			"┃ 장바구니가 비었습니다                                                                                                                               ┃\r\n" +
     			"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
     }
+    public void cartcancleprint() { //장바구니비었을때
+    	
+    	System.out.print("　 "
+    			+ "\r\n" + 
+    			"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+    			"┃ 장바구니에서 삭제되었습니다!                                                          ┃\r\n" +
+    			"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+    }
 	
     public void cartListPrint() { //장바구니채워졌을때
     	System.out.print("　 "
@@ -167,6 +198,14 @@ public class Print {
     			"┃ 1.상품 취소                                                                                                                                             ┃\r\n" +
     			"┃ 2.상품수량 수정                                                                                                                                       ┃\r\n" + 
     			"┃ 3.뒤로가기                                                                                                                                              ┃\r\n" + 
+    			"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+    }
+    public void tktcartupdate() { //장바구니 수정
+    	System.out.print("　 "
+    			+ "\r\n" + 
+    			"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+    			"┃ 1.이용권 취소                                                                                                                                          ┃\r\n" +
+    			"┃ 2.뒤로가기                                                                                                                                              ┃\r\n" + 
     			"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
     }
    
@@ -191,7 +230,7 @@ public class Print {
     	System.out.print("　 "
     			+ "\r\n" + 
     			"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
-    			"┃1.돌아가기                                                                                                                                                ┃\r\n" +
+    			"┃1.홈으로 이동                                                                                                                                            ┃\r\n" +
     			"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
     }
     
@@ -227,7 +266,7 @@ public class Print {
     
 	public void noticeList1(List<NoticeVo> list) { //회원 공지사항
 		System.out.println("");
-		System.out.println(" ============================== JAVA Fitness 공지사항 ============================= ");
+		System.out.println(" ============================== POWER GYM 공지사항 ================================ ");
 		System.out.println("  NO\t제목\t\t내용\t\t\t날짜\t\t작성자");
 		System.out.println(" ================================================================================  ");
 		for (NoticeVo vo  : list) {
@@ -293,9 +332,6 @@ public class Print {
 		System.out.println("");
 	}
 	
-	
-	
-	
 	public void ptselect() {
 		System.out.print("　 "
 				+ "\r\n" + 
@@ -313,6 +349,7 @@ public class Print {
 				"┃ 2.뒤로가기                                                                                                                                              ┃\r\n" + 
 				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
 	}
+	
 	
 	public void warning() { //돌아가기
     	
@@ -374,78 +411,27 @@ public class Print {
 				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
 	}
 	
-	
-	
-	public void printListMenu() {
-		System.out.println("1. 상세조회");
-		System.out.println("2. 상품 변경");
-		System.out.println("3. 상품 삭제");
-		System.out.println("4. 홈으로");
-	}
-	
-	public void printDetail() {
-		System.out.println("1.상품 이름 검색");
-		System.out.println("2.분류 코드 검색");
-		System.out.println("3.메인메뉴 돌아가기");
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public void prodFood1() {
-		System.out.println("1.구입");
-		System.out.println("2.뒤로가기");
-		System.out.println("");
-	}
-	public void userUpdate1() {
-		System.out.println("1.닉네임 변경");
-		System.out.println("2.전화번호 변경");
-		System.out.println("3.비밀번호 변경");
-		System.out.println("4.돌아가기");
-	}
-	
+	public void tlist2(List<Tkt_buyVo> list) {
+		System.out.println(" ================================ 이용권 결제내역 리스트 ============================== ");
+		System.out.println("     이용권번호\t\t\t총금액\t\t구매날짜");
+		System.out.println(" ================================================================================  ");
 
-	public void feedbackList1(List<FeedBackVo> list) {
-		
+	      for (Tkt_buyVo vo : list) {
+	         String no = (String) vo.getTktbuy_no();
+	         int price = (int) vo.getTkt_pay();
+	         String date = (String) vo.getTktbuy_date();
 
-		System.out.println(" ============================== 상품정보 사항 ============================= ");
-		System.out.println("NO\t작성자\t제목\t내용\t날짜\t확인여부");
-		System.out.println("----------------------------------------------");
-		MemberVo login = (MemberVo) MainController.sessionStorage.get("login");
-		login.getUsers_name();
-
-		for (FeedBackVo vo : list) {
-			String no = (String) vo.getFeedback_no();
-			String til = (String) vo.getFeedback_til();
-			String con = (String) vo.getFeedback_con();
-			String date = (String) vo.getFeedback_date();
-			String feed_yn = (String) vo.getFeedback_yn();
-
-			System.out.println(
-					no + "\t" + login.getUsers_name() + "\t" + til + "\t" + con + "\t" + date + "\t" + feed_yn);
-		
-		
-		System.out.println(no+"\t"+login.getUsers_name()+"\t"+til+"\t"+con+"\t"+date+"\t"+feed_yn);
-		}
-		System.out.println("----------------------------------------------");
-		System.out.println("");
-	}
-	
-		
-
-
-	
+	         System.out.println("   "+no + "\t\t" + price + "\t\t" + date);
+	      }
+	      System.out.println(" ================================================================================  ");
+	      System.out.println("");
+	   }
 	
 	public void userList(List<MemberVo> list) {
 		
-		System.out.println("-------------------회원 정보---------------------");
-		System.out.println("NO\t이름\t아이디\t패스워드\t닉네임\t전화번호");
-		System.out.println("----------------------------------------------");
+		System.out.println(" ==================================== 회원 정보 ==================================== ");
+		System.out.println("  NO\t이름\t아이디\t\t패스워드\t\t닉네임\t\t전화번호");
+		System.out.println(" ================================================================================  ");
 		
 		for (MemberVo vo  : list) {
 		String no = (String)vo.getUsers_no();
@@ -455,39 +441,130 @@ public class Print {
 		String nic = (String)vo.getUsers_nic();
 		String tel = (String)vo.getUsers_tel();
 		
-		System.out.println(no+"\t"+name+"\t"+id+"\t"+pass+"\t"+nic+"\t"+tel);
+		System.out.println("  "+no+"\t"+name+"\t"+id+"\t"+pass+"\t"+nic+"\t\t"+tel);
 		}
-		System.out.println("----------------------------------------------");
-		System.out.println("");
+		System.out.println(" ================================================================================  ");
+	}
+	
+	public void userUpdate1() { //회원 메뉴
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━ 회원정보수정  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 1.닉네임 변경                                                                                                                                          ┃\r\n" +
+				"┃ 2.전화번호 변경                                                                                                                                       ┃\r\n" + 
+				"┃ 3.비밀번호 변경                                                                                                                                       ┃\r\n" + 
+				"┃ 4.뒤로가기	                                                                 ┃\r\n" +
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	
+	public void feedbackList1(List<FeedBackVo> list) {
+		System.out.println(" ================================= 피드백 게시판 ==================================== ");
+		System.out.println("   NO\t작성자\t제목\t\t내용\t\t날짜\t\t확인여부");
+		System.out.println(" ================================================================================  ");
+		MemberVo login = (MemberVo) MainController.sessionStorage.get("login");
+		login.getUsers_name();
+
+		for (FeedBackVo vo : list) {
+			String no = (String) vo.getFeedback_no();
+			String til = (String) vo.getFeedback_til();
+			String con = (String) vo.getFeedback_con();
+			String date = (String) vo.getFeedback_date();
+			String feed_yn = (String) vo.getFeedback_yn();
+			System.out.println(
+					"   "+no + "\t" + login.getUsers_name() + "\t" + til + "\t" + con + "\t" + date + "\t" + feed_yn);
+			}
+		System.out.println(" ================================================================================  ");
+	}
+	
+	public void feedbacksel() { //회원 메뉴
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━ 피드백메뉴 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 1.게시글 작성                                                                                                                                          ┃\r\n" +
+				"┃ 2.게시글 수정                                                                                                                                          ┃\r\n" + 
+				"┃ 3.게시글 삭제                                                                                                                                          ┃\r\n" + 
+				"┃ 4.뒤로가기                                                                                                                                              ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	
+	public void feedcomplete() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 피드백 입력이 완료되었습니다. 빠른 시간내에 조치해드리겠습니다                                                                  ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	public void feedcomplete2() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 피드백 수정이 완료되었습니다. 빠른 시간내에 조치해드리겠습니다                                                                  ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	public void feedcomplete3() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 피드백 삭제가 완료되었습니다                                                                                                                     ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	public void logoutprint() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 로그아웃이 완료되었습니다                                                                                                                         ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
 	}
 	
 	
 	
-	
+
 	
 	
 	
 //	관리자
-	public void adminMenu1() {
-		System.out.println("1. 회원관리");
-		System.out.println("2. 상품관리");
-		System.out.println("3. 게시판관리");
-		System.out.println("4. 직원관리");
-		System.out.println("5. 이용권관리");
-		System.out.println("6. 로그아웃");
+	
+	public void adminMenu1() { //회원 메뉴
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━ 관리자 메뉴  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┃ 1.회원 관리                                                                                                                                             ┃\r\n" +
+				"┃ 2.상품 관리                                                                                                                                             ┃\r\n" + 
+				"┃ 3.게시판 관리                                                                                                                                          ┃\r\n" + 
+				"┃ 4.직원 관리                                                                                                                                             ┃\r\n" + 
+				"┃ 5.이용권 관리                                                                                                                                          ┃\r\n" + 
+				"┃ 6.로그아웃                                                                                                                                              ┃\r\n" +
+				"┃                                                                                ┃\r\n" +
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
 	}
-
-	public void admin_mem() {
-		System.out.println("1. 회원 전체조회");
-		System.out.println("2. 회원삭제(탈퇴)관리");
-		System.out.println("3. 로그아웃");
+	
+	public void adminuser() {
+		System.out.println(" ================================================================================  ");
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━ 회원관리  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┃ 1.회원 전체조회                                                                                                                                       ┃\r\n" +
+				"┃ 2.회원 삭제                                                                                                                                             ┃\r\n" + 
+				"┃ 3.홈                                                                                                                                                       ┃\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
 	}
-
+	
+	public void userdeleteprint() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 회원 삭제가 완료되었습니다                                                                                                                        ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	
 	public void feedbackList2(List<FeedBackVo> list) {
 
-		System.out.println("-------------------------- 피드백 확인필요 사항 -----------------------------");
-		System.out.println("NO\t작성자\t제목\t\t내용\t\t날짜\t\t확인여부");
-		System.out.println("-----------------------------------------------------------------------");
+		System.out.println(" ================================= 피드백 게시판 ==================================== ");
+		System.out.println("  NO\t작성자\t제목\t\t내용\t\t날짜\t\t확인여부");
+		System.out.println(" ================================================================================  ");
 
 		for (FeedBackVo vo : list) {
 			String no = (String) vo.getFeedback_no();
@@ -497,61 +574,123 @@ public class Print {
 			String feed_yn = (String) vo.getFeedback_yn();
 			String userno = (String) vo.getUsers_no();
 
-			System.out.println(no + "\t" + userno + "\t" + til + "\t" + con + "\t" + date + "\t" + feed_yn + "\t");
+			System.out.println("  "+no + "\t" + userno + "\t" + til + "\t" + con + "\t" + date + "\t" + feed_yn + "\t");
 		}
-		System.out.println("-----------------------------------------------------------------------");
-		System.out.println("");
-	}
-	
-	
-
-	public void adminuser() {
-		System.out.println("1. 회원 전체조회");
-		System.out.println("2. 회원 삭제(탈퇴)관리");
-		System.out.println("3. 메인메뉴");
-		System.out.println("");
+		System.out.println(" ================================================================================  ");
 	}
 
 	public void adminprod() {
-		System.out.println("1. 상품 조회");
-		System.out.println("2. 상품 추가");
-		System.out.println("3. 메인메뉴");
-		System.out.println("");
-	}
+		System.out.println(" ================================================================================  ");
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━ 상품관리  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┃ 1.상품 조회                                                                                                                                             ┃\r\n" +
+				"┃ 2.상품 추가                                                                                                                                             ┃\r\n" + 
+				"┃ 3.홈                                                                                                                                                       ┃\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+		}
+		
 
 	public void adminprod2() {
-		System.out.println("카테로그 선택");
-		System.out.println("1. 푸드");
-		System.out.println("2. 운동용품");
-		System.out.println("3. 뒤로가기");
-		System.out.println("");
-	}
-
-	public int prodlist2(List<ProdVo> list) { // number 값 보내기
-
-		System.out.println("-------------------상품 정보---------------------");
-		System.out.println("NO\t상품번호\t제품명\t상세정보\t가격");
-		System.out.println("----------------------------------------------");
-		int number = 1;
-		for (ProdVo food : list) {
-			String no = (String) food.getProd_no();
-			String name = (String) food.getProd_nm();
-			String content = (String) food.getProd_content();
-			int price = (int) food.getProd_price();
-			System.out.println(number + "\t" + no + "\t" + name + "\t" + content + "\t" + price);
-			number++;
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 1.음식                                                                                                                                                    ┃\r\n" +
+				"┃ 2.운동용품                                                                                                                                              ┃\r\n" + 
+				"┃ 3.뒤로가기                                                                                                                                              ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
 		}
-		System.out.println("----------------------------------------------");
-		System.out.println("");
-		return number;
+
+	public void adminprodsupplyprint() {
+	System.out.print("　 "
+			+ "\r\n" + 
+			"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+			"┃ 1.상품 수정하기                                                                                                                                       ┃\r\n" +
+			"┃ 2.상품 삭제하기                                                                                                                                       ┃\r\n" + 
+			"┃ 3.뒤로가기                                                                                                                                              ┃\r\n" + 
+			"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
 	}
-
+	
+	public void produpdateprint() { 
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━ 상품수정  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┃ 1.상품 전체정보 수정                                                                                                                                ┃\r\n" +
+				"┃ 2.상품 이름 수정                                                                                                                                      ┃\r\n" + 
+				"┃ 3.상품 내용 수정                                                                                                                                      ┃\r\n" + 
+				"┃ 4.상품 가격 수정                                                                                                                                      ┃\r\n" + 
+				"┃ 5.뒤로가기                                                                                                                                              ┃\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	
+	public void produpdateprint2() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 상품 수정이 완료되었습니다                                                                                                                        ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	
+	public void adminboard() {
+		System.out.println(" ================================================================================  ");
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━ 게시판 관리  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┃ 1.공지사항 관리                                                                                                                                       ┃\r\n" +
+				"┃ 2.피드백 관리                                                                                                                                          ┃\r\n" + 
+				"┃ 3.홈                                                                                                                                                       ┃\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+		}
+		
+	public void noticecomplete() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 공지사항 입력이 완료되었습니다.                                                        ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	public void noticeupdatecomplete() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 공지사항 수정이 완료되었습니다.                                                        ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	public void noticedeletecomplete() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 공지사항 삭제가 완료되었습니다.                                                        ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	
+	public void feedcheckprint() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 1.피드백 확인하기                                                                                                                                    ┃\r\n" +
+				"┃ 2.뒤로가기                                                                                                                                              ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+		}
+	
+	public void feedcheckcomplete() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 해당 피드백이 완료처리 되었습니다.                                                      ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	
 	public void empList(List<EmpVo> list) {
-
-		System.out.println("----------------------------------직원 정보-----------------------------------------");
-		System.out.println("NO\t이름\t전화번호\t\t담당업무\t입사일\t\t급여\t평가\t경력");
-		System.out.println("---------------------------------------------------------------------------------");
-
+		System.out.println(" ================================= 직원 정보  ====================================== ");
+		System.out.println("  NO\t이름\t전화번호\t\t담당업무\t입사일\t\t급여\t평가\t경력");
+		System.out.println(" ================================================================================  ");
 		for (EmpVo vo : list) {
 			String no = (String) vo.getEmployee_no();
 			String name = (String) vo.getEmp_name();
@@ -562,47 +701,104 @@ public class Print {
 			String eva = (String) vo.getEmp_eva();
 			String career = (String) vo.getCareer();
 			
-			System.out.println(no + "\t" + name + "\t" + tel + "\t" + lgu + "\t" + hire + "\t" + salary + "\t" + eva
+			System.out.println("  "+no + "\t" + name + "\t" + tel + "\t" + lgu + "\t" + hire + "\t" + salary + "\t" + eva
 					+ "\t" + career);
 		}
-		System.out.println("---------------------------------------------------------------------------------");
-		System.out.println("");
+		System.out.println(" ================================================================================  ");
 	}
-
-	public void adminboard() {
-		System.out.println("1. 공지사항");
-		System.out.println("2. 피드백게시판");
-		System.out.println("3. 뒤로가기");
-		System.out.println("");
+	
+	public void empmenuprint() { //회원 메뉴
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 1.직원정보 수정하기                                                                                                                                 ┃\r\n" +
+				"┃ 2.직원정보 삭제하기                                                                                                                                 ┃\r\n" + 
+				"┃ 3.뒤로가기                                                                                                                                              ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
 	}
-
 	
+	public void empupdateprint() { 
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━ 직원정보수정  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┃ 1.직원 정보 전체수정                                                                                                                                ┃\r\n" +
+				"┃ 2.연락처 수정                                                                                                                                          ┃\r\n" + 
+				"┃ 3.담당업무 수정                                                                                                                                       ┃\r\n" + 
+				"┃ 4.평가정보 수정                                                                                                                                       ┃\r\n" + 
+				"┃ 5.뒤로가기                                                                                                                                              ┃\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
 	
+	public void updatecompleteprint() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 정보 수정이 완료되었습니다                                                                                                                        ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
 	
+	public void ticketmenuprint() { 
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 1.이용권 추가하기                                                                                                                                    ┃\r\n" +
+				"┃ 2.이용권 내용 수정하기                                                                                                                             ┃\r\n" + 
+				"┃ 3.이용권 삭제하기                                                                                                                                    ┃\r\n" + 
+				"┃ 4.뒤로가기                                                                                                                                              ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	public void tktwritecomplete() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 이용권 등록이 완료되었습니다                                                                                                                     ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
 	
-	public void tlist2(List<Tkt_buyVo> list) {
-
-	      System.out.println("NO\t총금액\t구매날짜");
-
-	      for (Tkt_buyVo vo : list) {
-	         String no = (String) vo.getTktbuy_no();
-	         int price = (int) vo.getTkt_pay();
-	         String date = (String) vo.getTktbuy_date();
-
-	         System.out.println(no + "\t" + price + "\t" + date);
-	      }
-	      System.out.println("----------------------------------------------");
-	      System.out.println("");
-	   }
+	public void tktupdateprint() { 
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━ 이용권 정보수정  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┃ 1.이용권 정보 전체                                                                                                                                   ┃\r\n" +
+				"┃ 2.이용권 이름                                                                                                                                          ┃\r\n" + 
+				"┃ 3.이용권 종류                                                                                                                                          ┃\r\n" + 
+				"┃ 4.이용권 가격                                                                                                                                          ┃\r\n" + 
+				"┃ 5.이용권 기간                                                                                                                                          ┃\r\n" + 
+				"┃ 6.뒤로가기                                                                                                                                              ┃\r\n" + 
+				"┃                                                                                ┃\r\n" +
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
+	public void tktupdatecomplete() {
+		System.out.print("　 "
+				+ "\r\n" + 
+				"┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + 
+				"┃ 이용권 정보 수정이 완료되었습니다                                                                                                              ┃\r\n" + 
+				"┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n" );
+	}
 	
-	// 성경수정, 티켓은 수정이 필요없다!!!
-		public void tktcartListPrint() {
-			System.out.println("1. 구입");
-			System.out.println("2. 장바구니 삭제");
-			System.out.println("3. 돌아가기");
-		}
-		
-		
-		
+	public void tktGetList1(List<Map<String, Object>> list) { //장바구니 내역
+        
+        System.out.println(" ================================= 이용권 보유 현황  ================================= ");
+        System.out.println(" 상품코드\t\t상품명\t\t시작일\t\t종료일\t\t남은일수");
+        System.out.println(" ================================================================================  ");      
+        SimpleDateFormat start = new SimpleDateFormat("yy/MM/dd");
+        for (Map<String, Object> map  : list) {
+           String              users_no = (String)map.get("USERS_NO");
+           String              tktbuy_no = (String)map.get("TKTBUY_NO");
+           String              tkt_name = (String)map.get("TKT_NAME");
+           Date              tkt_start = (Date)map.get("TKT_START");
+           String ss = start.format(tkt_start);
+           Date               tkt_end = (Date)map.get("TKT_END");
+           String ee = start.format(tkt_end);
+           BigDecimal               days = (BigDecimal)map.get("ROUND(B.TKT_END-SYSDATE)");
+           String dd = start.format(days);
+           System.out.println(tktbuy_no+"\t"+tkt_name+"\t"+ss+"\t"+ee+"\t"+days);
+        }
+        System.out.println(" ================================================================================  ");      
+     }
+	
 		
 }

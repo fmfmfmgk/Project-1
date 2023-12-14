@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.HealthDao;
 import vo.EmpVo;
@@ -36,4 +37,8 @@ public class HealthService {
 	public List<EmpVo> ptnameList(String sel) {
 		return dao.ptnameList(sel);
 	}
+
+	public List<Map<String, Object>> tktGetList(String id) {
+	    return dao.tktGetList(id);
+	 }
 }

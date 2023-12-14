@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import util.JDBCUtil;
 import vo.EmpVo;
@@ -58,5 +59,22 @@ public class HealthDao {
 		            "      WHERE EMP_NAME LIKE '%"+sel+"%'";
 		      return jdbc.selectList(sql, EmpVo.class);
 	}
+
+	public List<Map<String, Object>> tktGetList(String id) {
+	      String sql = "SELECT A.USERS_NO,\r\n" + 
+	            "           A.TKTBUY_NO,\r\n" + 
+	            "           C.TKT_NAME,\r\n" + 
+	            "           TKT_START,\r\n" + 
+	            "           TKT_END,\r\n" + 
+	            "           ROUND(B.TKT_END-SYSDATE) \r\n" + 
+	            "      FROM TKT_BUY A, TKT_DETAIL B, TICKET C\r\n" + 
+	            "     WHERE A.USERS_NO = '"+id+"'" +
+	            "       AND A.TKTBUY_NO=B.TKTBUY_NO\r\n" + 
+	            "       AND B.TICKET_NO=C.TICKET_NO\r\n" + 
+	            "       AND SYSDATE < B.TKT_END\r\n" + 
+	            "       AND SYSDATE > B.TKT_START";
+	      return jdbc.selectList(sql);
+		      
+		   }
+	}
 	
-}

@@ -56,7 +56,7 @@ public enum View {
 	PT_SEARCH,
 	YOGA_BUY,
 	HEALTH_BUY,
-	
+	TKTGETLIST,
 	
 	
 	//게시판

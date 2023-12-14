@@ -79,7 +79,9 @@ public class MainController extends Print{
 			case FEEDBACK_DELETE:
 				view = feedDelete();
 				break;
-				
+			case TKTGETLIST:
+				view = tktGetList();
+				break;	
 				
 			case PT_MENU:
 				view = ptMenu();
@@ -311,20 +313,16 @@ public class MainController extends Print{
 
 		//날짜 입력받기
 		Calendar cal = Calendar.getInstance();
-		System.out.println("이용권 시작날짜를 순서대로 입력해주세요.");
-		int year = ScanUtil.nextInt("연도를 입력해주세요 : ");
-		int month = ScanUtil.nextInt("월을 입력해주세요 : ")-1;
-		int date = ScanUtil.nextInt("일을 입력해주세요 : ");
+		tktalarm();
+		int year = ScanUtil.nextInt("연도를 입력해주세요 :");
+		int month = ScanUtil.nextInt("월을 입력해주세요 :")-1;
+		int date = ScanUtil.nextInt("일을 입력해주세요 :");
 
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.MONTH, month);
 		cal.set(Calendar.DATE, date);
-
 		Date startdate = cal.getTime();
-		System.out.println(startdate);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(sdf.format(startdate));
-
 		list.add(cart_no);
 		list.add(code);
 		list.add(sdf.format(startdate));
@@ -349,27 +347,40 @@ public class MainController extends Print{
 	}
 
 	private View tktcartBuyList() { //성경수정4 : 완료
-		System.out.println("------이용권 구매내역 리스트-------");
-
-
 		MemberVo id = (MemberVo)sessionStorage.get("login");
 		String u_id = id.getUsers_no();
 		List<Tkt_buyVo> list = prodService.tktcartBuyList(u_id);
 		tlist2(list);
-		System.out.println("1.돌아가기");
+		back();
 		int sel = ScanUtil.nextInt("메뉴선택: ");
 		switch (sel) {
 			case 1:
-				return View.TICKET;
+				return View.USER_MENU;
 			default:
-				return View.TICKET;
+				return View.USER_MENU;
 		}
 	}
-
+	
+	private View tktGetList() {//이용권 보유 현황 (요한)
+	      MemberVo login = (MemberVo)sessionStorage.get("login");
+	      String id = login.getUsers_no();
+	      
+	      List<Map<String, Object>> list = healthService.tktGetList(id);
+	      tktGetList1(list);
+	      back();
+	      int sel = ScanUtil.nextInt("선택>>  ");
+	      switch (sel) {
+	      case 1:
+	         return View.USER_MENU;
+	      default:
+	         return View.USER_MENU;
+	      }
+	   }
+	
 	private View tktcartBuy() { //성경수정3 : 완료
 
 		System.out.println("");
-		String sel = ScanUtil.nextLine("구매하시겠습니까?(Y/N) :");
+		String sel = ScanUtil.nextLine("결제하시겠습니까?(Y/N) :");
 
 		if(sel.equalsIgnoreCase("y")) {
 
@@ -384,11 +395,12 @@ public class MainController extends Print{
 
 
 			//DB ORDERS 테이블에 데이터 저장완료
-			System.out.println("구입이 완료되었습니다.");
+			buycomplete();
 			sessionStorage.remove("tktsum");
 			return View.TKT_CART_BUY_LIST;
 
 		}else if(sel.equalsIgnoreCase("n")) {
+			buycancle();
 			return View.TICKET;
 		}
 		return View.TICKET;
@@ -423,13 +435,23 @@ public class MainController extends Print{
 			case 1:
 				return View.TKT_CART_BUY;
 			case 2:
-	            List<Object> para1 = new ArrayList();
-	            String no1 = ScanUtil.nextLine("삭제할 이용권 번호를 입력해주세요: ");
-	            para1.add(param); //티켓주문번호
-	            para1.add(no1); //티켓번호
+				tktcartupdate();
+				int sel2 = ScanUtil.nextInt("선택>>  ");
+				switch (sel2) {
+				case 1:
+					 List<Object> para1 = new ArrayList();
+			            String no1 = ScanUtil.nextLine("취소할 이용권 번호를 입력해주세요: ");
+			            para1.add(param); //티켓주문번호
+			            para1.add(no1); //티켓번호
 
-	            prodService.tktcartDelete(para1);//DB DETAIL테이블에서 해당 상품 내역 삭제
-	            return View.TKT_CART_LIST;
+			            prodService.tktcartDelete(para1);//DB DETAIL테이블에서 해당 상품 내역 삭제
+			            cartcancleprint();
+			            return View.TKT_CART_LIST;
+				case 2:
+					return View.TICKET;
+				default:
+					return View.TKT_CART_LIST;
+				}
 			case 3:
 				return View.TICKET;
 			default:
@@ -457,7 +479,7 @@ public class MainController extends Print{
 			return View.TKT_CART_BUY_LIST;
 		case 6:
 			warning();
-			String yn = ScanUtil.nextLine("되돌아가시겠습니까?(Y/N) :");
+			String yn = ScanUtil.nextLine("홈으로 이동하시겠습니까?(Y/N) :");
 
 			if(yn.equalsIgnoreCase("Y")) {
 				return View.USER_MENU;
@@ -485,15 +507,8 @@ public class MainController extends Print{
 		List<TicketVo> list = prodService.tktList();
 		tktlist(list);
 
-		String tktno = ScanUtil.nextLine("수정할 이용권번호를 입력하세요.");
-		System.out.println("-------------------이용권 수정---------------------");
-		System.out.println("수정할 정보를 선택하세요 :");
-		System.out.println("1. 전체정보");
-		System.out.println("2. 이용권이름");
-		System.out.println("3. 이용권종류");
-		System.out.println("4. 이용권가격");
-		System.out.println("5. 이용권기간");
-		System.out.println("----------------------------------------------");
+		String tktno = ScanUtil.nextLine("수정할 이용권 번호를 입력하세요 :");
+		tktupdateprint();
 		
 		int menu = ScanUtil.nextInt("선택>>  ");
 		List<Object> param = new ArrayList();
@@ -523,19 +538,19 @@ public class MainController extends Print{
 		}
 		param.add(tktno);
 		prodService.tktUpdate(param,menu);
-		
+		tktupdatecomplete();
 		return View.ADMIN_TICKET;
 	}
 
 	private View tktInsert() {
 		List<Object> param = new ArrayList();
 		
-		String no = ScanUtil.nextLine("상품번호 :");
-		String name = ScanUtil.nextLine("상품이름 :");
-		String lgu = ScanUtil.nextLine("상품종류:");
-		int price = ScanUtil.nextInt("상품가격 :");
-		String emp = ScanUtil.nextLine("담당직원 :");
-		int time = ScanUtil.nextInt("이용권기간 :");
+		String no = ScanUtil.nextLine("이용권 번호를 입력해주세요 :");
+		String name = ScanUtil.nextLine("이용권 이름을 입력해주세요 :");
+		String lgu = ScanUtil.nextLine("이용권 종류를 입력해주세요 :");
+		int price = ScanUtil.nextInt("이용권 가격을 입력해주세요 :");
+		String emp = ScanUtil.nextLine("이용권 담당직원을 입력해주세요 :");
+		int time = ScanUtil.nextInt("이용권 사용기간을 입력해주세요 :");
 		
 		param.add(no);
 		param.add(name);
@@ -544,7 +559,7 @@ public class MainController extends Print{
 		param.add(emp);
 		param.add(time);
 		
-		System.out.println("이용권 등록이 완료되었습니다");
+		tktwritecomplete();
 		prodService.tktInsert(param);
 		
 		return View.ADMIN_TICKET;
@@ -553,10 +568,7 @@ public class MainController extends Print{
 	private View adminTkt() {
 		List<TicketVo> list = prodService.tktList();
 		tktlist(list);
-		System.out.println("1.추가하기");
-		System.out.println("2.수정하기");
-		System.out.println("3.삭제하기");
-		System.out.println("4.뒤로가기");
+		ticketmenuprint();
 		int select = ScanUtil.nextInt("선택>>  ");
 		switch (select) {
 		case 1:
@@ -579,8 +591,7 @@ public class MainController extends Print{
 		String yn = ScanUtil.nextLine("해당 게시글을 확인완료 처리 하시겠습니까?(Y/N) :");
 		if (yn.equalsIgnoreCase("y")) {
 			boardService.feedbackChk(no);
-			System.out.println("해당 피드백이 완료처리 되었습니다.");
-			
+			feedcheckcomplete(); //완료프린트			
 		}else {
 			return View.ADMIN_BOARD;
 		}
@@ -590,8 +601,7 @@ public class MainController extends Print{
 	private View feedbackList() { //이용권 후에 다시 하기
 		List<FeedBackVo> list = boardService.FeedbackList();
 		feedbackList2(list); //피드백 확인필요 사항 출력
-		System.out.println("1. 피드백 확인");
-		System.out.println("2. 뒤로가기");
+		feedcheckprint();//피드백체크 프린트
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
@@ -604,57 +614,43 @@ public class MainController extends Print{
 	}
 	
 	private View noticeDelete() {
-		int no = ScanUtil.nextInt("삭제할 게시글 번호 선택 : ");
+		int no = ScanUtil.nextInt("삭제할 공지사항 번호를 선택해주세요 :");
 		boardService.noticeDelete(no);
-		
-		System.out.println("게시글 삭제가 완료되었습니다.");
+		noticedeletecomplete();
 		return View.NOTICE;
 	}
 
 	private View noticeUpdate() {
 		List<NoticeVo> list = memService.noticeList();
 		noticeList1(list);
-		int no = ScanUtil.nextInt("수정할 공지사항 번호 선택 : ");
+		int no = ScanUtil.nextInt("수정할 공지사항 번호를 선택해주세요 :");
 		List<Object> param = new ArrayList();
-		
 		String title = ScanUtil.nextLine("제목 : ");
 		String content = ScanUtil.nextLine("내용 : ");
-		
 		param.add(title);
 		param.add(content);
-		
 		boardService.noticeUpdate(param, no);
-		System.out.println("공지사항 수정이 완료되었습니다.");
-		System.out.println(" ");
-		
+		noticeupdatecomplete();
 		return View.NOTICE;
 	}
 
 	private View noticeInsert() {
 		  AdminVo login = (AdminVo)sessionStorage.get("adminLogin");
 	      String id = login.getAdmin_no();
-	      
 	      List<Object> param = new ArrayList();
-	      String name = ScanUtil.nextLine("제목입력 : ");
-	      String content = ScanUtil.nextLine("내용입력 : ");
-	      
+	      String name = ScanUtil.nextLine("공지사항 제목을 입력해주세요 :");
+	      String content = ScanUtil.nextLine("공지사항 내용을 입력해주세요 :");
 	      param.add(name);
 	      param.add(content);
-	      
+	      noticecomplete();
 	      boardService.noticeInsert(param,id);
-	      System.out.println("공지사항 입력이 완료되었습니다.");
-	      
 	      return View.NOTICE;
 	}
 
 	private View noticeList() {
 		List<NoticeVo> list = memService.noticeList();
 		noticeList1(list);
-		
-		System.out.println("1. 공지사항 작성");
-		System.out.println("2. 공지사항 수정");
-		System.out.println("3. 공지사항 삭제");
-		System.out.println("4. 뒤로가기");
+		feedbacksel();
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
@@ -689,12 +685,11 @@ public class MainController extends Print{
 		List<EmpVo> list = adService.empList();
 		empList(list);
 		
-		String select = ScanUtil.nextLine("삭제할 직원 번호를 입력하세요.");
+		String select = ScanUtil.nextLine("삭제할 직원 번호를 입력하세요 :");
 		List<Object> param = new ArrayList();
 		param.add(select);
 		adService.empDelete(param);
-		System.out.println(param+" 직원이 되었습니다.");
-	
+		System.out.println(param+" 직원이 삭제되었습니다.");
 		return View.EMP_LIST;
 	}
 	
@@ -702,15 +697,8 @@ public class MainController extends Print{
 		List<EmpVo> list = adService.empList();
 		empList(list);
 
-		String empno = ScanUtil.nextLine("수정할 직원 번호를 입력하세요.");
-		System.out.println("-------------------상품 수정---------------------");
-		System.out.println("수정할 정보를 선택하세요 :");
-		System.out.println("1. 전체정보");
-		System.out.println("2. 연락처");
-		System.out.println("3. 담당업무");
-		System.out.println("4. 평가");
-		System.out.println("5. 뒤로가기");
-		System.out.println("----------------------------------------------");
+		String empno = ScanUtil.nextLine("수정할 직원 번호를 입력하세요 :");
+		empupdateprint();
 		
 		int menu = ScanUtil.nextInt("선택>>  ");
 		List<Object> param = new ArrayList();
@@ -719,15 +707,15 @@ public class MainController extends Print{
 		String emp_eva;
 		
 		if(menu ==1 || menu ==2) {
-			emp_tel = ScanUtil.nextLine("연락처 : ");
+			emp_tel = ScanUtil.nextLine("새로운 연락처를 입력해주세요 :");
 			param.add(emp_tel);
 		}
 		if(menu ==1 || menu ==3) {
-			emp_lgu = ScanUtil.nextLine("담당업무 : ");
+			emp_lgu = ScanUtil.nextLine("새로운 담당업무를 입력해주세요 :");
 			param.add(emp_lgu);
 		}
 		if(menu ==1 || menu ==4) {
-			emp_eva = ScanUtil.nextLine("평가 : ");
+			emp_eva = ScanUtil.nextLine("새로운 평가정보를 입력해주세요 :");
 			param.add(emp_eva);
 		}
 		if(menu ==5) {
@@ -735,7 +723,7 @@ public class MainController extends Print{
 		}
 		param.add(empno);
 		adService.empUpdate(param,menu);
-		
+		updatecompleteprint();
 		return View.EMP_LIST;
 	}
 	
@@ -743,28 +731,26 @@ public class MainController extends Print{
 		List<EmpVo> list = adService.empList();
 		
 		empList(list);
-		System.out.println("1.뒤로가기");
-		System.out.println("2.수정하기");
-		System.out.println("3.삭제하기");
+		empmenuprint();
 		int select = ScanUtil.nextInt("선택>>  ");
 		switch (select) {
 		case 1:
-			return View.ADMIN_MENU;
-		case 2:
 			return View.EMP_UPDATE;
-		case 3:
+		case 2:
 			return View.EMP_DELETE;
+		case 3:
+			return View.ADMIN_MENU;
 		default:
 			return View.HOME;
 		}
 	}
 
 	private View supplyDelete() {
-		String select = ScanUtil.nextLine("삭제할 상품(운동용품) 번호를 입력하세요.");
+		String select = ScanUtil.nextLine("삭제할 상품 코드를 입력하세요 :");
 		List<Object> param = new ArrayList();
 		param.add(select);
 		prodService.supplyDelete(param);
-		System.out.println(param+"번 상품(운동용품)이 폐기되었습니다.");
+		System.out.println(param+"번 상품이 삭제되었습니다.");
 		return View.ADMIN_PROD_SUPPLY;
 	}
 	
@@ -772,16 +758,8 @@ public class MainController extends Print{
 		String param = "P201";
 		List<ProdVo> list = prodService.prodList(param);
 		
-		String prodno = ScanUtil.nextLine("수정할 상품(운동용품) 번호를 입력하세요.");
-		System.out.println("-------------------상품 수정---------------------");
-		System.out.println("수정할 정보를 선택하세요 :");
-		System.out.println("1. 상품(운동용품)전체정보");
-		System.out.println("2. 상품(운동용품)이름");
-		System.out.println("3. 상품(운동용품)내용");
-		System.out.println("4. 상품(운동용품)가격");
-		System.out.println("5. 뒤로가기");
-		System.out.println("----------------------------------------------");
-		
+		String prodno = ScanUtil.nextLine("수정할 상품 코드를 입력하세요 :");
+		produpdateprint();
 		int menu = ScanUtil.nextInt("선택>>  ");
 		List<Object> param2 = new ArrayList();
 		String name;
@@ -789,15 +767,15 @@ public class MainController extends Print{
 		int price;
 		
 		if(menu ==1 || menu ==2) {
-			name = ScanUtil.nextLine("상품(운동용품)이름 : ");
+			name = ScanUtil.nextLine("새로운 상품 이름을 입력하세요: ");
 			param2.add(name);
 		}
 		if(menu ==1 || menu ==3) {
-			content = ScanUtil.nextLine("상품(운동용품)내용 : ");
+			content = ScanUtil.nextLine("새로운 상품 내용을 입력하세요: ");
 			param2.add(content);
 		}
 		if(menu ==1 || menu ==4) {
-			price = ScanUtil.nextInt("상품(운동용품)가격 : ");
+			price = ScanUtil.nextInt("새로운 상품 가격을 입력하세요: ");
 			param2.add(price);
 		}
 		if(menu ==5) {
@@ -805,20 +783,15 @@ public class MainController extends Print{
 		}
 		param2.add(prodno);
 		prodService.prodUpdate(param2,menu);
-		
+		produpdateprint2();
 		return View.ADMIN_PROD_SUPPLY;
 	}
 	
 	private View adminProdSupply() {
-		System.out.println("[운동용품 리스트 출력]");
-
 		String param = "P201";
 		List<ProdVo> list = prodService.prodList(param);
 		prodlist(list);
-		System.out.println("1. 수정하기");
-		System.out.println("2. 삭제하기");
-		System.out.println("3. 뒤로가기");
-		
+		adminprodsupplyprint();
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
@@ -833,11 +806,11 @@ public class MainController extends Print{
 	}
 	
 	private View foodDelete() {
-		String select = ScanUtil.nextLine("삭제할 상품(음식) 번호를 입력하세요.");
+		String select = ScanUtil.nextLine("삭제할 상품 코드를 입력하세요 :");
 		List<Object> param = new ArrayList();
 		param.add(select);
 		prodService.foodDelete(param);
-		System.out.println(param+"번 상품(음식)이 폐기되었습니다.");
+		System.out.println(param+"번 상품이 삭제되었습니다.");
 		return View.ADMIN_PROD_FOOD;
 	}
 
@@ -846,24 +819,8 @@ public class MainController extends Print{
 		String param = "P101";
 		List<ProdVo> list = prodService.prodList(param);
 
-//		번호로 선택하는거 만들다가 중단
-//		int select = ScanUtil.nextInt("수정할 상품 번호를 입력하세요.");
-//		int i=1;           
-//		for(ProdVo prod : list) {
-//			System.out.println(i++);
-//			System.out.println(prod);
-//		}
-//		
-		String prodno = ScanUtil.nextLine("수정할 상품 번호를 입력하세요.");
-		System.out.println("-------------------상품 수정---------------------");
-		System.out.println("수정할 정보를 선택하세요 :");
-		System.out.println("1. 상품(음식)전체정보");
-		System.out.println("2. 상품(음식)이름");
-		System.out.println("3. 상품(음식)내용");
-		System.out.println("4. 상품(음식)가격");
-		System.out.println("5. 뒤로가기");
-		System.out.println("----------------------------------------------");
-		
+		String prodno = ScanUtil.nextLine("수정할 상품 코드를 입력하세요 :");
+		produpdateprint();
 		int menu = ScanUtil.nextInt("선택>>  ");
 		List<Object> param2 = new ArrayList();
 		String name;
@@ -871,15 +828,15 @@ public class MainController extends Print{
 		int price;
 		
 		if(menu ==1 || menu ==2) {
-			name = ScanUtil.nextLine("상품이름 : ");
+			name = ScanUtil.nextLine("새로운 상품 이름을 입력하세요: ");
 			param2.add(name);
 		}
 		if(menu ==1 || menu ==3) {
-			content = ScanUtil.nextLine("상품내용 : ");
+			content = ScanUtil.nextLine("새로운 상품 내용을 입력하세요: ");
 			param2.add(content);
 		}
 		if(menu ==1 || menu ==4) {
-			price = ScanUtil.nextInt("상품가격 : ");
+			price = ScanUtil.nextInt("새로운 상품 가격을 입력하세요: ");
 			param2.add(price);
 		}
 		if(menu ==5) {
@@ -887,18 +844,15 @@ public class MainController extends Print{
 		}
 		param2.add(prodno);
 		prodService.prodUpdate(param2,menu);
-		
+		produpdateprint2();
 		return View.ADMIN_PROD_FOOD;
 	}
 
 	private View adminProdFood() {
-		System.out.println("[음식 리스트 출력]");
 		String param = "P101";
 		List<ProdVo> list = prodService.prodList(param);
 		prodlist(list);
-		System.out.println("1. 수정하기");
-		System.out.println("2. 삭제하기");
-		System.out.println("3. 뒤로가기");
+		adminprodsupplyprint();
 		
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
@@ -915,10 +869,10 @@ public class MainController extends Print{
 	
 	private View prodInsert() {
 		List<Object> param = new ArrayList();
-		String prodNo = ScanUtil.nextLine("상품종류:");
-		String prodnm = ScanUtil.nextLine("상품이름 :");
-		String prodcon = ScanUtil.nextLine("상품내용 :");
-		int prodprice = ScanUtil.nextInt("상품가격 :");
+		String prodNo = ScanUtil.nextLine("상품 종류를 입력해주세요:");
+		String prodnm = ScanUtil.nextLine("상품 이름을 입력해주세요 :");
+		String prodcon = ScanUtil.nextLine("상품 내용을 입력해주세요 :");
+		int prodprice = ScanUtil.nextInt("상품 가격을 입력해주세요 :");
 		
 		param.add(prodNo);
 		param.add(prodNo);
@@ -940,15 +894,13 @@ public class MainController extends Print{
 		case 2:
 			return View.ADMIN_PROD_SUPPLY;
 		case 3:
-			return View.ADMIN_MENU;
+			return View.ADMIN_PROD;
 		default:
 			return View.ADMIN_PROD;	
 		}
 	}
 
 	private View adminProd() {
-		System.out.println("----상품관리----");
-		
 		adminprod();
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
@@ -964,8 +916,6 @@ public class MainController extends Print{
 	}
 
 	private View adminUser() {
-		System.out.println("----회원관리----");
-		
 		adminuser();
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
@@ -1005,23 +955,23 @@ public class MainController extends Print{
 	
 	}
 	
+	// 관리자
 	private View userDelete() {
 		List<MemberVo> list = memService.userList2();
 		userList(list);
 		
-		String select = ScanUtil.nextLine("삭제할 회원 번호 입력 : ");
+		String select = ScanUtil.nextLine("삭제할 회원 번호를 입력해주세요 :");
 		List<Object> param = new ArrayList();
 		param.add(select);
 		adService.userDelete(param);
-		System.out.println("회원 삭제가 완료되었습니다.");
+		userdeleteprint();
 		return View.USER_LIST;
 	}
-	// 관리자
+	
 	private View userList() {
 		List<MemberVo> list = memService.userList2();
 		userList(list);
-
-		System.out.println("1.뒤로가기");
+		back();
 		int select = ScanUtil.nextInt("선택>>  ");
 		switch (select) {
 		case 1:
@@ -1097,17 +1047,13 @@ public class MainController extends Print{
 	}
 	
 	private View ptnameList() {
-		String name = ScanUtil.nextLine("이름입력 : ");
+		String name = ScanUtil.nextLine("트레이너 이름을 입력하세요 :");
 	      List<EmpVo> list = healthService.ptnameList(name);
 	      ptList(list);
 
-	    String empno = ScanUtil.nextLine("트레이너 번호 입력 : ");
+	    String empno = ScanUtil.nextLine("트레이너 번호를 입력하세요 :");
 		MainController.sessionStorage.put("empno", empno);
-
-
-
-		System.out.println("1.해당이용권 구입");
-		System.out.println("2.뒤로가기");
+		ptselect2();
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
@@ -1141,13 +1087,9 @@ public class MainController extends Print{
 	}
 	
 	private View healthList() {
-		
-		System.out.println("이용권 출력");
 		List<TicketVo> list = healthService.hList();
 		tktlist(list);
-
-		System.out.println("1.이용권 구입");
-		System.out.println("2.뒤로가기");
+		ptbuy();
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
@@ -1233,7 +1175,7 @@ public class MainController extends Print{
 		int sel = ScanUtil.nextInt("선택>> ");
 		switch (sel) {
 			case 1:
-				return View.PROD;
+				return View.USER_MENU;
 			default:
 				return View.PROD;
 		}
@@ -1285,8 +1227,6 @@ public class MainController extends Print{
 	}
 	
 	private View prodSuppies() {
-		System.out.println("[운동용품 리스트 출력]");
-		
 		String param = "P201";
 		List<ProdVo> list = prodService.prodList(param);
 		prodlist(list);
@@ -1370,7 +1310,7 @@ public class MainController extends Print{
 			return View.CART_BUY_LIST;
 		case 5:
 			warning();
-			String yn = ScanUtil.nextLine("되돌아가시겠습니까? (Y/N):");
+			String yn = ScanUtil.nextLine("홈으로 이동하시겠습니까?(Y/N) :");
 			 
 			if(yn.equalsIgnoreCase("Y")) {
 				return View.USER_MENU;
@@ -1386,18 +1326,12 @@ public class MainController extends Print{
 	}
 	
 	private View feedback() {
-		System.out.println("---피드백 게시판---");
-		
 		//로그인 정보에서 id불러와서 동일 아이디가 작성한 피드백만 불러오기
 		MemberVo login = (MemberVo)MainController.sessionStorage.get("login");
 		String id = (String) login.getUsers_id();
 		List<FeedBackVo> list = memService.feedbackList(id);
-		
 		feedbackList1(list);
-		System.out.println("1. 게시판 작성");
-		System.out.println("2. 게시판 수정");
-		System.out.println("3. 게시판 삭제");
-		System.out.println("4. 돌아가기");
+		feedbacksel();
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
@@ -1418,49 +1352,40 @@ public class MainController extends Print{
 		String id = login.getUsers_no();
 		
 		List<Object> param = new ArrayList();
-		String name = ScanUtil.nextLine("제목입력 : ");
-		String content = ScanUtil.nextLine("내용입력 : ");
+		String name = ScanUtil.nextLine("제목을 입력해주세요 :");
+		String content = ScanUtil.nextLine("내용을 입력해주세요 :");
 		
 		param.add(name);
 		param.add(content);
 		
 		memService.feedInsert(param, id);
+		feedcomplete();
 		
 		return View.FEEDBACK;
 	}
 	
 	private View feedUpdate() {
-		int no = ScanUtil.nextInt("수정할 게시글 번호 선택 : ");
-		
+		int no = ScanUtil.nextInt("수정할 게시글 번호를 입력해주세요 :");
 		List<Object> param = new ArrayList();
-		
-		
-		String name = ScanUtil.nextLine("제목 : ");
-		String content = ScanUtil.nextLine("내용 : ");
-		
+		String name = ScanUtil.nextLine("제목을 입력해주세요 :");
+		String content = ScanUtil.nextLine("내용을 입력해주세요 :");
 		param.add(name);
 		param.add(content);
-		
 		memService.feedUpdate(param, no);
-		System.out.println("게시글 수정이 완료되었습니다.");
-		System.out.println(" ");
-		
+		feedcomplete2();
 		return View.FEEDBACK;
 	}
 	
 	private View feedDelete() {
 		
-		int no = ScanUtil.nextInt("삭제할 게시글 번호 선택 : ");
-		
+		int no = ScanUtil.nextInt("삭제할 게시글 번호를 입력해주세요 :");
 		memService.feedDelete(no);
-		
-		System.out.println("게시글 삭제가 완료되었습니다.");
+		feedcomplete3();
 		return View.FEEDBACK;
 	}
 	
 	private View userMenu() {
-		List<NoticeVo> list = memService.noticeList();
-		noticeList1(list);
+	
 		userMenu1();
 		int sel = ScanUtil.nextInt("선택>> ");
 		switch (sel) {
@@ -1473,11 +1398,14 @@ public class MainController extends Print{
 		case 4:
 			return View.FEEDBACK;
 		case 5:
+			return View.TKTGETLIST;
+		case 6:
 			String yn = ScanUtil.nextLine("로그아웃하시겠습니까?(Y/N) :");
 			if(yn.equalsIgnoreCase("Y")) {
 				sessionStorage.remove("login");
 				sessionStorage.remove("cart");
 				sessionStorage.remove("sum");
+				logoutprint();
 				return View.HOME;
 			}else if(yn.equalsIgnoreCase("N")) {
 				return View.USER_MENU;
@@ -1498,11 +1426,11 @@ public class MainController extends Print{
 		
 		List<Object> param = new ArrayList();
 		
-		int sel = ScanUtil.nextInt("번호입력: ");
+		int sel = ScanUtil.nextInt("선택>> ");
 		switch (sel) {
 		case 1:
 			while (true) {
-			    String nic = ScanUtil.nextLine("변경할 닉네임 입력 : ");
+			    String nic = ScanUtil.nextLine("변경할 닉네임을 입력해주세요 :");
 			    if (!Pattern.matches("^[a-zA-Z0-9가-힣]{2,10}$", nic)) {
 			        System.out.println("닉네임 형식이 잘못되었습니다. 다시 입력해주세요.");
 			        continue;
@@ -1526,7 +1454,7 @@ public class MainController extends Print{
 			return View.USER_UPDATE;
 		case 2:
 			while (true) {
-			    String tel = ScanUtil.nextLine("변경할 전화번호 입력 : ");
+			    String tel = ScanUtil.nextLine("변경할 전화번호 입력해주세요 :");
 			    if (!Pattern.matches("^01[0|1|6|7|8|9]-[0-9]{4}-[0-9]{4}$", tel)) {
 			        System.out.println("전화번호 형식이 잘못되었습니다. 다시 입력해주세요.");
 			        continue;
@@ -1549,7 +1477,7 @@ public class MainController extends Print{
 			memService.userUpdate(param, sel);
 			return View.USER_UPDATE;
 		case 3:
-			String pass = ScanUtil.nextLine("변경할 비밀번호 입력: ");
+			String pass = ScanUtil.nextLine("변경할 비밀번호 입력해주세요 :");
 			param.add(pass);
 			param.add(id);
 			memService.userUpdate(param, sel);
@@ -1562,9 +1490,7 @@ public class MainController extends Print{
 	}
 	
 	private View adminLogin() {
-
-		
-		System.out.println("-----------관리자로그인-----------");
+		System.out.println("=================================== 관리자 로그인 ====================================\r\n");
 		String id =ScanUtil.nextLine("ID>>");
 		String pass =ScanUtil.nextLine("PASS>>");
 		
@@ -1590,21 +1516,20 @@ public class MainController extends Print{
 				return View.LOGIN;
 			}
 		}
+		treeprint();
 		AdminVo admin = (AdminVo)sessionStorage.get("adminLogin");
-		System.out.println("*"+admin.getAdmin_nm()+"*관리자님 환영합니다.");
-		
+		System.out.println("*"+admin.getAdmin_nm()+"* 관리자님 환영합니다!");
+		printVar();
 		return View.ADMIN_MENU;
 	}
 
 	private View userLogin() { //회원 로그인
-		System.out.println("====================================== 로그인 ======================================\r\n");
+		System.out.println("===================================== 회원 로그인 ===================================\r\n");
 		String id   = ScanUtil.nextLine("아이디>> ");
 		String pass = ScanUtil.nextLine("패스워드>> ");
-		
 		List<Object> list = new ArrayList();
 		list.add(id);
 		list.add(pass);
-		
 		boolean login = memService.login(list);
 		if(!login) {
 			loginfail();
@@ -1621,10 +1546,11 @@ public class MainController extends Print{
 			}
 		}
 		MemberVo member = (MemberVo) sessionStorage.get("login");
-		
-		System.out.println("\r\n\r\n\r\n\r\n ━━━━━ "+member.getUsers_name()+"님 환영합니다."+" ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\r\n");
+		treeprint();
+		System.out.println("\t\t"+member.getUsers_name()+"님 환영합니다!"+" \r\n");
 		String no = member.getUsers_no();
-		
+		List<NoticeVo> list2 = memService.noticeList();
+		noticeList1(list2);
 		return View.USER_MENU;
 	}
 	
