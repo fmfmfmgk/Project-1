@@ -39,7 +39,6 @@ public class MainController extends Print{
 	
 	public static void main(String[] args) {
 		new MainController().start();
-		System.out.println("git master 바꾸는 과정");
 	}
 	
 	private void start() {
@@ -427,7 +426,7 @@ public class MainController extends Print{
 			System.out.println("총합계: " + sessionStorage.get("tktsum")+"원");
 			System.out.println("--------------------------------------------------------");
 			tktcartListPrint();
-			int sel = ScanUtil.nextInt("메뉴 선택 : ");
+			int sel = ScanUtil.nextInt("선택>>  ");
 			switch (sel) {
 			case 1:
 				return View.TKT_CART_BUY;
@@ -445,7 +444,7 @@ public class MainController extends Print{
 				return View.TKT_CART_LIST;
 			}
 		} else {
-			System.out.println("장바구니가 비었습니다.");
+			cartnoprint();
 		}
 		return View.TICKET;
 	}
@@ -454,7 +453,7 @@ public class MainController extends Print{
 		System.out.println("----이용권구매----");
 
 		ticket1();
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.PT_MENU;
@@ -506,7 +505,7 @@ public class MainController extends Print{
 		System.out.println("5. 이용권기간");
 		System.out.println("----------------------------------------------");
 		
-		int menu = ScanUtil.nextInt("메뉴 선택 : ");
+		int menu = ScanUtil.nextInt("선택>>  ");
 		List<Object> param = new ArrayList();
 		String name;
 		String lgu;
@@ -568,7 +567,7 @@ public class MainController extends Print{
 		System.out.println("2.수정하기");
 		System.out.println("3.삭제하기");
 		System.out.println("4.뒤로가기");
-		int select = ScanUtil.nextInt("메뉴 선택 : ");
+		int select = ScanUtil.nextInt("선택>>  ");
 		switch (select) {
 		case 1:
 			return View.TICKET_INSERT;
@@ -603,7 +602,7 @@ public class MainController extends Print{
 		feedbackList2(list); //피드백 확인필요 사항 출력
 		System.out.println("1. 피드백 확인");
 		System.out.println("2. 뒤로가기");
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.FEEDBACK_CHK;
@@ -666,7 +665,7 @@ public class MainController extends Print{
 		System.out.println("2. 공지사항 수정");
 		System.out.println("3. 공지사항 삭제");
 		System.out.println("4. 뒤로가기");
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.NOTICE_INSERT;
@@ -683,7 +682,7 @@ public class MainController extends Print{
 	
 	private View adminBoard() {
 		adminboard();
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.NOTICE;
@@ -723,7 +722,7 @@ public class MainController extends Print{
 		System.out.println("5. 뒤로가기");
 		System.out.println("----------------------------------------------");
 		
-		int menu = ScanUtil.nextInt("메뉴 선택 : ");
+		int menu = ScanUtil.nextInt("선택>>  ");
 		List<Object> param = new ArrayList();
 		String emp_tel;
 		String emp_lgu;
@@ -757,7 +756,7 @@ public class MainController extends Print{
 		System.out.println("1.뒤로가기");
 		System.out.println("2.수정하기");
 		System.out.println("3.삭제하기");
-		int select = ScanUtil.nextInt("메뉴 선택 : ");
+		int select = ScanUtil.nextInt("선택>>  ");
 		switch (select) {
 		case 1:
 			return View.ADMIN_MENU;
@@ -793,7 +792,7 @@ public class MainController extends Print{
 		System.out.println("5. 뒤로가기");
 		System.out.println("----------------------------------------------");
 		
-		int menu = ScanUtil.nextInt("메뉴 선택 : ");
+		int menu = ScanUtil.nextInt("선택>>  ");
 		List<Object> param2 = new ArrayList();
 		String name;
 		String content;
@@ -830,7 +829,7 @@ public class MainController extends Print{
 		System.out.println("2. 삭제하기");
 		System.out.println("3. 뒤로가기");
 		
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.SUPPLY_UPDATE;
@@ -875,7 +874,7 @@ public class MainController extends Print{
 		System.out.println("5. 뒤로가기");
 		System.out.println("----------------------------------------------");
 		
-		int menu = ScanUtil.nextInt("메뉴 선택 : ");
+		int menu = ScanUtil.nextInt("선택>>  ");
 		List<Object> param2 = new ArrayList();
 		String name;
 		String content;
@@ -911,7 +910,7 @@ public class MainController extends Print{
 		System.out.println("2. 삭제하기");
 		System.out.println("3. 뒤로가기");
 		
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.FOOD_UPDATE;
@@ -944,7 +943,7 @@ public class MainController extends Print{
 
 	private View adminProdList() {
 		adminprod2();
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.ADMIN_PROD_FOOD;
@@ -961,7 +960,7 @@ public class MainController extends Print{
 		System.out.println("----상품관리----");
 		
 		adminprod();
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.ADMIN_PRODLIST;
@@ -978,7 +977,7 @@ public class MainController extends Print{
 		System.out.println("----회원관리----");
 		
 		adminuser();
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.USER_LIST;
@@ -994,7 +993,7 @@ public class MainController extends Print{
 	private View adminMenu() {
 		
 		adminMenu1();
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.ADMIN_USER;
@@ -1033,7 +1032,7 @@ public class MainController extends Print{
 		userList(list);
 
 		System.out.println("1.뒤로가기");
-		int select = ScanUtil.nextInt("메뉴 선택 : ");
+		int select = ScanUtil.nextInt("선택>>  ");
 		switch (select) {
 		case 1:
 			return View.ADMIN_USER;
@@ -1049,7 +1048,7 @@ public class MainController extends Print{
 		System.out.println("2. 이름 검색");
 		System.out.println("3. 돌아가기");
 		
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.PT_LIST_ALL;
@@ -1100,7 +1099,7 @@ public class MainController extends Print{
 		MainController.sessionStorage.put("tktno", tktno);
 		System.out.println("1.해당이용권 구입");
 		System.out.println("2.뒤로가기");
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.PT_TICKET_CART;
@@ -1123,7 +1122,7 @@ public class MainController extends Print{
 
 		System.out.println("1.해당이용권 구입");
 		System.out.println("2.뒤로가기");
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.PT_LIST;
@@ -1148,7 +1147,7 @@ public class MainController extends Print{
 
 		System.out.println("1.이용권 구입");
 		System.out.println("2.뒤로가기");
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.TICKET_CART;
@@ -1167,7 +1166,7 @@ public class MainController extends Print{
 
 		System.out.println("1.이용권 구입");
 		System.out.println("2.뒤로가기");
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.TICKET_CART;
@@ -1188,7 +1187,7 @@ public class MainController extends Print{
 		}
 		System.out.println("1.상품 취소");
 		System.out.println("2.상품 수량 수정");
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			//상품 취소
@@ -1288,7 +1287,7 @@ public class MainController extends Print{
 			System.out.println("");
 		
 			cartListPrint();
-			int sel = ScanUtil.nextInt("메뉴 선택 : ");
+			int sel = ScanUtil.nextInt("선택>>  ");
 			switch (sel) {
 			case 1:
 				return View.CART_BUY;
@@ -1302,9 +1301,9 @@ public class MainController extends Print{
 				return View.CART_LIST;
 			}
 		}else {
-		System.out.println("장바구니가 비었습니다.");
+			cartnoprint();
+			return View.PROD;
 		}
-		return null;
 	}
 	
 	private View prodSuppies() {
@@ -1314,9 +1313,8 @@ public class MainController extends Print{
 		List<ProdVo> list = prodService.prodList(param);
 		prodlist(list);
 		
-		System.out.println("1.구입");
-		System.out.println("2.뒤로가기");
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		prodbuyprint();
+		int sel = ScanUtil.nextInt("선택>>  ");
 		System.out.println("");
 		switch (sel) {
 		case 1:
@@ -1333,9 +1331,8 @@ public class MainController extends Print{
 		List<ProdVo> food = prodService.prodList(param);
 		prodlist(food);
 		
-		System.out.println("1.메뉴 구입");
-		System.out.println("2.뒤로가기");
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		prodbuyprint();
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.PROD_CART;
@@ -1352,8 +1349,8 @@ public class MainController extends Print{
 		
 		List<Object> list = new ArrayList();
 		
-		String code = ScanUtil.nextLine("제품코드 입력 : ");
-		int qty = ScanUtil.nextInt("수량 입력 : ");
+		String code = ScanUtil.nextLine("상품코드를 입력해주세요 : ");
+		int qty = ScanUtil.nextInt("수량을 입력해주세요 : ");
 		String cart_no = cart.getOrder_no();
 		
 		list.add(cart_no);
@@ -1367,11 +1364,8 @@ public class MainController extends Print{
 		while(true) {
 			prodCart1();
 			
-			System.out.println("장바구니에 추가되었습니다.");
-			System.out.println(" ");
-			System.out.println("1.더 구매");
-			System.out.println("2.장바구니로");
-			int sel = ScanUtil.nextInt("메뉴선택: ");
+			cartinprint();
+			int sel = ScanUtil.nextInt("선택>>  ");
 			switch (sel) {
 				case 1:
 					return View.PROD;
@@ -1384,10 +1378,9 @@ public class MainController extends Print{
 	}
 	
 	private View prod() {
-		System.out.println("----상품구매----");
 		
 		prod1();
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.PROD_FOOD;
@@ -1427,7 +1420,7 @@ public class MainController extends Print{
 		System.out.println("2. 게시판 수정");
 		System.out.println("3. 게시판 삭제");
 		System.out.println("4. 돌아가기");
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
 		case 1:
 			return View.FEEDBACK_INSERT;
@@ -1496,7 +1489,7 @@ public class MainController extends Print{
 		
 		
 		userMenu1();
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>> ");
 		switch (sel) {
 		case 1:
 			return View.SESSION;
@@ -1612,7 +1605,7 @@ public class MainController extends Print{
 			System.out.println("1. 다시 로그인");
 			System.out.println("2. 회원 가입");
 			System.out.println("3. 홈");
-			int sel = ScanUtil.nextInt("메뉴 선택 : ");
+			int sel = ScanUtil.nextInt("선택>> ");
 			switch (sel) {
 			case 1:
 				return View.LOGIN;
@@ -1630,10 +1623,10 @@ public class MainController extends Print{
 		return View.ADMIN_MENU;
 	}
 
-	private View userLogin() {
-		System.out.println("-------로그인 --------");
-		String id   = ScanUtil.nextLine("ID>>");
-		String pass = ScanUtil.nextLine("PASS>>");
+	private View userLogin() { //회원 로그인
+		System.out.println("====================================== 로그인 ======================================\r\n");
+		String id   = ScanUtil.nextLine("아이디>> ");
+		String pass = ScanUtil.nextLine("패스워드>> ");
 		
 		List<Object> list = new ArrayList();
 		list.add(id);
@@ -1641,13 +1634,11 @@ public class MainController extends Print{
 		
 		boolean login = memService.login(list);
 		if(!login) {
-			System.out.println("1. 다시 로그인");
-			System.out.println("2. 회원 가입");
-			System.out.println("3. 홈");
-			int sel = ScanUtil.nextInt("메뉴 선택 : ");
+			loginfail();
+			int sel = ScanUtil.nextInt("선택>> ");
 			switch (sel) {
 			case 1:
-				return View.LOGIN;
+				return View.USER_LOGIN;
 			case 2:
 				return View.SIGNUP;
 			case 3:
@@ -1657,13 +1648,14 @@ public class MainController extends Print{
 			}
 		}
 		MemberVo member = (MemberVo) sessionStorage.get("login");
-		System.out.println(member.getUsers_name()+"님 환영합니다.");
+		
+		System.out.println("\r\n\r\n\r\n\r\n ━━━━━ "+member.getUsers_name()+"님 환영합니다."+" ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\r\n");
 		String no = member.getUsers_no();
 		
 		return View.USER_MENU;
 	}
 	
-	private View tktsession() {//성경 수정
+	private View tktsession() {//이용권 세션(이용권 주문번호 생성)
 		MemberVo mem = (MemberVo) sessionStorage.get("login");
 
 		//(티켓)주문번호 생성
@@ -1688,7 +1680,7 @@ public class MainController extends Print{
 		return View.TICKET;
 	}
 	
-	private View session() {
+	private View session() {//상품 세션(상품 주문번호 생성)
 		MemberVo mem = (MemberVo) sessionStorage.get("login");
 		
 		//(상품)주문번호 생성
@@ -1711,7 +1703,7 @@ public class MainController extends Print{
 	
 	private View home() {
 		printHome();
-		int sel = ScanUtil.nextInt("메뉴 선택 : ");
+		int sel = ScanUtil.nextInt("선택>> ");
 		switch (sel) {
 		case 1:
 			return View.USER_LOGIN;

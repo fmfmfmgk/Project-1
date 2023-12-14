@@ -123,14 +123,15 @@ public class MemberDao {
 		return jdbc.selectList(sql, MemberVo.class);
 	}
 
-	public List<NoticeVo> noticeList() {
+	public List<NoticeVo> noticeList() { //(회원)공지사항 출력
 		String sql = "SELECT NOTICE_NO,\r\n" + 
 				"	         NOTICE_TITLE,\r\n" + 
 				"            NOTICE_CONTENT,\r\n" + 
 				"            TO_CHAR(NOTICE_DATE,'YY/MM/DD') NOTICE_DATE\r\n" + 
 				"       FROM NOTICE A, ADMIN B\r\n" + 
 				"      WHERE A.ADMIN_NO=B.ADMIN_NO\r\n" + 
-				"        AND A.NOTICE_DEL = 'N'";
+				"        AND A.NOTICE_DEL = 'N'"
+				+ " 	ORDER BY 1";
 		return jdbc.selectList(sql, NoticeVo.class);
 	}
 
