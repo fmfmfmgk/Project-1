@@ -30,9 +30,6 @@ import vo.Tkt_buyVo;
 
 
 
-
-
-
 public class MainController extends Print {
 	static public Map<String, Object> sessionStorage = new HashMap<>();
 	ProdService prodService = ProdService.getInstance();
@@ -40,6 +37,8 @@ public class MainController extends Print {
 	HealthService healthService = HealthService.getInstance();
 	AdminService adService = AdminService.getInstance();
 	BoardService boardService = BoardService.getInstance();
+	AdminController ad = new AdminController();
+	
 	public static void main(String[] args) {
 		new MainController().start();
 	}
@@ -63,11 +62,6 @@ public class MainController extends Print {
 			case USER_UPDATE:
 				view = userUpdate();
 				break;
-
-			case TICKET_BUY:
-				view = ticketBuy();
-				break;
-
 			case FEEDBACK:
 				view = feedback();
 				break;
@@ -120,96 +114,97 @@ public class MainController extends Print {
 				view = cartUpdate();
 				break;
 
+				
+				
 			// 관리자
 			case ADMIN_LOGIN:
-				view = adminLogin();
+				view = ad.adminLogin();
 				break;
 			case ADMIN_MENU:
-				view = adminMenu();
+				view = ad.adminMenu();
 				break;
 			case ADMIN_USER:
-				view = adminUser();
+				view = ad.adminUser();
 				break;
 			case USER_LIST:
-				view = userList();
+				view = ad.userList();
 				break;
 			case USER_DELETE:
-				view = userDelete();
+				view = ad.userDelete();
 				break;
 			case ADMIN_PROD:
-				view = adminProd();
+				view = ad.adminProd();
 				break;
 			case ADMIN_PRODLIST:
-				view = adminProdList();
+				view = ad.adminProdList();
 				break;
 			case ADMIN_PROD_FOOD:
-				view = adminProdFood();
+				view = ad.adminProdFood();
 				break;
 			case FOOD_UPDATE:
-				view = foodUpdate();
+				view = ad.foodUpdate();
 				break;
 			case FOOD_DELETE:
-				view = foodDelete();
+				view = ad.foodDelete();
 				break;
 			case ADMIN_PROD_SUPPLY:
-				view = adminProdSupply();
+				view = ad.adminProdSupply();
 				break;
 			case SUPPLY_UPDATE:
-				view = supplyUpdate();
+				view = ad.supplyUpdate();
 				break;
 			case SUPPLY_DELETE:
-				view = supplyDelete();
+				view = ad.supplyDelete();
 				break;
 			case PROD_INSERT:
-				view = prodInsert();
+				view = ad.prodInsert();
 				break;
 			case ADMIN_BOARD:
-				view = adminBoard();
+				view = ad.adminBoard();
 				break;
 			case EMP_LIST:
-				view = empList();
+				view = ad.empList();
 				break;
 			case EMP_UPDATE:
-				view = empUpdate();
+				view = ad.empUpdate();
 				break;
 			case EMP_DELETE:
-				view = empDelete();
+				view = ad.empDelete();
 				break;
 
 			case NOTICE:
-				view = noticeList();
+				view = ad.noticeList();
 				break;
 			case NOTICE_INSERT:
-				view = noticeInsert();
+				view = ad.noticeInsert();
 				break;
 			case NOTICE_UPDATE:
-				view = noticeUpdate();
+				view = ad.noticeUpdate();
 				break;
 			case NOTICE_DELETE:
-				view = noticeDelete();
+				view = ad.noticeDelete();
 				break;
 
 			case FEEDBACK_LIST:
-				view = feedbackList();
+				view = ad.feedbackList();
 				break;
 			case FEEDBACK_CHK:
-				view = feedbackChk();
+				view = ad.feedbackChk();
 				break;
 			case ADMIN_TICKET:
-				view = adminTkt();
+				view = ad.adminTkt();
 				break;
 
 			case TICKET_INSERT:
-				view = tktInsert();
+				view = ad.tktInsert();
 				break;
 			case TICKET_UPDATE:
-				view = tktUpdate();
+				view = ad.tktUpdate();
 				break;
 			case TICKET_DELETE:
-				view = tktDelete();
+				view = ad.tktDelete();
 				break;
 
-			// 성경수정 ↓
 			case TKTSESSION:
 				view = tktsession();
 				break;
@@ -252,7 +247,7 @@ public class MainController extends Print {
 		}
 	}
 
-	private void pt_tktCart1() { // 성경수정5
+	private void pt_tktCart1() { // 회원-PT이용권 카트담기1
 		Tkt_buyVo cart = (Tkt_buyVo) sessionStorage.get("tktcart");
 		// 장바구니(DETAIL)에 추가하는거
 		// 주문번호를 불러오는거!
@@ -270,7 +265,7 @@ public class MainController extends Print {
 
 	}
 
-	private View pttktCart2() { // PT이용권 카트담기
+	private View pttktCart2() { // 회원-PT이용권 카트담기2
 		while (true) {
 			pt_tktCart1();
 			cartinprint();
@@ -286,7 +281,7 @@ public class MainController extends Print {
 		}
 	}
 
-	private void tktCart1() { // 성경수정5
+	private void tktCart1() { // 회원-기간 작성 필요한 이용권(요가,헬스) 카트 담기1
 		Tkt_buyVo cart = (Tkt_buyVo) sessionStorage.get("tktcart");
 		// 장바구니(DETAIL)에 추가하는거
 		// 주문번호를 불러오는거!
@@ -316,7 +311,7 @@ public class MainController extends Print {
 
 	}
 
-	private View tktCart2() { // 이용권 카트 담기
+	private View tktCart2() { // 회원-기간 작성 필요한 이용권(요가,헬스) 카트 담기2
 		while (true) {
 			tktCart1();
 			cartinprint();
@@ -332,7 +327,7 @@ public class MainController extends Print {
 		}
 	}
 
-	private View tktcartBuyList() { // 성경수정4 : 완료
+	private View tktcartBuyList() { // 회원-이용권 구매내역 리스트
 		MemberVo id = (MemberVo) sessionStorage.get("login");
 		String u_id = id.getUsers_no();
 		List<Tkt_buyVo> list = prodService.tktcartBuyList(u_id);
@@ -347,7 +342,7 @@ public class MainController extends Print {
 		}
 	}
 
-	private View tktGetList() {// 이용권 보유 현황 (요한)
+	private View tktGetList() {// 회원-이용권 보유 현황 
 		MemberVo login = (MemberVo) sessionStorage.get("login");
 		String id = login.getUsers_no();
 
@@ -363,7 +358,7 @@ public class MainController extends Print {
 		}
 	}
 
-	private View tktcartBuy() { // 성경수정3 : 완료
+	private View tktcartBuy() { // 회원-이용권 장바구니 결제 화면
 
 		System.out.println("");
 		String sel = ScanUtil.nextLine("결제하시겠습니까?(Y/N) :");
@@ -448,7 +443,7 @@ public class MainController extends Print {
 		return View.TICKET;
 	}
 
-	private View ticket() { // 성경수정 1 완료
+	private View ticket() { // 회원-이용권구매화면
 		ticket1();
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
@@ -479,498 +474,8 @@ public class MainController extends Print {
 		}
 	}
 
-	private View tktDelete() {
-		String select = ScanUtil.nextLine("삭제할 이용권 번호를 입력하세요.");
-		List<Object> param = new ArrayList();
-		param.add(select);
-		prodService.tktDelete(param);
-		System.out.println(param + "번 이용권이 삭제되었습니다.");
-		return View.ADMIN_TICKET;
-	}
-
-	private View tktUpdate() {
-		List<TicketVo> list = prodService.tktList();
-		tktlist(list);
-
-		String tktno = ScanUtil.nextLine("수정할 이용권 번호를 입력하세요 :");
-		tktupdateprint();
-
-		int menu = ScanUtil.nextInt("선택>>  ");
-		List<Object> param = new ArrayList();
-		String name;
-		String lgu;
-		int price;
-		int time;
-
-		if (menu == 1 || menu == 2) {
-			name = ScanUtil.nextLine("이용권이름 : ");
-			param.add(name);
-		}
-		if (menu == 1 || menu == 3) {
-			lgu = ScanUtil.nextLine("이용권종류 : ");
-			param.add(lgu);
-		}
-		if (menu == 1 || menu == 4) {
-			price = ScanUtil.nextInt("이용권가격 : ");
-			param.add(price);
-		}
-		if (menu == 1 || menu == 5) {
-			time = ScanUtil.nextInt("이용권기간 : ");
-			param.add(time);
-		}
-		if (menu == 6) {
-			return View.ADMIN_TICKET;
-		}
-		param.add(tktno);
-		prodService.tktUpdate(param, menu);
-		tktupdatecomplete();
-		return View.ADMIN_TICKET;
-	}
-
-	private View tktInsert() {
-		List<Object> param = new ArrayList();
-
-		String no = ScanUtil.nextLine("이용권 번호를 입력해주세요 :");
-		String name = ScanUtil.nextLine("이용권 이름을 입력해주세요 :");
-		String lgu = ScanUtil.nextLine("이용권 종류를 입력해주세요 :");
-		int price = ScanUtil.nextInt("이용권 가격을 입력해주세요 :");
-		String emp = ScanUtil.nextLine("이용권 담당직원을 입력해주세요 :");
-		int time = ScanUtil.nextInt("이용권 사용기간을 입력해주세요 :");
-
-		param.add(no);
-		param.add(name);
-		param.add(lgu);
-		param.add(price);
-		param.add(emp);
-		param.add(time);
-
-		tktwritecomplete();
-		prodService.tktInsert(param);
-
-		return View.ADMIN_TICKET;
-	}
-
-	private View adminTkt() {
-		List<TicketVo> list = prodService.tktList();
-		tktlist(list);
-		ticketmenuprint();
-		int select = ScanUtil.nextInt("선택>>  ");
-		switch (select) {
-		case 1:
-			return View.TICKET_INSERT;
-		case 2:
-			return View.TICKET_UPDATE;
-		case 3:
-			return View.TICKET_DELETE;
-		case 4:
-			return View.ADMIN_MENU;
-		default:
-			return View.ADMIN_MENU;
-		}
-	}
-
-	private View feedbackChk() {
-		List<FeedBackVo> list = boardService.FeedbackListN();
-		feedbackList2(list); // 피드백 확인필요 사항 출력
-		int no = ScanUtil.nextInt("피드백 게시글 번호를 입력해주세요 : ");
-		String yn = ScanUtil.nextLine("해당 게시글을 확인완료 처리 하시겠습니까?(Y/N) :");
-		if (yn.equalsIgnoreCase("y")) {
-			boardService.feedbackChk(no);
-			feedcheckcomplete(); // 완료프린트
-		} else {
-			return View.ADMIN_BOARD;
-		}
-		return View.FEEDBACK_LIST;
-	}
-
-	private View feedbackList() { // 이용권 후에 다시 하기
-		List<FeedBackVo> list = boardService.FeedbackList();
-		feedbackList2(list); // 피드백 확인필요 사항 출력
-		feedcheckprint();// 피드백체크 프린트
-		int sel = ScanUtil.nextInt("선택>>  ");
-		switch (sel) {
-		case 1:
-			return View.FEEDBACK_CHK;
-		case 2:
-			return View.ADMIN_BOARD;
-		default:
-			return View.ADMIN_MENU;
-		}
-	}
-
-	private View noticeDelete() {
-		int no = ScanUtil.nextInt("삭제할 공지사항 번호를 선택해주세요 :");
-		boardService.noticeDelete(no);
-		noticedeletecomplete();
-		return View.NOTICE;
-	}
-
-	private View noticeUpdate() {
-		List<NoticeVo> list = memService.noticeList();
-		noticeList1(list);
-		int no = ScanUtil.nextInt("수정할 공지사항 번호를 선택해주세요 :");
-		List<Object> param = new ArrayList();
-		String title = ScanUtil.nextLine("제목 : ");
-		String content = ScanUtil.nextLine("내용 : ");
-		param.add(title);
-		param.add(content);
-		boardService.noticeUpdate(param, no);
-		noticeupdatecomplete();
-		return View.NOTICE;
-	}
-
-	private View noticeInsert() {
-		AdminVo login = (AdminVo) sessionStorage.get("adminLogin");
-		String id = login.getAdmin_no();
-		List<Object> param = new ArrayList();
-		String name = ScanUtil.nextLine("공지사항 제목을 입력해주세요 :");
-		String content = ScanUtil.nextLine("공지사항 내용을 입력해주세요 :");
-		param.add(name);
-		param.add(content);
-		noticecomplete();
-		boardService.noticeInsert(param, id);
-		return View.NOTICE;
-	}
-
-	private View noticeList() {
-		List<NoticeVo> list = memService.noticeList();
-		noticeList1(list);
-		feedbacksel();
-		int sel = ScanUtil.nextInt("선택>>  ");
-		switch (sel) {
-		case 1:
-			return View.NOTICE_INSERT;
-		case 2:
-			return View.NOTICE_UPDATE;
-		case 3:
-			return View.NOTICE_DELETE;
-		case 4:
-			return View.ADMIN_BOARD;
-		default:
-			return View.ADMIN_MENU;
-		}
-	}
-
-	private View adminBoard() {
-		adminboard();
-		int sel = ScanUtil.nextInt("선택>>  ");
-		switch (sel) {
-		case 1:
-			return View.NOTICE;
-		case 2:
-			return View.FEEDBACK_LIST;
-		case 3:
-			return View.ADMIN_MENU;
-		default:
-			return View.ADMIN_MENU;
-		}
-	}
-
-	private View empDelete() {
-		List<EmpVo> list = adService.empList();
-		empList(list);
-
-		String select = ScanUtil.nextLine("삭제할 직원 번호를 입력하세요 :");
-		List<Object> param = new ArrayList();
-		param.add(select);
-		adService.empDelete(param);
-		System.out.println(param + " 직원이 삭제되었습니다.");
-		return View.EMP_LIST;
-	}
-
-	private View empUpdate() {
-		List<EmpVo> list = adService.empList();
-		empList(list);
-
-		String empno = ScanUtil.nextLine("수정할 직원 번호를 입력하세요 :");
-		empupdateprint();
-
-		int menu = ScanUtil.nextInt("선택>>  ");
-		List<Object> param = new ArrayList();
-		String emp_tel;
-		String emp_lgu;
-		String emp_eva;
-
-		if (menu == 1 || menu == 2) {
-			emp_tel = ScanUtil.nextLine("새로운 연락처를 입력해주세요 :");
-			param.add(emp_tel);
-		}
-		if (menu == 1 || menu == 3) {
-			emp_lgu = ScanUtil.nextLine("새로운 담당업무를 입력해주세요 :");
-			param.add(emp_lgu);
-		}
-		if (menu == 1 || menu == 4) {
-			emp_eva = ScanUtil.nextLine("새로운 평가정보를 입력해주세요 :");
-			param.add(emp_eva);
-		}
-		if (menu == 5) {
-			return View.EMP_LIST;
-		}
-		param.add(empno);
-		adService.empUpdate(param, menu);
-		updatecompleteprint();
-		return View.EMP_LIST;
-	}
-
-	private View empList() {
-		List<EmpVo> list = adService.empList();
-
-		empList(list);
-		empmenuprint();
-		int select = ScanUtil.nextInt("선택>>  ");
-		switch (select) {
-		case 1:
-			return View.EMP_UPDATE;
-		case 2:
-			return View.EMP_DELETE;
-		case 3:
-			return View.ADMIN_MENU;
-		default:
-			return View.HOME;
-		}
-	}
-
-	private View supplyDelete() {
-		String select = ScanUtil.nextLine("삭제할 상품 코드를 입력하세요 :");
-		List<Object> param = new ArrayList();
-		param.add(select);
-		prodService.supplyDelete(param);
-		System.out.println(param + "번 상품이 삭제되었습니다.");
-		return View.ADMIN_PROD_SUPPLY;
-	}
-
-	private View supplyUpdate() {
-		String param = "P201";
-		List<ProdVo> list = prodService.prodList(param);
-
-		String prodno = ScanUtil.nextLine("수정할 상품 코드를 입력하세요 :");
-		produpdateprint();
-		int menu = ScanUtil.nextInt("선택>>  ");
-		List<Object> param2 = new ArrayList();
-		String name;
-		String content;
-		int price;
-
-		if (menu == 1 || menu == 2) {
-			name = ScanUtil.nextLine("새로운 상품 이름을 입력하세요: ");
-			param2.add(name);
-		}
-		if (menu == 1 || menu == 3) {
-			content = ScanUtil.nextLine("새로운 상품 내용을 입력하세요: ");
-			param2.add(content);
-		}
-		if (menu == 1 || menu == 4) {
-			price = ScanUtil.nextInt("새로운 상품 가격을 입력하세요: ");
-			param2.add(price);
-		}
-		if (menu == 5) {
-			return View.ADMIN_PROD_SUPPLY;
-		}
-		param2.add(prodno);
-		prodService.prodUpdate(param2, menu);
-		produpdateprint2();
-		return View.ADMIN_PROD_SUPPLY;
-	}
-
-	private View adminProdSupply() {
-		String param = "P201";
-		List<ProdVo> list = prodService.prodList(param);
-		prodlist(list);
-		adminprodsupplyprint();
-		int sel = ScanUtil.nextInt("선택>>  ");
-		switch (sel) {
-		case 1:
-			return View.SUPPLY_UPDATE;
-		case 2:
-			return View.SUPPLY_DELETE;
-		case 3:
-			return View.ADMIN_PRODLIST;
-		default:
-			return View.ADMIN_PROD_SUPPLY;
-		}
-	}
-
-	private View foodDelete() {
-		String select = ScanUtil.nextLine("삭제할 상품 코드를 입력하세요 :");
-		List<Object> param = new ArrayList();
-		param.add(select);
-		prodService.foodDelete(param);
-		System.out.println(param + "번 상품이 삭제되었습니다.");
-		return View.ADMIN_PROD_FOOD;
-	}
-
-	private View foodUpdate() {
-
-		String param = "P101";
-		List<ProdVo> list = prodService.prodList(param);
-
-		String prodno = ScanUtil.nextLine("수정할 상품 코드를 입력하세요 :");
-		produpdateprint();
-		int menu = ScanUtil.nextInt("선택>>  ");
-		List<Object> param2 = new ArrayList();
-		String name;
-		String content;
-		int price;
-
-		if (menu == 1 || menu == 2) {
-			name = ScanUtil.nextLine("새로운 상품 이름을 입력하세요: ");
-			param2.add(name);
-		}
-		if (menu == 1 || menu == 3) {
-			content = ScanUtil.nextLine("새로운 상품 내용을 입력하세요: ");
-			param2.add(content);
-		}
-		if (menu == 1 || menu == 4) {
-			price = ScanUtil.nextInt("새로운 상품 가격을 입력하세요: ");
-			param2.add(price);
-		}
-		if (menu == 5) {
-			return View.ADMIN_PROD_FOOD;
-		}
-		param2.add(prodno);
-		prodService.prodUpdate(param2, menu);
-		produpdateprint2();
-		return View.ADMIN_PROD_FOOD;
-	}
-
-	private View adminProdFood() {
-		String param = "P101";
-		List<ProdVo> list = prodService.prodList(param);
-		prodlist(list);
-		adminprodsupplyprint();
-
-		int sel = ScanUtil.nextInt("선택>>  ");
-		switch (sel) {
-		case 1:
-			return View.FOOD_UPDATE;
-		case 2:
-			return View.FOOD_DELETE;
-		case 3:
-			return View.ADMIN_PRODLIST;
-		default:
-			return View.ADMIN_PROD_FOOD;
-		}
-	}
-
-	private View prodInsert() {
-		List<Object> param = new ArrayList();
-		String prodNo = ScanUtil.nextLine("상품 종류를 입력해주세요:");
-		String prodnm = ScanUtil.nextLine("상품 이름을 입력해주세요 :");
-		String prodcon = ScanUtil.nextLine("상품 내용을 입력해주세요 :");
-		int prodprice = ScanUtil.nextInt("상품 가격을 입력해주세요 :");
-
-		param.add(prodNo);
-		param.add(prodNo);
-		param.add(prodnm);
-		param.add(prodcon);
-		param.add(prodprice);
-		System.out.println("상품등록이 완료되었습니다");
-		prodService.foodInsert(param);
-
-		return View.ADMIN_PRODLIST;
-	}
-
-	private View adminProdList() {
-		adminprod2();
-		int sel = ScanUtil.nextInt("선택>>  ");
-		switch (sel) {
-		case 1:
-			return View.ADMIN_PROD_FOOD;
-		case 2:
-			return View.ADMIN_PROD_SUPPLY;
-		case 3:
-			return View.ADMIN_PROD;
-		default:
-			return View.ADMIN_PROD;
-		}
-	}
-
-	private View adminProd() {
-		adminprod();
-		int sel = ScanUtil.nextInt("선택>>  ");
-		switch (sel) {
-		case 1:
-			return View.ADMIN_PRODLIST;
-		case 2:
-			return View.PROD_INSERT;
-		case 3:
-			return View.ADMIN_MENU;
-		default:
-			return View.ADMIN_PROD;
-		}
-	}
-
-	private View adminUser() {
-		adminuser();
-		int sel = ScanUtil.nextInt("선택>>  ");
-		switch (sel) {
-		case 1:
-			return View.USER_LIST;
-		case 2:
-			return View.USER_DELETE;
-		case 3:
-			return View.ADMIN_MENU;
-		default:
-			return View.USER;
-		}
-	}
-
-	private View adminMenu() {
-
-		adminMenu1();
-		int sel = ScanUtil.nextInt("선택>>  ");
-		switch (sel) {
-		case 1:
-			return View.ADMIN_USER;
-		case 2:
-			return View.ADMIN_PROD;
-		case 3:
-			return View.ADMIN_BOARD;
-		case 4:
-			return View.EMP_LIST;
-		case 5:
-			return View.ADMIN_TICKET;
-		case 6:
-			AdminVo admin = (AdminVo) sessionStorage.remove("adminLogin"); // 로그아웃- 데이터가 없어짐..?
-			System.out.print("　 " + "\r\n"
-					+ "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\r\n" + "┃  "
-					+ admin.getAdmin_nm()
-					+ "님 로그아웃 되셨습니다                                                                                                                   ┃\r\n"
-					+ "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\r\n");
-			return View.LOGIN;
-		default:
-			return View.LOGIN;
-		}
-
-	}
-
-	// 관리자
-	private View userDelete() {
-		List<MemberVo> list = memService.userList2();
-		userList(list);
-
-		String select = ScanUtil.nextLine("삭제할 회원 번호를 입력해주세요 :");
-		List<Object> param = new ArrayList();
-		param.add(select);
-		adService.userDelete(param);
-		userdeleteprint();
-		return View.USER_LIST;
-	}
-
-	private View userList() {
-		List<MemberVo> list = memService.userList2();
-		userList(list);
-		back();
-		int select = ScanUtil.nextInt("선택>>  ");
-		switch (select) {
-		case 1:
-			return View.ADMIN_USER;
-		default:
-			return View.HOME;
-		}
-	}
-
-	private View ptMenu() {
+	
+	private View ptMenu() {//회원-이용권구매-PT이용권
 		ptticket();
 		int sel = ScanUtil.nextInt("선택>>  ");
 		switch (sel) {
@@ -985,7 +490,7 @@ public class MainController extends Print {
 		}
 	}
 
-	private View ptListAll() {
+	private View ptListAll() {//회원-이용권구매-PT이용권-트레이너전체리스트
 		String param = "PT";
 		List<EmpVo> list = memService.ptList(param);
 		ptList(list);
@@ -1017,7 +522,7 @@ public class MainController extends Print {
 		}
 	}
 
-	private View ptList() {
+	private View ptList() {//회원-이용권구매-PT이용권-직원선택한 상태에서 구매화면
 		String emp = (String) sessionStorage.get("empno");
 
 		List<TicketVo> list = healthService.pList(emp);
@@ -1036,7 +541,7 @@ public class MainController extends Print {
 		}
 	}
 
-	private View ptnameList() {
+	private View ptnameList() {//회원-이용권구매-PT이용권-트레이너검색
 		String name = ScanUtil.nextLine("트레이너 이름을 입력하세요 :");
 		List<EmpVo> list = healthService.ptnameList(name);
 		ptList(list);
@@ -1053,12 +558,6 @@ public class MainController extends Print {
 		default:
 			return View.TICKET;
 		}
-	}
-
-	private View ticketBuy() {
-		System.out.println("이용권구매 페이지");
-
-		return null;
 	}
 
 	private View yogaList() {
@@ -1482,38 +981,7 @@ public class MainController extends Print {
 		}
 	}
 
-	private View adminLogin() {
-		System.out.println("=================================== 관리자 로그인 ====================================\r\n");
-		String id = ScanUtil.nextLine("ID>>");
-		String pass = ScanUtil.nextLine("PASS>>");
-
-		List<Object> param = new ArrayList();
-		param.add(id);
-		param.add(pass);
-
-		boolean login = adService.login(param);
-		if (!login) {
-			System.out.println("1. 다시 로그인");
-			System.out.println("2. 회원 가입");
-			System.out.println("3. 홈");
-			int sel = ScanUtil.nextInt("선택>> ");
-			switch (sel) {
-			case 1:
-				return View.LOGIN;
-			case 2:
-				return View.SIGNUP;
-			case 3:
-				return View.HOME;
-			default:
-				return View.LOGIN;
-			}
-		}
-		treeprint();
-		AdminVo admin = (AdminVo) sessionStorage.get("adminLogin");
-		System.out.println("*" + admin.getAdmin_nm() + "* 관리자님 환영합니다!");
-		printVar();
-		return View.ADMIN_MENU;
-	}
+	
 
 	private View userLogin() { // 회원 로그인
 		System.out.println("===================================== 회원 로그인 ===================================\r\n");
@@ -1712,3 +1180,5 @@ public class MainController extends Print {
 	}
 
 }
+
+
