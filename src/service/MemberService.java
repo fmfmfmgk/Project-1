@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import controller.MainController;
+import controller.UserController;
 import dao.MemberDao;
 import vo.EmpVo;
 import vo.FeedBackVo;
@@ -31,7 +32,7 @@ public class MemberService {
 		//맴버값이랑 다르면
 		if(mem !=null) {
 			//로그인이 성공하면 세션에 로그인 맴버값을 적용
-			MainController.sessionStorage.put("login", mem);
+			UserController.sessionStorage.put("login", mem);
 			
 			//PROD 정보 불러오기
 			
