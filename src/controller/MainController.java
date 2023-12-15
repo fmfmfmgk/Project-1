@@ -260,7 +260,7 @@ public class MainController extends Print {
 
 		list.add(cart_no);
 		list.add(tktno);
-System.out.println("sss");
+System.out.println("sss555");
 		prodService.ptticketBuy(list); // DB DETAIL테이블에 이용권번호/주문번호/시작일자 저장
 
 	}
