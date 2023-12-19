@@ -17,7 +17,7 @@
 - **DB** : Oracle 17.4.1
 
 ## 📝 ERD
-![프로젝트 아키텍쳐](https://github.com/gmlstjq123/INHA_NET_ZERO_HACKATHON/blob/hello_there-12/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90.png)
+![6조 ER다이어그램]([https://github.com/gmlstjq123/INHA_NET_ZERO_HACKATHON/blob/hello_there-12/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90.png](https://github.com/fmfmfmgk/Project-1/blob/master/6%EC%A1%B0%20ER%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8.png))
 
 ## 📌 주요 기능
 - 상품,이용권 결재
