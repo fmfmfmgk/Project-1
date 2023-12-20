@@ -14,6 +14,9 @@
 ## 🧑‍🤝‍🧑 개발자 소개 
 - **한요한** : 팀장, 기능구현
 - **이성경** : 데이터 설계
+[github](https://github.com/leebible)
+
+
 
 ## 💻 개발환경
 - **Version** : Java 1.8
