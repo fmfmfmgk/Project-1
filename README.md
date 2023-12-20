@@ -15,7 +15,6 @@
 - **한요한** : 팀장, 기능구현
 - **이성경** : 데이터 설계
 
-  
 [github:https://github.com/leebible](https://github.com/leebible)
 
 
