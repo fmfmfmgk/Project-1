@@ -12,7 +12,7 @@
 - 프로젝트 발표
 
 ## 🧑‍🤝‍🧑 개발자 소개 
-- **한요한** : 팀장, 기능구현
+- **한요한** : 팀장, 기능구현 [Github]
 [github:https://github.com/fmfmfmgk](https://github.com/fmfmfmgk)
 - **이성경** : 데이터 설계 [Github]
 [github:https://github.com/leebible](https://github.com/leebible)
